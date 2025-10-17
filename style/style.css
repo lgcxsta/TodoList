@@ -109,14 +109,30 @@ input {
     border-radius: 15px;
     outline: none;
     font-family: "Work Sans", sans-serif;
-    background-color: rgba(190, 211, 225, 0.309);
+    /*background-color: rgba(224, 237, 245, 0.309);*/
+    background-color: rgba(240, 244, 247, 0.349);
+}
+
+/*Btn login*/
+.RedirectLogin {
+    background-color: rgb(51, 180, 255);
+    border-radius: 100%;
+    position: absolute;
+    display: inline-block;
+    width: 34px;
+    height: 30px;
+    right: 45px;
+    top: 1em;
+    text-align: center;
+    padding-top: 5px;
 }
 
 /*Btn add*/
 .addBtn {
     padding: 10px;
     width: 25%;
-    background: rgba(197, 216, 228, 0.195);
+    /*background: rgba(197, 216, 228, 0.195);*/
+    background-color: #9dbbc91c;
     color: #020c1d;
     text-align: center;
     font-size: 16px;
@@ -128,7 +144,7 @@ input {
 }
 
 .addBtn:hover {
-    background-color: rgba(162, 184, 199, 0.309);
+    background-color: #acc2cc62;
 }
 
 .texttache {
@@ -155,7 +171,8 @@ ul {
     padding-bottom: 12px;
     padding-right: 50px;
     border-radius: 25px;
-    background: rgba(197, 216, 228, 0.195);
+    /* background: rgba(197, 216, 228, 0.195);*/
+    background: rgba(240, 244, 247, 0.459);
     color: #020c1d;
     font-family: "Work Sans", sans-serif;
     font-size: 16px;
@@ -165,9 +182,7 @@ ul {
     white-space: normal;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
-
 }
-
 
 .task-box .close {
     position: absolute;
@@ -213,6 +228,7 @@ ul {
     width: 60px;
     height: 34px;
     right: 3em;
+    top: 3em;
 }
 
 .switch input {
@@ -284,6 +300,9 @@ ul {
     background-position: center;
 }
 
+.dark-mode .RedirectLogin {
+    background-color: rgb(51, 51, 51);
+}
 
 .dark-mode .task-box {
     color: rgb(255, 255, 255);
@@ -323,4 +342,33 @@ ul {
 
 .dark-mode .texttache {
     color: rgb(255, 0, 0);
+}
+
+/* LOGIN.HTML CSS */
+label{
+    margin-top: 5px; 
+    display:block;
+}
+
+.label1{
+    background-color: #ff8000;
+}
+
+.label2{
+    background-color: #ff8000;
+}
+
+.logintitle{
+    font-family: 'League Spartan';
+    color: #383d60;
+    font-size: 30px;
+
+}
+.boxForm {
+background-color: #fbfbfb8f;
+border-radius: 50px;
+padding-right: 20px;
+padding-left: 20px;
+padding-bottom: 20px;
+text-align: center;
 }

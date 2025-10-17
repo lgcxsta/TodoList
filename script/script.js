@@ -2,8 +2,8 @@ function myFunction() {
   document.body.classList.toggle("dark-mode");
 }
 
-//Enter funcionar
-document.addEventListener("DOMContentLoaded", function () {
+//Enter tecla
+document.addEventListener("DOMContentLoaded", function () { //Execute la fonction quand la page html est completement charger
   addsaved(); // Affiche les tâches sauvegardées dès que la page est chargée
   var input = document.getElementById("myInput");
   input.addEventListener("keypress", function (event) {
@@ -18,7 +18,14 @@ document.addEventListener("DOMContentLoaded", function () {
 function addsaved() {
   const savedTasks = JSON.parse(localStorage.getItem("TasksList")) || [];
 
+
+
+
   savedTasks.forEach(function (task) {
+
+  //newElement(task);
+
+
     if (typeof task.text !== "string" || typeof task.checked !== "boolean") {
       console.error("Tâche incorrecte dans localStorage", task);
       return; // Si les données sont corrompues, on passe à la suivante
@@ -137,8 +144,7 @@ function newElement() {
   taskBox.onclick = function (e) {
     if (e.target === taskText) {
       taskBox.classList.toggle("checked");
-      // Sauvegarder l'état de la tâche dans le localStorage
-      updateTaskInLocalStorage(inputValue, inputValue, taskBox.classList.contains("checked"));
+      updateTaskInLocalStorage(inputValue, inputValue, taskBox.classList.contains("checked")); // Sauvegarde l'état de la tâche dans le localStorage
     }
   };
 
