@@ -1,0 +1,326 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    margin: 0;
+    width: 50%;
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    background-repeat: no-repeat;
+    background-color: #fff1eb;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* "My to do list" text*/
+.headertext {
+    color: #383d60;
+    font-size: 40px;
+    font-family: "Work Sans", sans-serif;
+    text-align: center;
+    margin-top: 0;
+}
+
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.typewrite h2 {
+    overflow: hidden;
+    border-right: 2px solid rgb(15, 15, 15);
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .10em;
+    animation:
+        typing 3s steps(10, end),
+        blink-caret .75s step-end infinite;
+}
+
+.dark-mode .typewrite h2 {
+    overflow: hidden;
+    border-right: 3px solid rgb(15, 15, 15);
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .10em;
+    animation:
+        typing 3s steps(10, end),
+        blink-caret-dark .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: #383d60;
+    }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret-dark {
+
+    from,
+    to {
+        border-color: transparent
+    }
+
+    50% {
+        border-color: #ffff;
+    }
+}
+
+/*Input*/
+input {
+    margin: 0;
+    border: none;
+    width: 69%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 16px;
+    border-radius: 15px;
+    outline: none;
+    font-family: "Work Sans", sans-serif;
+    background-color: rgba(190, 211, 225, 0.309);
+}
+
+/*Btn add*/
+.addBtn {
+    padding: 10px;
+    width: 25%;
+    background: rgba(197, 216, 228, 0.195);
+    color: #020c1d;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 15px;
+    margin-top: 16px;
+    font-family: "Work Sans", sans-serif;
+}
+
+.addBtn:hover {
+    background-color: rgba(162, 184, 199, 0.309);
+}
+
+.texttache {
+    width: 50%;
+    list-style-type: none;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    height: 30%;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(138, 160, 175, 0.411) rgb(190, 211, 225, 0.309);
+}
+
+ul {
+    list-style-type: none;
+}
+
+.task-box {
+    width: 100%;
+    max-width: 365px;
+    margin: 10px 0;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    padding-right: 50px;
+    border-radius: 25px;
+    background: rgba(197, 216, 228, 0.195);
+    color: #020c1d;
+    font-family: "Work Sans", sans-serif;
+    font-size: 16px;
+    position: relative;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)
+
+}
+
+
+.task-box .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: rgb(156, 8, 8);
+}
+
+.ButtonDark {
+    position: relative;
+    position: fixed;
+    top: 0.5%;
+    left: 97%;
+}
+
+.task-box .edit {
+    position: absolute;
+    top: 10px;
+    right: 33px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.edit:hover {
+    color: rgb(108, 108, 108)
+}
+
+.checked {
+    text-decoration: line-through;
+    color: rgba(49, 49, 49, 0.39);
+}
+
+
+/*Toggle btn*/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    right: 3em;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.BotãoDark {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(96, 197, 255, 0.432);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.BotãoDark:before {
+    position: absolute;
+    content: "☀";
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: rgb(51, 180, 255);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.switch input:checked+.BotãoDark:before {
+    background-color: rgb(73, 73, 73);
+    content: "☾";
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.switch input:checked+.BotãoDark {
+    background-color: #313131;
+}
+
+.switch input:focus+.BotãoDark {
+    box-shadow: 0 0 1px #000000;
+}
+
+.switch input:checked+.BotãoDark:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/*Mode dark*/
+.dark-mode {
+    background: #696969;
+    background-image: linear-gradient(0deg, rgb(74, 91, 102) 0%, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 1) 100%);
+    background-color: #4A5B66;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.dark-mode .task-box {
+    color: rgb(255, 255, 255);
+}
+
+.dark-mode .task-box.checked {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.456);
+}
+
+.dark-mode h2,
+.dark-mode .headertext {
+    color: white;
+}
+
+.dark-mode input {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.dark-mode .addBtn {
+    background: rgba(233, 243, 251, 0.084);
+    color: white;
+}
+
+.dark-mode .addBtn:hover {
+    background-color: rgba(233, 243, 251, 0.168);
+}
+
+.dark-mode .close:hover {
+    color: rgb(128, 21, 21);
+}
+
+.dark-mode .edit:hover {
+    color: rgb(171, 171, 171);
+}
+
+.dark-mode .texttache {
+    color: rgb(255, 0, 0);
+}
