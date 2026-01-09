@@ -1,10 +1,80 @@
-function myFunction() {
-  document.body.classList.toggle("dark-mode");
+function toggleDarkMode() {
+  const isDark = document.body.classList.toggle("dark-mode");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+}
+
+function getTasks() {
+  return JSON.parse(localStorage.getItem("TasksList")) || [];
+}
+
+function setTasks(tasks) {
+  localStorage.setItem("TasksList", JSON.stringify(tasks));
+  render();
+}
+
+// Fonction pour sauvegarder une tâche dans le localStorage
+function saveTasksToLocalStorage(task) {
+  let tasks = getTasks();
+  let id = tasks.length > 0 ? tasks.toReversed()[0].id + 1 : 1;
+  tasks.push({ id: id, text: task, checked: false }); // Ajoute la tâche comme non cochée
+  setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
+}
+
+function updateTask() {
+  updateTaskInLocalStorage(task_id, editInput.value, false);
+  closeModifTask();
+}
+
+// Fonction pour mettre à jour une tâche dans le localStorage
+function updateTaskInLocalStorage(task_id, updatedTask, checkedStatus = true) {
+  let tasks = getTasks();
+  tasks = tasks.map((task) =>
+    task.id == task_id
+      ? { id: task_id, text: updatedTask, checked: checkedStatus }
+      : task
+  );
+  setTasks(tasks);
+  // Sauvegarder la nouvelle liste mise à jour
+}
+
+// Fonction pour supprimer une tâche du localStorage
+function deleteTaskFromLocalStorage(task_id) {
+  let tasks = getTasks();
+  tasks = tasks.filter((task) => task.id !== task_id); // Filtrer la tâche à supprimer
+  setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
+}
+
+function addTask() {
+  const input = document.getElementById("myInput");
+  const inputValue = input.value.trim();
+
+  if (inputValue === "") {
+    alert("Vous devez écrire quelque chose!");
+    return;
+  }
+
+  // Sauvegarder la tâche dans le localStorage
+  saveTasksToLocalStorage(inputValue);
+
+  input.value = "";
 }
 
 //Enter tecla
-document.addEventListener("DOMContentLoaded", function () { //Execute la fonction quand la page html est completement charger
-  addsaved(); // Affiche les tâches sauvegardées dès que la page est chargée
+document.addEventListener("DOMContentLoaded", function () {
+  //Execute la fonction quand la page html est completement charger
+
+  const savedTheme = localStorage.getItem("theme");
+  const toggle = document.getElementById("darkToggle");
+
+  if (savedTheme === "dark") {
+    document.body.classList.add("dark-mode");
+    if (toggle) toggle.checked = true;
+  } else {
+    document.body.classList.remove("dark-mode");
+    if (toggle) toggle.checked = false;
+  }
+
+  render(); // Affiche les tâches sauvegardées dès que la page est chargée
   var input = document.getElementById("myInput");
   input.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -14,23 +84,21 @@ document.addEventListener("DOMContentLoaded", function () { //Execute la fonctio
   });
 });
 
+const editInput = document.getElementById("textTaskModif");
+let task_id = "";
+
 // Fonction pour afficher les tâches sauvegardées
-function addsaved() {
-  const savedTasks = JSON.parse(localStorage.getItem("TasksList")) || [];
+function render() {
+  var container = document.getElementById("AddTâche");
+  container.innerHTML = "";
 
-
-
-
-  savedTasks.forEach(function (task) {
-
-  //newElement(task);
-
-
+  getTasks().forEach(function (task) {
+    //newElement(task);
     if (typeof task.text !== "string" || typeof task.checked !== "boolean") {
       console.error("Tâche incorrecte dans localStorage", task);
       return; // Si les données sont corrompues, on passe à la suivante
     }
-                                                                            
+
     // Créer la boîte de tâche
     const taskBox = document.createElement("div");
     taskBox.className = "task-box";
@@ -43,16 +111,33 @@ function addsaved() {
     taskText.className = "task-text";
     taskText.textContent = task.text;
 
+    //   Btn  Calendario -> "\u{1F4C6}\uFE0E"
+    const dateBtn = document.createElement("span");
+    dateBtn.className = "date";
+    dateBtn.textContent = "\u{1F4C6}\uFE0E";
+    dateBtn.onclick = function () {
+      document.getElementById("calendrierPopup").style.display = "block";
+      document.getElementById("closePopUpsTasks").style.display = "block";
+    };
+
+    // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
+    const importanceBtn = document.createElement("span");
+    importanceBtn.className = "importance";
+    importanceBtn.textContent = "\u{26A0}\uFE0E";
+    importanceBtn.onclick = function () {
+      document.getElementById("closePopUpsTasks").style.display = "block";
+      document.getElementById("importancePopup").style.display = "block";
+    };
+
     // Btn Edit
     const editBtn = document.createElement("span");
     editBtn.className = "edit";
     editBtn.textContent = "\u270E";
     editBtn.onclick = function () {
-      const newTask = prompt("Modifier la tâche:", taskText.textContent);
-      if (newTask !== null && newTask.trim() !== "") {
-        taskText.textContent = newTask;
-        updateTaskInLocalStorage(task.text, newTask, task.checked); // Met à jour dans le localStorage
-      }
+      document.getElementById("popupEdit").style.display = "block";
+      document.getElementById("bkgPopUpBlur").style.display = "block";
+      editInput.value = task.text;
+      task_id = task.id;
     };
 
     // Btn Remove
@@ -60,21 +145,27 @@ function addsaved() {
     closeBtn.className = "close";
     closeBtn.textContent = "\u00D7";
     closeBtn.onclick = function () {
-      deleteTaskFromLocalStorage(task.text); // Supprimer du localStorage
+      deleteTaskFromLocalStorage(task.id); // Supprimer du localStorage
       taskBox.remove(); // Supprime du DOM
     };
+    closeBtn.style.display = task.checked ? "none" : "inline-block";
+    editBtn.style.display = task.checked ? "none" : "inline-block";
+    importanceBtn.style.display = task.checked ? "none" : "inline-block";
+    dateBtn.style.display = task.checked ? "none" : "inline-block";
 
     // Task complete (Marquer comme terminé)
     taskBox.onclick = function (e) {
       if (e.target === taskText) {
         taskBox.classList.toggle("checked");
         task.checked = taskBox.classList.contains("checked"); // Met à jour l'état de la tâche
-        updateTaskInLocalStorage(task.text, task.text, task.checked); // Sauvegarde le nouvel état
+        updateTaskInLocalStorage(task.id, task.text, task.checked); // Sauvegarde le nouvel état
       }
     };
 
     // Ajouter les éléments à la boîte
     taskBox.appendChild(taskText);
+    taskBox.appendChild(importanceBtn);
+    taskBox.appendChild(dateBtn);
     taskBox.appendChild(editBtn);
     taskBox.appendChild(closeBtn);
 
@@ -83,86 +174,127 @@ function addsaved() {
   });
 }
 
-// Fonction pour mettre à jour une tâche dans le localStorage
-function updateTaskInLocalStorage(oldTask, updatedTask, checkedStatus) {
-  let tasks = JSON.parse(localStorage.getItem("TasksList")) || [];
-  tasks = tasks.map(task => task.text === oldTask ? { text: updatedTask, checked: checkedStatus } : task);
-  localStorage.setItem("TasksList", JSON.stringify(tasks)); // Sauvegarder la nouvelle liste mise à jour
-}
-
-// Fonction pour supprimer une tâche du localStorage
-function deleteTaskFromLocalStorage(taskToDelete) {
-  let tasks = JSON.parse(localStorage.getItem("TasksList")) || [];
-  tasks = tasks.filter(task => task.text !== taskToDelete); // Filtrer la tâche à supprimer
-  localStorage.setItem("TasksList", JSON.stringify(tasks)); // Sauvegarder la nouvelle liste mise à jour
-}
-
 // Fonction pour ajouter une nouvelle tâche
-function newElement() {
-  const input = document.getElementById("myInput");
-  const inputValue = input.value.trim();
+// function newElement() {
+//   const input = document.getElementById("myInput");
+//   const inputValue = input.value.trim();
 
-  if (inputValue === "") {
-    alert("Vous devez écrire quelque chose!");
-    return;
-  }
+//   if (inputValue === "") {
+//     alert("Vous devez écrire quelque chose!");
+//     return;
+//   }
 
-  // Créer la boîte de tâche
-  const taskBox = document.createElement("div");
-  taskBox.className = "task-box";
+//   // Créer la boîte de tâche
+//   const taskBox = document.createElement("div");
+//   taskBox.className = "task-box";
 
-  // Span pour le texte de la tâche
-  const taskText = document.createElement("span");
-  taskText.className = "task-text";
-  taskText.textContent = inputValue;
+//   // Span pour le texte de la tâche
+//   const taskText = document.createElement("span");
+//   taskText.className = "task-text";
+//   taskText.textContent = inputValue;
 
-  // Sauvegarder la tâche dans le localStorage
-  saveTasksToLocalStorage(inputValue);
+//   // Sauvegarder la tâche dans le localStorage
+//   saveTasksToLocalStorage(inputValue);
 
-  // Btn Edit
-  const editBtn = document.createElement("span");
-  editBtn.className = "edit";
-  editBtn.textContent = "\u270E";
-  editBtn.onclick = function () {
-    const newTask = prompt("Modifier la tâche:", taskText.textContent);
-    if (newTask !== null && newTask.trim() !== "") {
-      taskText.textContent = newTask;
-      updateTaskInLocalStorage(inputValue, newTask, false); // Met à jour dans le localStorage
-    }
-  };
+//   //   Btn  Calendario
+//   const dateBtn = document.createElement("span");
+//   dateBtn.className = "date";
+//   dateBtn.textContent = "\u{1F4C6}\uFE0E";
+//   dateBtn.onclick = function () {
+//     document.getElementById("calendrierPopup").style.display = "block";
+//     document.getElementById("closePopUpsTasks").style.display = "block";
+//   };
 
-  // Btn Remove
-  const closeBtn = document.createElement("span");
-  closeBtn.className = "close";
-  closeBtn.textContent = "\u00D7";
-  closeBtn.onclick = function () {
-    deleteTaskFromLocalStorage(taskText.textContent); // Supprimer du localStorage
-    taskBox.remove(); // Supprimer du DOM
-  };
+//   // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
+//   const importanceBtn = document.createElement("span");
+//   importanceBtn.className = "importance";
+//   importanceBtn.textContent = "\u{26A0}\uFE0E";
+//   importanceBtn.onclick = function () {
+//     document.getElementById("closePopUpsTasks").style.display = "block";
+//     document.getElementById("importancePopup").style.display = "block";
+//   };
 
-  // Task complete (Marquer comme terminé)
-  taskBox.onclick = function (e) {
-    if (e.target === taskText) {
-      taskBox.classList.toggle("checked");
-      updateTaskInLocalStorage(inputValue, inputValue, taskBox.classList.contains("checked")); // Sauvegarde l'état de la tâche dans le localStorage
-    }
-  };
+//   // Btn Edit
+//   const editBtn = document.createElement("span");
+//   editBtn.className = "edit";
+//   editBtn.textContent = "\u270E";
+//   editBtn.onclick = function () {
+//     document.getElementById("popupEdit").style.display = "block";
+//     if (newTask !== null && newTask.trim() !== "") {
+//       taskText.textContent = newTask;
+//       updateTaskInLocalStorage(inputValue, newTask, false); // Met à jour dans le localStorage
+//     }
+//   };
 
-  // Ajouter les éléments à la boîte
-  taskBox.appendChild(taskText);
-  taskBox.appendChild(editBtn);
-  taskBox.appendChild(closeBtn);
+//   // Btn Remove
+//   const closeBtn = document.createElement("span");
+//   closeBtn.className = "close";
+//   closeBtn.textContent = "\u00D7";
+//   closeBtn.onclick = function () {
+//     deleteTaskFromLocalStorage(taskText.textContent); // Supprimer du localStorage
+//     taskBox.remove(); // Supprimer du DOM
+//   };
 
-  // Ajouter la boîte dans le conteneur
-  document.getElementById("AddTâche").appendChild(taskBox);
+//   // Task complete (Marquer comme terminé)
+//   taskBox.onclick = function (e) {
+//     if (e.target === taskText) {
+//       taskBox.classList.toggle("checked");
+//       updateTaskInLocalStorage(
+//         inputValue,
+//         inputValue,
+//         taskBox.classList.contains("checked")
+//       ); // Sauvegarde l'état de la tâche dans le localStorage
+//     }
+//   };
 
-  // Vider l'input
-  input.value = "";
+//   // Ajouter les éléments à la boîte
+//   taskBox.appendChild(taskText);
+//   taskBox.appendChild(importanceBtn);
+//   taskBox.appendChild(dateBtn);
+//   taskBox.appendChild(editBtn);
+//   taskBox.appendChild(closeBtn);
+
+//   // Ajouter la boîte dans le conteneur
+//   document.getElementById("AddTâche").appendChild(taskBox);
+
+//   // Vider l'input
+//   input.value = "";
+// }
+
+// Hide/show = le login
+function hideShow() {
+  document.getElementById("loginBtn").style.visibility = "hidden";
+  document.getElementById("hideShow").style.visibility = "visible";
+  document.getElementById("zIndexBetweeenLoginTodo").style.display = "block";
 }
 
-// Fonction pour sauvegarder une tâche dans le localStorage
-function saveTasksToLocalStorage(task) {
-  let tasks = JSON.parse(localStorage.getItem("TasksList")) || [];
-  tasks.push({ text: task, checked: false }); // Ajoute la tâche comme non cochée
-  localStorage.setItem("TasksList", JSON.stringify(tasks)); // Sauvegarder la nouvelle liste mise à jour
+//fonction pour montrer les btn login et dark mode
+function croix() {
+  document.getElementById("loginBtn").style.visibility = "visible";
+  document.getElementById("hideShow").style.visibility = "hidden";
+  document.getElementById("zIndexBetweeenLoginTodo").style.display = "none";
 }
+
+function zIndexBetweeenLoginTodo() {
+  croix();
+  document.getElementById("zIndexBetweeenLoginTodo").style.display = "none";
+}
+
+function fermeLoginBox() {
+  document.getElementById("hideShow").style.visibility = "hidden";
+  document.getElementById("loginBtn").style.visibility = "visible";
+}
+
+function closeModifTask() {
+  document.getElementById("popupEdit").style.display = "none";
+  document.getElementById("bkgPopUpBlur").style.display = "none";
+}
+
+function closePopUpsTasks() {
+  document.getElementById("calendrierPopup").style.display = "none";
+  document.getElementById("closePopUpsTasks").style.display = "none";
+  document.getElementById("importancePopup").style.display = "none";
+}
+// if (JSON.parse(localStorage.getItem("task-box")) == []) {
+//   document.getElementByClassName("addBtn").style.visibility = "hidden";
+// }
