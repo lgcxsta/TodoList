@@ -9,7 +9,7 @@ function getTasks() {
 
 function setTasks(tasks) {
   localStorage.setItem("TasksList", JSON.stringify(tasks));
-  render()
+  render();
 }
 
 // Fonction pour sauvegarder une tâche dans le localStorage
@@ -44,7 +44,7 @@ function deleteTaskFromLocalStorage(task_id) {
   setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
 }
 
-function addTask(){
+function addTask() {
   const input = document.getElementById("myInput");
   const inputValue = input.value.trim();
 
@@ -56,7 +56,7 @@ function addTask(){
   // Sauvegarder la tâche dans le localStorage
   saveTasksToLocalStorage(inputValue);
 
-  input.value = ""
+  input.value = "";
 }
 
 //Enter tecla
@@ -89,8 +89,8 @@ let task_id = "";
 
 // Fonction pour afficher les tâches sauvegardées
 function render() {
- var container = document.getElementById("AddTâche");
- container.innerHTML = ""
+  var container = document.getElementById("AddTâche");
+  container.innerHTML = "";
 
   getTasks().forEach(function (task) {
     //newElement(task);
@@ -148,7 +148,7 @@ function render() {
       deleteTaskFromLocalStorage(task.id); // Supprimer du localStorage
       taskBox.remove(); // Supprime du DOM
     };
-    closeBtn.style.display = task.checked ? "none" : "inline-block";
+
     editBtn.style.display = task.checked ? "none" : "inline-block";
     importanceBtn.style.display = task.checked ? "none" : "inline-block";
     dateBtn.style.display = task.checked ? "none" : "inline-block";
@@ -173,94 +173,6 @@ function render() {
     document.getElementById("AddTâche").appendChild(taskBox);
   });
 }
-
-
-// Fonction pour ajouter une nouvelle tâche
-// function newElement() {
-//   const input = document.getElementById("myInput");
-//   const inputValue = input.value.trim();
-
-//   if (inputValue === "") {
-//     alert("Vous devez écrire quelque chose!");
-//     return;
-//   }
-
-//   // Créer la boîte de tâche
-//   const taskBox = document.createElement("div");
-//   taskBox.className = "task-box";
-
-//   // Span pour le texte de la tâche
-//   const taskText = document.createElement("span");
-//   taskText.className = "task-text";
-//   taskText.textContent = inputValue;
-
-//   // Sauvegarder la tâche dans le localStorage
-//   saveTasksToLocalStorage(inputValue);
-
-//   //   Btn  Calendario
-//   const dateBtn = document.createElement("span");
-//   dateBtn.className = "date";
-//   dateBtn.textContent = "\u{1F4C6}\uFE0E";
-//   dateBtn.onclick = function () {
-//     document.getElementById("calendrierPopup").style.display = "block";
-//     document.getElementById("closePopUpsTasks").style.display = "block";
-//   };
-
-//   // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
-//   const importanceBtn = document.createElement("span");
-//   importanceBtn.className = "importance";
-//   importanceBtn.textContent = "\u{26A0}\uFE0E";
-//   importanceBtn.onclick = function () {
-//     document.getElementById("closePopUpsTasks").style.display = "block";
-//     document.getElementById("importancePopup").style.display = "block";
-//   };
-
-//   // Btn Edit
-//   const editBtn = document.createElement("span");
-//   editBtn.className = "edit";
-//   editBtn.textContent = "\u270E";
-//   editBtn.onclick = function () {
-//     document.getElementById("popupEdit").style.display = "block";
-//     if (newTask !== null && newTask.trim() !== "") {
-//       taskText.textContent = newTask;
-//       updateTaskInLocalStorage(inputValue, newTask, false); // Met à jour dans le localStorage
-//     }
-//   };
-
-//   // Btn Remove
-//   const closeBtn = document.createElement("span");
-//   closeBtn.className = "close";
-//   closeBtn.textContent = "\u00D7";
-//   closeBtn.onclick = function () {
-//     deleteTaskFromLocalStorage(taskText.textContent); // Supprimer du localStorage
-//     taskBox.remove(); // Supprimer du DOM
-//   };
-
-//   // Task complete (Marquer comme terminé)
-//   taskBox.onclick = function (e) {
-//     if (e.target === taskText) {
-//       taskBox.classList.toggle("checked");
-//       updateTaskInLocalStorage(
-//         inputValue,
-//         inputValue,
-//         taskBox.classList.contains("checked")
-//       ); // Sauvegarde l'état de la tâche dans le localStorage
-//     }
-//   };
-
-//   // Ajouter les éléments à la boîte
-//   taskBox.appendChild(taskText);
-//   taskBox.appendChild(importanceBtn);
-//   taskBox.appendChild(dateBtn);
-//   taskBox.appendChild(editBtn);
-//   taskBox.appendChild(closeBtn);
-
-//   // Ajouter la boîte dans le conteneur
-//   document.getElementById("AddTâche").appendChild(taskBox);
-
-//   // Vider l'input
-//   input.value = "";
-// }
 
 // Hide/show = le login
 function hideShow() {
