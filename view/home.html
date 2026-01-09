@@ -1,45 +1,135 @@
 <!DOCTYPE html>
 <html lang="fr">
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../style/style.css">
-<script src="../script/script.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>To-do List</title>
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet" />
+    <title>To-do List</title>
+</head>
 
 <body>
-    <div class="typewrite">
-        <div class="headertext">
-            <h2>To-do List</h2>
+    <div class="container">
+        <div class="zIndexBetweeenLoginTodo" id="zIndexBetweeenLoginTodo" onclick="zIndexBetweeenLoginTodo()">
+            <p></p>
+        </div>
+
+        <div class="typewrite">
+            <div class="titleZindex">
+                <div class="headertext">
+                    <h2>To-do List</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input du todo-->
+        <div id="myDIV" class="header" onclick="fermeLoginBox()">
+            <input type="text" id="myInput" placeholder="Title..." />
+            <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
+        </div>
+
+        <!-- Liste de tâche -->
+        <div class="texttache" onclick="fermeLoginBox()">
+            <ul id="AddTâche"></ul>
+        </div>
+
+        <!-- Login redirect-->
+        <div class="RedirectLogin" onclick="hideShow()" id="loginBtn">
+            <img src="../img/keyW.png" width="25px" height="25px" />
+        </div>
+
+        <!--Button dark mode-->
+        <div class="ButtonDark" id="btnToggleDark">
+            <label class="switch">
+                <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()" />
+                <span class="BotãoDark"> </span>
+            </label>
+        </div>
+
+        <!-- Login -->
+        <div class="loginZindex">
+            <div class="boxForm" id="hideShow">
+                <div class="logintitle">
+                    <h1>Login</h1>
+                </div>
+
+                <div class="croix" onclick="croix()">
+                    <p>X</p>
+                </div>
+                <form>
+                    <div>
+                        <label for="user" class="labeltext1">Username</label>
+                        <input class="label1" type="text" name="user" id="user" size="50px" maxlength="25" />
+                    </div>
+                    <div>
+                        <label for="pwd" class="labeltext2">Password</label>
+                        <input class="label2" type="password" name="pwd" id="pwd" maxlength="35" />
+                    </div>
+                </form>
+
+                <p class="creatAccountText">
+                    Don't have an account?
+                    <a onclick="xD()"> <b>Create one here</b></a>
+                </p>
+
+                <div class="BtnConnect">
+                    <a class="BtnConnectStyle" onclick="xD()">Connect</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- pop up -->
+        <div class="popupEdit" id="popupEdit" style="display: none">
+            <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
+            <form>
+                <label for="modifTask" id="modifTask">Edit the task: </label>
+                <input type="text" id="textTaskModif" name="textTaskModif" />
+                <!-- <textarea
+            id="textTaskModif"
+            name="textTaskModif"
+          ></textarea> -->
+            </form>
+            <button class="addBtn" id="modifBtn" onclick="updateTask()">
+                Edit
+            </button>
+        </div>
+        <div class="bkgPopUpBlur" id="bkgPopUpBlur" onclick="closeModifTask()">
+            <p></p>
         </div>
     </div>
 
-    <!-- Input du todo-->
-    <div id="myDIV" class="header">
-        <input type="text" id="myInput" placeholder="Title...">
-        <span onclick="newElement()" class="addBtn" id="addBtn">Add</span>
+    <div class="closePopUpsTasks" id="closePopUpsTasks" onclick="closePopUpsTasks()"></div>
+
+    <div class="calendrierPopup" id="calendrierPopup">
+        <div class="StyleDateBox">
+            <p>Start</p>
+            <input type="date" class="startDate" id="startDate" defaultValue="{currentDate }" />
+
+            <p>End</p>
+            <input type="date" class="endDate" id="endDate" />
+        </div>
     </div>
 
-    <!-- Liste de tâche -->
-    <div class="texttache">
-        <ul id="AddTâche">
-        </ul>
+    <div class="importancePopup" id="importancePopup">
+        <p><b>Importance</b></p>
+        <input type="radio" class="importanceRadio" name="importanceRadio" />High
+        <hr />
+        <input type="radio" class="importanceRadio" name="importanceRadio" /> Mid
+        <hr />
+        <input type="radio" class="importanceRadio" name="importanceRadio" />Low
     </div>
-
-    <!-- Login redirect-->
-     <div class="RedirectLogin">
-        <a href="./login.html">
-            <img src="../img/keyW.png" width="25px" height="25px">
-        </a>
-     </div>
-
-    <!--Button dark mode-->
-    <div class="ButtonDark">
-        <label class="switch">
-            <input type="checkbox" id="darkToggle" onchange="myFunction()">
-            <span class="BotãoDark"> </span>
-        </label>
-    </div>
+    <script src="../script/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 
 </html>
+
+<!-- Calendaire:
+ https://xdsoft.net/jqplugins/calendar-popup/
+
+ https://demo.mobiscroll.com/javascript/eventcalendar/navigate-from-external-date-picker#
+
+ https://mui.com/x/react-date-pickers/date-picker/
+ -->
