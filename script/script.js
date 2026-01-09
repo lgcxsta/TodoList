@@ -3,6 +3,23 @@ function toggleDarkMode() {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
+// Enter
+var input = document.getElementById("myInput");
+input.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("addBtn").click();
+  }
+});
+
+var inputEditTask = document.getElementById("textTaskModif");
+inputEditTask.addEventListener("keypress", function (event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("modifBtn").click();
+  }
+});
+
 function getTasks() {
   return JSON.parse(localStorage.getItem("TasksList")) || [];
 }
@@ -59,7 +76,6 @@ function addTask() {
   input.value = "";
 }
 
-//Enter tecla
 document.addEventListener("DOMContentLoaded", function () {
   //Execute la fonction quand la page html est completement charger
 
@@ -75,13 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   render(); // Affiche les tâches sauvegardées dès que la page est chargée
-  var input = document.getElementById("myInput");
-  input.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      document.getElementById("addBtn").click();
-    }
-  });
 });
 
 const editInput = document.getElementById("textTaskModif");
@@ -208,6 +217,3 @@ function closePopUpsTasks() {
   document.getElementById("closePopUpsTasks").style.display = "none";
   document.getElementById("importancePopup").style.display = "none";
 }
-// if (JSON.parse(localStorage.getItem("task-box")) == []) {
-//   document.getElementByClassName("addBtn").style.visibility = "hidden";
-// }
