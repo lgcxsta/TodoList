@@ -37,6 +37,9 @@
       <div id="myDIV" class="header" onclick="fermeLoginBox()">
         <input type="text" id="myInput" placeholder="Title..." />
         <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
+        <button onclick="test()" class="sortBtn" id="sortBtn">
+          <span>Sort</span>
+        </button>
       </div>
 
       <!-- Liste de tâche -->
@@ -103,31 +106,30 @@
       </div>
 
       <!-- pop up -->
+      <!-- edit -->
       <div class="popupEdit" id="popupEdit" style="display: none">
         <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
 
         <form>
           <label for="modifTask" id="modifTask">Edit the task: </label>
           <input type="text" id="textTaskModif" name="textTaskModif" />
+          <!--importance -->
           <p id="modifTask">Importance</p>
-
           <div class="options-group">
             <label>
               <input type="radio" name="importance" />
               <span>High</span>
             </label>
-
             <label>
               <input type="radio" name="importance" />
               <span>Mid</span>
             </label>
-
             <label>
               <input type="radio" name="importance" />
               <span>Low</span>
             </label>
           </div>
-
+          <!-- dates -->
           <div class="StyleDateBox">
             <p id="modifTask" style="margin-bottom: 10px">Date</p>
             <p>Start</p>
@@ -137,7 +139,6 @@
               id="startDate"
               defaultValue="{currentDate}"
             />
-
             <p>End</p>
             <input type="date" class="endDate" id="endDate" />
           </div>
