@@ -105,9 +105,42 @@
       <!-- pop up -->
       <div class="popupEdit" id="popupEdit" style="display: none">
         <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
+
         <form>
           <label for="modifTask" id="modifTask">Edit the task: </label>
           <input type="text" id="textTaskModif" name="textTaskModif" />
+          <p id="modifTask">Importance</p>
+
+          <div class="options-group">
+            <label>
+              <input type="radio" name="importance" />
+              <span>High</span>
+            </label>
+
+            <label>
+              <input type="radio" name="importance" />
+              <span>Mid</span>
+            </label>
+
+            <label>
+              <input type="radio" name="importance" />
+              <span>Low</span>
+            </label>
+          </div>
+
+          <div class="StyleDateBox">
+            <p id="modifTask" style="margin-bottom: 10px">Date</p>
+            <p>Start</p>
+            <input
+              type="date"
+              class="startDate"
+              id="startDate"
+              defaultValue="{currentDate}"
+            />
+
+            <p>End</p>
+            <input type="date" class="endDate" id="endDate" />
+          </div>
           <button class="addBtn" id="modifBtn" onclick="updateTask()">
             Edit
           </button>
@@ -124,9 +157,10 @@
       onclick="closePopUpsTasks()"
     ></div>
 
-    <div class="calendrierPopup" id="calendrierPopup">
+    <div class="calendrierPopup" id="calendrierPopup" style="display: none">
       <div class="StyleDateBox">
-        <p>Start</p>
+        <span class="close-btn" onclick="closeModifTask()">x</span>
+        <p style="font-weight: bold">Start</p>
         <input
           type="date"
           class="startDate"
@@ -134,18 +168,35 @@
           defaultValue="{currentDate}"
         />
 
-        <p>End</p>
+        <p style="font-weight: bold">End</p>
         <input type="date" class="endDate" id="endDate" />
+
+        <button class="dateBtn" id="dateBtn" onclick="test()">Edit</button>
       </div>
     </div>
 
-    <div class="importancePopup" id="importancePopup">
-      <p><b>Importance</b></p>
-      <input type="radio" class="importanceRadio" name="importanceRadio" />High
-      <hr />
-      <input type="radio" class="importanceRadio" name="importanceRadio" /> Mid
-      <hr />
-      <input type="radio" class="importanceRadio" name="importanceRadio" />Low
+    <div class="importancePopup" id="importancePopup" style="display: none">
+      <span class="close-btn" onclick="closeModifTask()">x</span>
+      <p class="title">Importance</p>
+
+      <div class="options-group">
+        <label>
+          <input type="radio" name="importance" />
+          <span>High</span>
+        </label>
+
+        <label>
+          <input type="radio" name="importance" />
+          <span>Mid</span>
+        </label>
+
+        <label>
+          <input type="radio" name="importance" />
+          <span>Low</span>
+        </label>
+
+        <button class="impBtn" id="impBtn" onclick="test()">Edit</button>
+      </div>
     </div>
     <script src="../script/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

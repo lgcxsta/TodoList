@@ -123,7 +123,9 @@ input {
 }
 
 /*Btn add*/
-.addBtn {
+.addBtn,
+.impBtn,
+.dateBtn {
   padding: 10px;
   width: 25%;
   /*background: rgba(197, 216, 228, 0.195);*/
@@ -142,7 +144,9 @@ input {
   display: block;
 }
 
-.addBtn:hover {
+.addBtn:hover,
+.impBtn:hover,
+.dateBtn:hover {
   background-color: #acc2cc62;
 }
 
@@ -546,14 +550,14 @@ label {
   background: #c4e9ff;
   background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
   width: 350px;
-  height: 170px;
+  height: 550px;
   border-radius: 34px;
   padding: 10px;
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   display: block;
   position: absolute;
   z-index: 5;
-  top: 40%;
+  bottom: 200px;
 }
 
 .bkgPopUpBlur {
@@ -568,25 +572,37 @@ label {
   display: none;
 }
 
-.popupEditCloseBtn {
+.popupEditCloseBtn,
+.importancePopup .close-btn,
+.calendrierPopup .close-btn {
   position: absolute;
   color: #383d60;
   font-weight: 900;
+  top: 10px;
+  left: 20px;
+  cursor: pointer;
 }
 
-.popupEditCloseBtn:hover {
+.popupEditCloseBtn:hover,
+.importancePopup .close-btn :hover,
+.calendrierPopup .close-btn:hover {
   color: #6e7399;
 }
 
-.dark-mode .popupEditCloseBtn {
+.dark-mode .popupEditCloseBtn,
+.dark-mode .importancePopup .close-btn,
+.dark-mode .calendrierPopup .close-btn {
   color: #ffffff;
 }
 
-.dark-mode .popupEditCloseBtn:hover {
+.dark-mode .popupEditCloseBtn:hover,
+.dark-mode .importancePopup .close-btn:hover,
+.dark-mode .calendrierPopup .close-btn:hover {
   color: #aaaaaa;
 }
 
-#modifTask {
+#modifTask,
+.importancePopup .title {
   color: #383d60;
   font-size: 20px;
   display: flex;
@@ -598,7 +614,7 @@ label {
 }
 #textTaskModif {
   color: rgba(85, 107, 124, 0.856);
-  background-color: rgba(233, 240, 245, 0.938);
+  background-color: rgba(240, 244, 247, 0.911);
   justify-content: center;
   align-items: center;
   height: 20px;
@@ -626,7 +642,9 @@ label {
   text-align: center;
 }
 
-.dark-mode .popupEdit {
+.dark-mode .popupEdit,
+.dark-mode .calendrierPopup,
+.dark-mode .importancePopup {
   background: #000000;
   background: linear-gradient(180deg, #464646, #000000);
   box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
@@ -648,7 +666,7 @@ label {
 }
 
 /*Calendaire popup*/
-.calendrierPopup {
+/* .calendrierPopup {
   font-family: "Work Sans", sans-serif;
   align-items: center;
   background: #e0ecf3;
@@ -662,14 +680,14 @@ label {
   z-index: 4;
   border-radius: 14px;
   margin-right: 75px;
-}
-
+} */
+/* 
 .dark-mode .calendrierPopup,
 .dark-mode .importancePopup {
   background: #464646;
   background: radial-gradient(circle, #464646, #1f1f1f);
   box-shadow: 0px 0px 25px 1px rgba(161, 161, 161, 0.178);
-}
+} */
 
 .closePopUpsTasks {
   z-index: 1;
@@ -682,14 +700,19 @@ label {
   text-align: center;
 }
 
-.StyleDateBox p {
+.StyleDateBox p,
+.options-group span {
   color: #383d60;
-  font-weight: bold;
-  margin-bottom: 4px;
+}
+
+.StyleDateBox p {
+  margin-bottom: -15px;
 }
 
 .dark-mode .StyleDateBox p,
-.dark-mode .StyleDateBox input {
+.dark-mode .StyleDateBox input,
+.dark-mode .importancePopup,
+.dark-mode .importancePopup .title {
   color: #ffffff;
 }
 
@@ -697,45 +720,112 @@ label {
   color: #383d60;
   font-size: 12px;
   text-align: center;
-  background-color: #fdf3ef;
+  background-color: #fdf3ef60;
+  margin-top: 20px;
 }
 
 .dark-mode .StyleDateBox input {
   background-color: #8f8f8f70;
 }
 
+.calendrierPopup {
+  font-family: "Work Sans", sans-serif;
+  background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
+  width: 350px;
+  height: 230px;
+  border-radius: 34px;
+  padding: 15px;
+  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+}
+
+.dateBtn {
+  position: absolute;
+  margin-left: 130px;
+  margin-top: 10px;
+}
+
 /* Importance */
 .importancePopup {
-  position: absolute;
-  display: none;
-  z-index: 1;
-  width: 110px;
-  text-align: center;
-  padding: 20px;
-  border-radius: 10px;
   font-family: "Work Sans", sans-serif;
-  text-align: center;
-  background: #e0ecf3;
-  background: radial-gradient(circle, #fdf3ef 0%, #e0ecf3 100%);
-  box-shadow: 0px 0px 25px 1px rgba(143, 181, 202, 0.37);
-}
-
-.importancePopup p {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.importancePopup hr {
-  width: 60%;
-  height: 1px;
-  background-color: #596374;
-  border: none;
-}
-
-.importancePopup input {
-  left: -30px;
+  background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
+  width: 350px;
+  height: 150px;
+  border-radius: 34px;
+  padding: 15px;
+  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: absolute;
-  height: 10px;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  top: 50%;
+  left: 50%;
+}
+
+/* .close-btn {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  cursor: pointer;
+  color: #383d60;
+}}}} */
+
+.dark-mode .dateBtn,
+.dark-mode .impBtn {
+  color: white;
+}
+
+/*Important btn*/
+.importancePopup .title {
+  font-weight: bold;
+  margin: 5px 0 15px 0;
+  color: #333;
+  text-align: center;
+  margin-top: 9%;
+}
+
+.options-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.importancePopup label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.importancePopup input[type="radio"] {
+  margin: 0;
+  padding: 0;
+  position: static;
+}
+
+.importancePopup span {
+  position: static;
+  font-size: 15px;
+}
+
+.impBtn {
+  position: absolute;
+  margin-top: 40px;
+}
+
+.importancePopup .close-btn,
+.calendrierPopup .close-btn {
+  font-size: 20px;
 }
 
 /* Media*/
@@ -743,7 +833,7 @@ label {
 @media (max-width: 500px) {
   .popupEdit {
     width: 300px;
-    height: 160px;
+    height: 550px;
   }
 }
 
