@@ -3,7 +3,7 @@ function toggleDarkMode() {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
-// Enter
+// Enter - myInput
 var input = document.getElementById("myInput");
 input.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
@@ -12,6 +12,7 @@ input.addEventListener("keypress", function (event) {
   }
 });
 
+// Enter popup modifier la tâche
 var inputEditTask = document.getElementById("textTaskModif");
 inputEditTask.addEventListener("keypress", function (event) {
   if (event.key === "Enter") {
@@ -77,8 +78,6 @@ function addTask() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  //Execute la fonction quand la page html est completement charger
-
   const savedTheme = localStorage.getItem("theme");
   const toggle = document.getElementById("darkToggle");
 
@@ -90,13 +89,14 @@ document.addEventListener("DOMContentLoaded", function () {
     if (toggle) toggle.checked = false;
   }
 
-  render(); // Affiche les tâches sauvegardées dès que la page est chargée
+  render();
 });
 
 const editInput = document.getElementById("textTaskModif");
 let task_id = "";
 
-// Fonction pour afficher les tâches sauvegardées
+
+
 function render() {
   var container = document.getElementById("AddTâche");
   container.innerHTML = "";
