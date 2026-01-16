@@ -219,4 +219,6 @@ function closePopUpsTasks() {
   document.getElementById("calendrierPopup").style.display = "none";
   document.getElementById("closePopUpsTasks").style.display = "none";
   document.getElementById("importancePopup").style.display = "none";
+  document.getElementById("bkgPopUpBlur").style.display = "none";
+  document.getElementById("popupEdit").style.display = "none";
 }

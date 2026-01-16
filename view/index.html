@@ -24,155 +24,156 @@
       </div>
     </div>
 
-    <!-- Input du todo-->
     <div id="myDIV" class="header" onclick="fermeLoginBox()">
       <input type="text" id="myInput" placeholder="Title..." />
       <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
-      <button onclick="test()" class="sortBtn" id="sortBtn">
-        <span>Sort</span>
-      </button>
-    </div>
-
-    <!-- Liste de tâche -->
-    <div class="texttache" onclick="fermeLoginBox()">
-      <ul id="AddTâche"></ul>
-    </div>
-
-    <!-- Login redirect-->
-    <div class="RedirectLogin" onclick="hideShow()" id="loginBtn">
-      <img src="../img/keyW.png" width="25px" height="25px" />
-    </div>
-
-    <!--Button dark mode-->
-    <div class="ButtonDark" id="btnToggleDark">
-      <label class="switch">
-        <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()" />
-        <span class="BotãoDark"> </span>
-      </label>
-    </div>
-
-    <!-- Login -->
-    <div class="loginZindex">
-      <div class="boxForm" id="hideShow">
-        <div class="logintitle">
-          <h1>Login</h1>
-        </div>
-
-        <div class="croix" onclick="croix()">
-          <p>X</p>
-        </div>
-        <form>
-          <div>
-            <label for="user" class="labeltext1">Username</label>
-            <input class="label1" type="text" name="user" id="user" size="50px" maxlength="25" />
-          </div>
-          <div>
-            <label for="pwd" class="labeltext2">Password</label>
-            <input class="label2" type="password" name="pwd" id="pwd" maxlength="35" />
-          </div>
-        </form>
-
-        <p class="creatAccountText">
-          Don't have an account?
-          <b>Create one here</b>
-        </p>
-
-        <div class="BtnConnect">
-          <a class="BtnConnectStyle">Connect</a>
+      <div class="dropdown">
+        <button class="sortBtn" id="sortBtn">
+          <span>Sort</span>
+        </button>
+        <div class="dropdownContent">
+          <span class="sortP1">
+            <p>Default</p>
+          </span>
+          <span class="sortP2">
+            <p>Last Added</p>
+          </span>
+          <span class="sortP3">
+            <p>Importance</p>
+          </span>
+          <span class="sortP4">
+            <p>Date</p>
+          </span>
         </div>
       </div>
-    </div>
 
-    <!-- pop up -->
-    <!-- edit -->
-    <div class="popupEdit" id="popupEdit" style="display: none">
-      <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
+      <div class="texttache" onclick="fermeLoginBox()">
+        <ul id="AddTâche"></ul>
+      </div>
 
-      <form>
-        <label for="modifTask" id="modifTask">Edit the task: </label>
-        <input type="text" id="textTaskModif" name="textTaskModif" />
-        <!--importance -->
-        <p id="modifTask">Importance</p>
+      <div class="RedirectLogin" onclick="hideShow(); event.stopPropagation();" id="loginBtn">
+        <img src="../img/keyW.png" width="25px" height="25px" />
+      </div>
+
+      <div class="ButtonDark" id="btnToggleDark" onclick="event.stopPropagation();">
+        <label class="switch">
+          <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()" />
+          <span class="BotãoDark"> </span>
+        </label>
+      </div>
+
+      <div class="loginZindex">
+        <div class="boxForm" id="hideShow">
+          <div class="logintitle">
+            <h1>Login</h1>
+          </div>
+
+          <div class="croix" onclick="croix()">
+            <p>X</p>
+          </div>
+          <form>
+            <div>
+              <label for="user" class="labeltext1">Username</label>
+              <input class="label1" type="text" name="user" id="user" size="50px" maxlength="25" />
+            </div>
+            <div>
+              <label for="pwd" class="labeltext2">Password</label>
+              <input class="label2" type="password" name="pwd" id="pwd" maxlength="35" />
+            </div>
+          </form>
+
+          <p class="creatAccountText">
+            Don't have an account?
+            <b>Create one here</b>
+          </p>
+
+          <div class="BtnConnect">
+            <a class="BtnConnectStyle">Connect</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="popupEdit" id="popupEdit" style="display: none">
+        <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
+
+        <form>
+          <label for="modifTask" id="modifTask">Edit the task: </label>
+          <input type="text" id="textTaskModif" name="textTaskModif" />
+          <p id="modifTask">Importance</p>
+          <div class="options-group">
+            <label>
+              <input type="radio" name="importance" />
+              <span>High</span>
+            </label>
+            <label>
+              <input type="radio" name="importance" />
+              <span>Mid</span>
+            </label>
+            <label>
+              <input type="radio" name="importance" />
+              <span>Low</span>
+            </label>
+          </div>
+          <br />
+          <div class="StyleDateBox">
+            <p id="modifTask" style="margin-bottom: 10px">Start & End</p>
+            <p>Start</p>
+            <input type="date" class="startDate" id="startDate" defaultValue="{currentDate}" />
+            <p>End</p>
+            <input type="date" class="endDate" id="endDate" />
+          </div>
+          <button class="modifBtn" id="modifBtn" type="button" onclick="updateTask()">
+            Edit
+          </button>
+        </form>
+      </div>
+      <div class="bkgPopUpBlur" id="bkgPopUpBlur" onclick="closeModifTask()">
+        <p></p>
+      </div>
+
+      <div class="closePopUpsTasks" id="closePopUpsTasks" onclick="closePopUpsTasks()"></div>
+
+      <div class="calendrierPopup" id="calendrierPopup" style="display: none">
+        <div class="StyleDateBox">
+          <span class="close-btn" onclick="closeModifTask()">x</span>
+          <p style="font-weight: bold">Start</p>
+          <input type="date" class="startDate" id="startDate" defaultValue="{currentDate}" />
+
+          <p style="font-weight: bold">End</p>
+          <input type="date" class="endDate" id="endDate" />
+
+          <button class="dateBtn" id="dateBtn" onclick="editDate()">Edit</button>
+        </div>
+      </div>
+
+      <div class="importancePopup" id="importancePopup" style="display: none">
+        <span class="close-btn" onclick="closeModifTask()">x</span>
+        <p class="title">Importance</p>
+
         <div class="options-group">
           <label>
             <input type="radio" name="importance" />
             <span>High</span>
           </label>
+
           <label>
             <input type="radio" name="importance" />
             <span>Mid</span>
           </label>
+
           <label>
             <input type="radio" name="importance" />
             <span>Low</span>
           </label>
+
+          <button class="impBtn" id="impBtn" onclick="editPriority()">
+            Edit
+          </button>
         </div>
-        <!-- dates -->
-        <div class="StyleDateBox">
-          <p id="modifTask" style="margin-bottom: 10px">Date</p>
-          <p>Start</p>
-          <input type="date" class="startDate" id="startDate" defaultValue="{currentDate}" />
-          <p>End</p>
-          <input type="date" class="endDate" id="endDate" />
-        </div>
-        <button class="addBtn" id="modifBtn" onclick="updateTask()">
-          Edit
-        </button>
-      </form>
+      </div>
     </div>
-    <div class="bkgPopUpBlur" id="bkgPopUpBlur" onclick="closeModifTask()">
-      <p></p>
-    </div>
-  </div>
-
-  <div class="closePopUpsTasks" id="closePopUpsTasks" onclick="closePopUpsTasks()"></div>
-
-  <div class="calendrierPopup" id="calendrierPopup" style="display: none">
-    <div class="StyleDateBox">
-      <span class="close-btn" onclick="closeModifTask()">x</span>
-      <p style="font-weight: bold">Start</p>
-      <input type="date" class="startDate" id="startDate" defaultValue="{currentDate}" />
-
-      <p style="font-weight: bold">End</p>
-      <input type="date" class="endDate" id="endDate" />
-
-      <button class="dateBtn" id="dateBtn" onclick="test()">Edit</button>
-    </div>
-  </div>
-
-  <div class="importancePopup" id="importancePopup" style="display: none">
-    <span class="close-btn" onclick="closeModifTask()">x</span>
-    <p class="title">Importance</p>
-
-    <div class="options-group">
-      <label>
-        <input type="radio" name="importance" />
-        <span>High</span>
-      </label>
-
-      <label>
-        <input type="radio" name="importance" />
-        <span>Mid</span>
-      </label>
-
-      <label>
-        <input type="radio" name="importance" />
-        <span>Low</span>
-      </label>
-
-      <button class="impBtn" id="impBtn" onclick="test()">Edit</button>
-    </div>
-  </div>
-  <script src="../script/script.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="../script/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 
 </html>
-
-<!-- Calendaire:
- https://xdsoft.net/jqplugins/calendar-popup/
-
- https://demo.mobiscroll.com/javascript/eventcalendar/navigate-from-external-date-picker#
-
- https://mui.com/x/react-date-pickers/date-picker/
- -->

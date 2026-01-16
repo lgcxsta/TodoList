@@ -6,22 +6,35 @@ body {
   background-size: cover;
   background-position: center;
   display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
 }
 
-.container {
+#modifTask,
+.importancePopup p,
+#textTaskModif,
+body {
+  justify-content: center;
+  align-items: center;
+}
+
+.container,
+.header,
+.calendrierPopup,
+.importancePopup {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.container {
+  width: 480px;
+  position: relative;
+}
+
 ul {
-  margin: 0;
-  padding: 0;
   list-style: none;
 }
+
 /* "My to do list" text*/
 .headertext {
   color: #383d60;
@@ -32,10 +45,6 @@ ul {
 }
 
 .header {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   margin-top: 20px;
 }
@@ -50,61 +59,38 @@ ul {
 }
 
 .dark-mode .typewrite h2 {
-  overflow: hidden;
-  border-right: 3px solid rgb(15, 15, 15);
-  white-space: nowrap;
-  margin: 0 auto;
-  letter-spacing: 0.1em;
   animation: typing 3s steps(10, end), blink-caret-dark 0.75s step-end infinite;
 }
 
 /* The typing effect */
 @keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-
-  50% {
-    border-color: #383d60;
-  }
+  from, to { border-color: transparent; }
+  50% { border-color: #383d60; }
 }
 
 /* The typewriter cursor effect */
 @keyframes blink-caret-dark {
-  from,
-  to {
-    border-color: transparent;
-  }
-
-  50% {
-    border-color: #ffff;
-  }
+  from, to { border-color: transparent; }
+  50% { border-color: #ffff; }
 }
 
 /*Input*/
 input {
   margin: 0;
   border: none;
-  width: 69%;
+  width: 90%;
   padding: 10px;
   font-size: 16px;
   margin-bottom: 16px;
   border-radius: 15px;
   outline: none;
   font-family: "Work Sans", sans-serif;
-  /*background-color: rgba(224, 237, 245, 0.309);*/
   background-color: rgba(240, 244, 247, 0.349);
 }
 
@@ -120,20 +106,20 @@ input {
   left: 10px;
   text-align: center;
   padding-top: 5px;
+  z-index: 5;
 }
 
 /*Btn add*/
 .addBtn,
 .impBtn,
 .dateBtn,
-.sortBtn {
+.sortBtn,
+.modifBtn {
   padding: 10px;
-  /*background: rgba(197, 216, 228, 0.195);*/
   background-color: #9dbbc91c;
   color: #020c1d;
   text-align: center;
   font-size: 16px;
-  cursor: pointer;
   transition: 0.3s;
   border-radius: 15px;
   margin-top: 16px;
@@ -142,32 +128,32 @@ input {
   margin: 0 auto;
   text-align: center;
   display: block;
-  cursor: pointer;
 }
 
 .header .addBtn {
-  margin-right: 230px;
-  width: 180px;
+  margin-right: 50%;
+  width: 170px;
 }
 
 .addBtn,
 .impBtn,
-.dateBtn {
+.dateBtn,
+.modifBtn {
   width: 25%;
 }
 
 .sortBtn {
   transition: all 0.5s;
   width: 160px;
-  margin-right: 64px;
+  margin-right: -55%;
   margin-top: -37px;
 }
 
 .dark-mode .sortBtn {
   color: white;
 }
+
 .sortBtn span {
-  cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
@@ -192,13 +178,14 @@ input {
 }
 
 .addBtn:hover,
+.modifBtn:hover
 .impBtn:hover,
-.dateBtn:hover {
+.dateBtn:hover,
+.modifBtn:hover {
   background-color: #acc2cc62;
 }
 
 .texttache {
-  /* width: 50%; */
   list-style-type: none;
   margin-top: 16px;
   margin-bottom: 10px;
@@ -208,9 +195,7 @@ input {
 }
 
 .task-box {
-  z-index: 1;
-  max-width: 365px;
-  min-width: 365px;
+  width: 365px;
   margin: 10px 0;
   padding-left: 15px;
   padding-top: 15px;
@@ -235,7 +220,6 @@ input {
   top: 10px;
   right: 15px;
   font-size: 25px;
-  cursor: pointer;
 }
 
 .close:hover {
@@ -252,7 +236,6 @@ input {
   top: 10px;
   right: 33px;
   font-size: 17px;
-  cursor: pointer;
 }
 
 /*Date*/
@@ -261,7 +244,6 @@ input {
   top: 10px;
   right: 55px;
   font-size: 15px;
-  cursor: pointer;
   color: rgb(0, 0, 0);
 }
 
@@ -271,7 +253,6 @@ input {
   top: 10px;
   right: 79px;
   font-size: 16px;
-  cursor: pointer;
   color: rgb(0, 0, 0);
 }
 
@@ -284,6 +265,7 @@ input {
 .dark-mode .checked .date {
   color: rgba(206, 206, 206, 0.39);
 }
+
 /*Btn gen.*/
 .importance:hover,
 .date:hover,
@@ -325,16 +307,14 @@ input {
 }
 
 .ButtonDark {
-  position: relative;
   position: fixed;
-  top: 0.5%;
-  left: 97%;
-  z-index: 5;
+  top: 10px;
+  right: 50px;
+  z-index: 100;
 }
 
 .BotãoDark {
   position: absolute;
-  cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
@@ -348,10 +328,6 @@ input {
 .BotãoDark:before {
   position: absolute;
   content: "☀";
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 26px;
   width: 26px;
   left: 4px;
@@ -362,13 +338,17 @@ input {
   border-radius: 50%;
 }
 
-.switch input:checked + .BotãoDark:before {
-  background-color: rgb(73, 73, 73);
-  content: "☾";
+.switch input:checked + .BotãoDark:before,
+.BotãoDark:before {
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.switch input:checked + .BotãoDark:before {
+  background-color: rgb(73, 73, 73);
+  content: "☾";
 }
 
 .switch input:checked + .BotãoDark {
@@ -404,31 +384,31 @@ input {
   background-color: rgb(51, 51, 51);
 }
 
-.dark-mode .task-box {
-  color: rgb(255, 255, 255);
-}
-
 .dark-mode .task-box.checked {
   text-decoration: line-through;
   color: rgba(255, 255, 255, 0.456);
 }
 
 .dark-mode h2,
-.dark-mode .headertext {
+.dark-mode .headertext,
+.dark-mode input,
+.dark-mode .addBtn,
+.dark-mode .modifBtn,
+.dark-mode .task-box {
   color: white;
 }
 
 .dark-mode input {
   background-color: rgba(255, 255, 255, 0.3);
-  color: white;
 }
 
-.dark-mode .addBtn {
+.dark-mode .addBtn,
+.dark-mode .modifBtn {
   background: rgba(233, 243, 251, 0.084);
-  color: white;
 }
 
-.dark-mode .addBtn:hover {
+.dark-mode .addBtn:hover,
+.dark-mode .modifBtn:hover {
   background-color: rgba(233, 243, 251, 0.168);
 }
 
@@ -439,49 +419,35 @@ label {
   display: block;
 }
 
-.label1 {
+.label1,
+.label2 {
   background-color: #eeecec;
-  font-family: "Open Sans";
-  font-size: 16px;
-  color: #3c3c4b9c;
 }
 
-.dark-mode .label1 {
-  background-color: #4d4d4d;
-  color: #8e908b;
-}
-
+.dark-mode .label1,
 .dark-mode .label2 {
   background-color: #4d4d4d;
   color: #8e908b;
 }
 
-.label2 {
-  background-color: #eeecec;
+.label1,
+.label2,
+.labeltext2,
+.labeltext1 {
   font-family: "Open Sans";
   font-size: 16px;
   color: #3c3c4b9c;
 }
 
-.labeltext1 {
-  color: #3c3c4b;
-  font-family: "Open Sans";
-  font-size: 16px;
-}
-
-.dark-mode .labeltext1 {
+.dark-mode .labeltext1,
+.dark-mode .labeltext2,
+.dark-mode .logintitle,
+.dark-mode .creatAccountText {
   color: white;
 }
 
 .labeltext2 {
-  color: #3c3c4b;
-  font-family: "Open Sans";
-  font-size: 16px;
   padding-top: 5%;
-}
-
-.dark-mode .labeltext2 {
-  color: white;
 }
 
 .logintitle {
@@ -492,19 +458,11 @@ label {
   font-weight: bold;
 }
 
-.dark-mode .logintitle {
-  color: white;
-}
-
 .creatAccountText {
   font-family: "Open Sans";
   font-size: 13px;
   position: relative;
   bottom: 2em;
-}
-
-.dark-mode .creatAccountText {
-  color: white;
 }
 
 .BtnConnectStyle {
@@ -518,13 +476,12 @@ label {
 .BtnConnect {
   background-color: #3c3c4bde;
   border-radius: 10px;
-  height: 3%;
+  height: auto;
   width: 28%;
-  padding: 3%;
+  padding: 10px;
   margin-bottom: 4%;
   margin-top: -20px;
   position: relative;
-  right: 20%;
   left: 35%;
 }
 
@@ -535,15 +492,16 @@ label {
 .boxForm {
   background-color: #ebf5fb;
   border-radius: 50px;
-  padding-right: 1%;
-  padding-left: 1%;
-  padding-bottom: 1%;
+  padding: 20px;
   text-align: center;
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   visibility: hidden;
+  z-index: 100;
+  width: 350px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
 }
 
 .dark-mode .boxForm {
@@ -558,6 +516,7 @@ label {
   font-weight: bolder;
   font-size: 170%;
   color: #383d60;
+  cursor: pointer;
 }
 
 .croix :hover {
@@ -573,46 +532,31 @@ label {
 }
 
 .zIndexBetweeenLoginTodo {
-  z-index: 3;
-  height: 100%;
-  width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.075);
   backdrop-filter: blur(3px);
   display: none;
-}
-
-.titleZindex {
-  z-index: 1;
-}
-
-.loginZindex {
-  z-index: 4;
+  z-index: 90;
 }
 
 /* POPUP TASK EDITR FORM */
 .popupEdit {
-  font-family: "Work Sans", sans-serif;
   align-items: center;
   background: #c4e9ff;
-  background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
-  width: 350px;
   height: 550px;
-  border-radius: 34px;
   padding: 10px;
-  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
-  display: block;
-  position: absolute;
-  z-index: 5;
+  display: none;
   bottom: 200px;
 }
 
 .bkgPopUpBlur {
+  position: fixed;
   background-color: rgba(0, 0, 0, 0.075);
   backdrop-filter: blur(3px);
-  z-index: 4;
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -632,7 +576,7 @@ label {
 }
 
 .popupEditCloseBtn:hover,
-.importancePopup .close-btn :hover,
+.importancePopup .close-btn:hover,
 .calendrierPopup .close-btn:hover {
   color: #6e7399;
 }
@@ -654,22 +598,16 @@ label {
   color: #383d60;
   font-size: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
   margin-top: 10%;
   font-weight: bold;
   text-align: center;
 }
+
 #textTaskModif {
   color: rgba(85, 107, 124, 0.856);
   background-color: rgba(240, 244, 247, 0.911);
-  justify-content: center;
-  align-items: center;
   height: 20px;
   width: 80%;
-  overflow-y: scroll;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(138, 160, 175, 0.411) rgb(190, 211, 225, 0.309);
   margin-left: 9%;
   margin-right: 10%;
   margin-top: 15px;
@@ -678,16 +616,6 @@ label {
   font-family: "Work Sans", sans-serif;
   border: none;
   outline: none;
-}
-
-.modifBtn {
-  background-color: rgba(240, 244, 247, 0.445);
-  padding: 10px;
-  border-radius: 10px;
-  width: 55px;
-  display: block;
-  margin: 0 auto;
-  text-align: center;
 }
 
 .dark-mode .popupEdit,
@@ -705,43 +633,6 @@ label {
 .dark-mode #textTaskModif {
   color: rgba(255, 255, 255, 0.856);
   background-color: rgba(95, 95, 95, 0.705);
-  scrollbar-color: rgba(66, 66, 66, 0.411) rgb(190, 211, 225, 0.309);
-}
-
-.dark-mode .modifBtn {
-  background-color: rgba(100, 100, 100, 0.445);
-  color: white;
-}
-
-/*Calendaire popup*/
-/* .calendrierPopup {
-  font-family: "Work Sans", sans-serif;
-  align-items: center;
-  background: #e0ecf3;
-  background: radial-gradient(circle, #fdf3ef 0%, #e0ecf3 100%);
-  width: 170px;
-  height: 170px;
-  padding: 10px;
-  box-shadow: 0px 0px 25px 1px rgba(143, 181, 202, 0.37);
-  display: none;
-  position: absolute;
-  z-index: 4;
-  border-radius: 14px;
-  margin-right: 75px;
-} */
-/* 
-.dark-mode .calendrierPopup,
-.dark-mode .importancePopup {
-  background: #464646;
-  background: radial-gradient(circle, #464646, #1f1f1f);
-  box-shadow: 0px 0px 25px 1px rgba(161, 161, 161, 0.178);
-} */
-
-.closePopUpsTasks {
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  position: absolute;
 }
 
 .StyleDateBox {
@@ -777,21 +668,8 @@ label {
 }
 
 .calendrierPopup {
-  font-family: "Work Sans", sans-serif;
-  background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
-  width: 350px;
   height: 230px;
-  border-radius: 34px;
   padding: 15px;
-  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  top: 50%;
-  left: 50%;
 }
 
 .dateBtn {
@@ -800,27 +678,29 @@ label {
   margin-top: 10px;
 }
 
-/* Importance */
 .importancePopup {
+  height: 150px;
+  padding: 15px;
+}
+
+.importancePopup,
+.popupEdit,
+.calendrierPopup {
   font-family: "Work Sans", sans-serif;
   background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
   width: 350px;
-  height: 150px;
   border-radius: 34px;
-  padding: 15px;
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 5;
+  position: fixed;
   top: 50%;
   left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
 }
 
 .dark-mode .dateBtn,
-.dark-mode .impBtn {
+.dark-mode .impBtn,
+.dark-mode .options-group span {
   color: white;
 }
 
@@ -831,10 +711,6 @@ label {
   color: #333;
   text-align: center;
   margin-top: 9%;
-}
-
-.dark-mode .options-group span {
-  color: white;
 }
 
 .options-group {
@@ -848,13 +724,12 @@ label {
   display: flex;
   align-items: center;
   gap: 8px;
-  cursor: pointer;
 }
 
 input[type="radio"] {
-  margin: 0;
-  padding: 0;
   position: static;
+  width: auto;
+  margin-bottom: 0;
 }
 
 .dark-mode input[type="radio"] {
@@ -873,6 +748,7 @@ input[type="radio"] {
 .impBtn {
   position: absolute;
   margin-top: 40px;
+  margin-right: 0;
 }
 
 .importancePopup .close-btn,
@@ -880,29 +756,37 @@ input[type="radio"] {
   font-size: 20px;
 }
 
-.sortPopup {
-  position: absolute;
-  z-index: 5;
-  width: 120px;
-  height: 96px;
-  align-items: center;
-  text-align: center;
-  right: 33%;
-  margin-top: 30px;
-  border-radius: 1%;
-  padding-top: 16px;
-  background-color: red;
+/* Le contenu du dropdown */
+.dropdownContent {
+  position: absolute; 
+  background-color: #f9f9f9;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding: 12px 16px;
+  z-index: 10;
+  display: none; 
 }
 
-.sortPopup p {
-  padding-top: 10px;
-  margin-top: -16px;
-  background-color: rgba(197, 197, 255, 0.548);
-  margin-bottom: 16px;
+/* Affichage du dropdown au survol du parent .dropdown */
+.dropdown:hover .dropdownContent {
+  display: block; 
 }
 
-.sortPopup p:hover {
-  background-color: blue;
+/* Options du dropdown */
+.sortP1,
+.sortP2,
+.sortP3,
+.sortP4 {
+  display: block; 
+  cursor: pointer; 
+}
+
+/* Effet de survol sur les options */
+.sortP1:hover,
+.sortP2:hover,
+.sortP3:hover,
+.sortP4:hover {
+  background-color: #d33d3d; 
 }
 
 /* Media*/
@@ -916,49 +800,56 @@ input[type="radio"] {
 
 @media (max-width: 600px) {
   .task-box {
-    max-width: 100px;
-    min-width: 200px;
+    max-width: 250px;
   }
+
   .header .addBtn {
-    margin-right: 165px;
-    width: 140px;
+    margin-right: 0;
+    width: 150px;
   }
 
   .sortBtn {
-    width: 110px;
-    margin-right: 45px;
-    margin-top: -37px;
+    width: 150px;
+    margin-right: 0;
+    margin-top: 10px;
+  }
+
+  .container {
+    width: 340px;
   }
 }
 
-@media (max-width: 721px) {
-  body {
-    width: 100%;
-    margin: 0;
-  }
+ul,
+input[type="radio"] {
+  margin: 0;
+  padding: 0;
 }
 
-@media (max-width: 885px) {
-  .boxForm {
-    right: auto;
-    bottom: auto;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0%;
-    max-width: 350px;
-    width: 90%;
-  }
+/* Cursor */
+.addBtn,
+.impBtn,
+.dateBtn,
+.modifBtn,
+.sortBtn,
+.BotãoDark,
+.popupEditCloseBtn,
+.importancePopup .close-btn,
+.importancePopup label,
+.calendrierPopup .close-btn,
+.sortBtn span,
+.task-box .close,
+.task-box .edit,
+.task-box .date,
+.task-box .importance {
+  cursor: pointer;
 }
 
-@media (max-width: 1000px) {
-  .BtnConnectStyle {
-    font-size: 80%;
-  }
-}
-
-@media (max-width: 1300px) {
-  .texttache {
-    scrollbar-color: rgba(138, 160, 175, 0) rgba(138, 160, 175, 0);
-  }
+.closePopUpsTasks {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top:0;
+  left:0;
+  display: none;
+  z-index: 80;
 }
