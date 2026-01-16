@@ -95,8 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
 const editInput = document.getElementById("textTaskModif");
 let task_id = "";
 
-
-
 function render() {
   var container = document.getElementById("AddTâche");
   container.innerHTML = "";
@@ -127,7 +125,7 @@ function render() {
     dateBtn.onclick = function () {
       document.getElementById("calendrierPopup").style.display = "block";
       document.getElementById("closePopUpsTasks").style.display = "block";
-     document.getElementById("bkgPopUpBlur").style.display = "block";
+      document.getElementById("bkgPopUpBlur").style.display = "block";
     };
 
     // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
@@ -214,7 +212,7 @@ function closeModifTask() {
   document.getElementById("popupEdit").style.display = "none";
   document.getElementById("bkgPopUpBlur").style.display = "none";
   document.getElementById("importancePopup").style.display = "none";
- document.getElementById("calendrierPopup").style.display = "none";
+  document.getElementById("calendrierPopup").style.display = "none";
 }
 
 function closePopUpsTasks() {
@@ -222,5 +220,3 @@ function closePopUpsTasks() {
   document.getElementById("closePopUpsTasks").style.display = "none";
   document.getElementById("importancePopup").style.display = "none";
 }
-
-
