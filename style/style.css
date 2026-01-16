@@ -11,7 +11,8 @@ body {
   height: 100vh;
 }
 
-.container {
+.container,
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,9 +34,6 @@ ul {
 
 .header {
   z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   width: 100%;
   margin-top: 20px;
 }
@@ -50,11 +48,6 @@ ul {
 }
 
 .dark-mode .typewrite h2 {
-  overflow: hidden;
-  border-right: 3px solid rgb(15, 15, 15);
-  white-space: nowrap;
-  margin: 0 auto;
-  letter-spacing: 0.1em;
   animation: typing 3s steps(10, end), blink-caret-dark 0.75s step-end infinite;
 }
 
@@ -104,7 +97,6 @@ input {
   border-radius: 15px;
   outline: none;
   font-family: "Work Sans", sans-serif;
-  /*background-color: rgba(224, 237, 245, 0.309);*/
   background-color: rgba(240, 244, 247, 0.349);
 }
 
@@ -128,7 +120,6 @@ input {
 .dateBtn,
 .sortBtn {
   padding: 10px;
-  /*background: rgba(197, 216, 228, 0.195);*/
   background-color: #9dbbc91c;
   color: #020c1d;
   text-align: center;
@@ -198,7 +189,6 @@ input {
 }
 
 .texttache {
-  /* width: 50%; */
   list-style-type: none;
   margin-top: 16px;
   margin-bottom: 10px;
@@ -404,28 +394,17 @@ input {
   background-color: rgb(51, 51, 51);
 }
 
-.dark-mode .task-box {
-  color: rgb(255, 255, 255);
-}
-
 .dark-mode .task-box.checked {
   text-decoration: line-through;
   color: rgba(255, 255, 255, 0.456);
 }
 
-.dark-mode h2,
-.dark-mode .headertext {
-  color: white;
-}
-
 .dark-mode input {
   background-color: rgba(255, 255, 255, 0.3);
-  color: white;
 }
 
 .dark-mode .addBtn {
   background: rgba(233, 243, 251, 0.084);
-  color: white;
 }
 
 .dark-mode .addBtn:hover {
@@ -439,23 +418,7 @@ label {
   display: block;
 }
 
-.label1 {
-  background-color: #eeecec;
-  font-family: "Open Sans";
-  font-size: 16px;
-  color: #3c3c4b9c;
-}
-
-.dark-mode .label1 {
-  background-color: #4d4d4d;
-  color: #8e908b;
-}
-
-.dark-mode .label2 {
-  background-color: #4d4d4d;
-  color: #8e908b;
-}
-
+.label1,
 .label2 {
   background-color: #eeecec;
   font-family: "Open Sans";
@@ -463,25 +426,22 @@ label {
   color: #3c3c4b9c;
 }
 
-.labeltext1 {
-  color: #3c3c4b;
-  font-family: "Open Sans";
-  font-size: 16px;
+.dark-mode .label1,
+.dark-mode .label2 {
+  background-color: #4d4d4d;
+  color: #8e908b;
 }
 
-.dark-mode .labeltext1 {
-  color: white;
-}
-
+.labeltext1,
 .labeltext2 {
   color: #3c3c4b;
   font-family: "Open Sans";
   font-size: 16px;
-  padding-top: 5%;
 }
 
-.dark-mode .labeltext2 {
-  color: white;
+
+.labeltext2 {
+  padding-top: 5%;
 }
 
 .logintitle {
@@ -492,10 +452,6 @@ label {
   font-weight: bold;
 }
 
-.dark-mode .logintitle {
-  color: white;
-}
-
 .creatAccountText {
   font-family: "Open Sans";
   font-size: 13px;
@@ -503,12 +459,7 @@ label {
   bottom: 2em;
 }
 
-.dark-mode .creatAccountText {
-  color: white;
-}
-
 .BtnConnectStyle {
-  color: white;
   text-decoration: none;
   font-family: "Open Sans";
   font-weight: bolder;
@@ -636,12 +587,6 @@ label {
   color: #6e7399;
 }
 
-.dark-mode .popupEditCloseBtn,
-.dark-mode .importancePopup .close-btn,
-.dark-mode .calendrierPopup .close-btn {
-  color: #ffffff;
-}
-
 .dark-mode .popupEditCloseBtn:hover,
 .dark-mode .importancePopup .close-btn:hover,
 .dark-mode .calendrierPopup .close-btn:hover {
@@ -697,10 +642,6 @@ label {
   box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
 }
 
-.dark-mode #modifTask {
-  color: #ffffff;
-}
-
 .dark-mode #textTaskModif {
   color: rgba(255, 255, 255, 0.856);
   background-color: rgba(95, 95, 95, 0.705);
@@ -709,32 +650,7 @@ label {
 
 .dark-mode .modifBtn {
   background-color: rgba(100, 100, 100, 0.445);
-  color: white;
 }
-
-/*Calendaire popup*/
-/* .calendrierPopup {
-  font-family: "Work Sans", sans-serif;
-  align-items: center;
-  background: #e0ecf3;
-  background: radial-gradient(circle, #fdf3ef 0%, #e0ecf3 100%);
-  width: 170px;
-  height: 170px;
-  padding: 10px;
-  box-shadow: 0px 0px 25px 1px rgba(143, 181, 202, 0.37);
-  display: none;
-  position: absolute;
-  z-index: 4;
-  border-radius: 14px;
-  margin-right: 75px;
-} */
-/* 
-.dark-mode .calendrierPopup,
-.dark-mode .importancePopup {
-  background: #464646;
-  background: radial-gradient(circle, #464646, #1f1f1f);
-  box-shadow: 0px 0px 25px 1px rgba(161, 161, 161, 0.178);
-} */
 
 .closePopUpsTasks {
   z-index: 1;
@@ -759,8 +675,26 @@ label {
 .dark-mode .StyleDateBox p,
 .dark-mode .StyleDateBox input,
 .dark-mode .importancePopup,
-.dark-mode .importancePopup p {
-  color: #ffffff;
+.dark-mode .importancePopup p,
+.dark-mode .logintitle,
+.dark-mode .creatAccountText,
+.dark-mode .labeltext2,
+.dark-mode .labeltext1,
+.BtnConnectStyle,
+.dark-mode .popupEditCloseBtn,
+.dark-mode .importancePopup .close-btn,
+.dark-mode .calendrierPopup .close-btn,
+.dark-mode #modifTask,
+.dark-mode .modifBtn,
+.dark-mode .dateBtn,
+.dark-mode .impBtn,
+.dark-mode .options-group span,
+.dark-mode h2,
+.dark-mode .headertext,
+.dark-mode input,
+.dark-mode .addBtn,
+.dark-mode .task-box {
+  color: white;
 }
 
 .StyleDateBox input {
@@ -818,10 +752,6 @@ label {
   left: 50%;
 }
 
-.dark-mode .dateBtn,
-.dark-mode .impBtn {
-  color: white;
-}
 
 /*Important btn*/
 .importancePopup p {
@@ -830,10 +760,6 @@ label {
   color: #333;
   text-align: center;
   margin-top: 9%;
-}
-
-.dark-mode .options-group span {
-  color: white;
 }
 
 .options-group {
