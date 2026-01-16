@@ -129,9 +129,10 @@
               <span>Low</span>
             </label>
           </div>
+          <br />
           <!-- dates -->
           <div class="StyleDateBox">
-            <p id="modifTask" style="margin-bottom: 10px">Date</p>
+            <p id="modifTask" style="margin-bottom: 10px">Start & End</p>
             <p>Start</p>
             <input
               type="date"
@@ -172,7 +173,7 @@
         <p style="font-weight: bold">End</p>
         <input type="date" class="endDate" id="endDate" />
 
-        <button class="dateBtn" id="dateBtn" onclick="test()">Edit</button>
+        <button class="dateBtn" id="dateBtn" onclick="editDate()">Edit</button>
       </div>
     </div>
 
@@ -196,7 +197,9 @@
           <span>Low</span>
         </label>
 
-        <button class="impBtn" id="impBtn" onclick="test()">Edit</button>
+        <button class="impBtn" id="impBtn" onclick="editPriority()">
+          Edit
+        </button>
       </div>
     </div>
     <script src="../script/script.js"></script>

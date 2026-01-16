@@ -146,7 +146,8 @@ input {
 }
 
 .header .addBtn {
-  margin-right: 240px;
+  margin-right: 230px;
+  width: 180px;
 }
 
 .addBtn,
@@ -817,14 +818,6 @@ label {
   left: 50%;
 }
 
-/* .close-btn {
-  position: absolute;
-  top: 10px;
-  left: 20px;
-  cursor: pointer;
-  color: #383d60;
-}}}} */
-
 .dark-mode .dateBtn,
 .dark-mode .impBtn {
   color: white;
@@ -857,10 +850,18 @@ label {
   cursor: pointer;
 }
 
-.importancePopup input[type="radio"] {
+input[type="radio"] {
   margin: 0;
   padding: 0;
   position: static;
+}
+
+.dark-mode input[type="radio"] {
+  accent-color: #232323;
+}
+
+input[type="radio"] {
+  accent-color: #c7e5e7;
 }
 
 .importancePopup span {
@@ -891,6 +892,16 @@ label {
   .task-box {
     max-width: 100px;
     min-width: 200px;
+  }
+  .header .addBtn {
+    margin-right: 165px;
+    width: 140px;
+  }
+
+  .sortBtn {
+    width: 110px;
+    margin-right: 45px;
+    margin-top: -37px;
   }
 }
 
