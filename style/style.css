@@ -158,8 +158,8 @@ input {
 
 .sortBtn {
   transition: all 0.5s;
-  width: 15%;
-  margin-right: 160px;
+  width: 160px;
+  margin-right: 64px;
   margin-top: -37px;
 }
 
@@ -877,6 +877,31 @@ input[type="radio"] {
 .importancePopup .close-btn,
 .calendrierPopup .close-btn {
   font-size: 20px;
+}
+
+.sortPopup {
+  position: absolute;
+  z-index: 5;
+  width: 120px;
+  height: 96px;
+  align-items: center;
+  text-align: center;
+  right: 33%;
+  margin-top: 30px;
+  border-radius: 1%;
+  padding-top: 16px;
+  background-color: red;
+}
+
+.sortPopup p {
+  padding-top: 10px;
+  margin-top: -16px;
+  background-color: rgba(197, 197, 255, 0.548);
+  margin-bottom: 16px;
+}
+
+.sortPopup p:hover {
+  background-color: blue;
 }
 
 /* Media*/
