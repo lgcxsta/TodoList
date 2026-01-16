@@ -35,19 +35,20 @@
 
       <!-- Input du todo-->
       <div id="myDIV" class="header" onclick="fermeLoginBox()">
-        <input type="text" id="myInput" placeholder="Title..." maxlength="10" />
+        <input type="text" id="myInput" placeholder="Title..." />
         <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
-        <button onclick="sort()" class="sortBtn" id="sortBtn">
-          <span>Sort</span>
-        </button>
-      </div>
+<div class="dropdown">
+  <button class="sortBtn" id="sortBtn">
+    <span>Sort</span>
+  </button>
+  <div class="dropdownContent">
+    <span class="sortP1"><p>Default</p></span>
+    <span class="sortP2"><p>Last Added</p></span>
+    <span class="sortP3"><p>Importance</p></span>
+    <span class="sortP4"><p>Date</p></span>
+  </div>
+</div>
 
-      <div class="sortPopup" style="display: none">
-        <span class="sortP1"><p>Default</p></span>
-        <span class="sortP2"><p>Last Added</p></span>
-        <span class="sortP3"><p>Importance</p></span>
-        <span class="sortP4"><p>Date</p></span>
-      </div>
 
       <!-- Liste de tâche -->
       <div class="texttache" onclick="fermeLoginBox()">
