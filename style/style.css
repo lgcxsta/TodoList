@@ -242,6 +242,21 @@ input {
   color: rgb(128, 21, 21);
 }
 
+.checked .close {
+  color: rgba(0, 0, 0, 0.164)
+}
+
+.dark-mode .checked .close {
+  color: rgba(255, 255, 255, 0.247)
+}
+
+.checked .close:hover {
+  color: rgba(0, 0, 0, 0.247)
+}
+
+.dark-mode .checked .close:hover {
+  color: rgba(255, 255, 255, 0.438)
+}
 /*Edit btn*/
 .task-box .edit {
   position: absolute;
@@ -485,7 +500,7 @@ label {
 }
 
 .BtnConnect {
-  background-color: #3c3c4bde;
+  background-color: #626283de;
   border-radius: 10px;
   height: auto;
   width: 28%;
@@ -782,15 +797,14 @@ input[type="radio"] {
   display: none;
   text-align: center;
   color: #041229;
-    background: linear-gradient(180deg, #f9f3ee, #b5e4fbb6);
+  background: linear-gradient(180deg, #f9f3ee, #b5e4fbb6);
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   background-color: #fff1eb;
   right: 85px;
-  bottom: -63px;
 }
 
 .dark-mode .dropdownContent{
-  background: #383838;
+  background: linear-gradient(180deg, #383838, #1f1e1e);
   color: rgb(255, 255, 255);
 }
 
@@ -824,7 +838,6 @@ input[type="radio"] {
 }
 
 /* Media*/
-
 @media (max-width: 500px) {
   .popupEdit {
     width: 300px;
@@ -838,7 +851,7 @@ input[type="radio"] {
   }
 
   .header .addBtn {
-    margin-right: 0;
+    margin-right: 97px;
     width: 150px;
   }
 
@@ -846,6 +859,10 @@ input[type="radio"] {
     width: 150px;
     margin-right: 0;
     margin-top: 10px;
+  }
+
+  .dropdownContent{
+    margin-right: 17px;;
   }
 
   .container {
@@ -896,7 +913,7 @@ input[type="radio"] {
   z-index: 1;
 }
 
-.zIndexBetweeenLoginTodo, 
+.zIndexBetweeenLoginTodo,
 .bkgPopUpBlur {
   z-index: 2;
 }
@@ -905,9 +922,9 @@ input[type="radio"] {
   z-index: 3;
 }
 
-.boxForm, 
-.popupEdit, 
-.calendrierPopup, 
+.boxForm,
+.popupEdit,
+.calendrierPopup,
 .importancePopup,
 .dropdownContent,
 .loginZindex {
