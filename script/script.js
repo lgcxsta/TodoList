@@ -21,6 +21,41 @@ inputEditTask.addEventListener("keypress", function (event) {
   }
 });
 
+function impLevels() {
+  let importanceLevels = 1;
+  // var highPopup = document.getElementById("highLVL_popup");
+  // var midPopup = document.getElementById("midLVL_popup");
+
+  var highEdit = document.getElementById("highLVL_edit");
+  var midEdit = document.getElementById("midLVL_edit");
+
+  // if (
+  //   window.getComputedStyle(document.getElementById("importancePopup"))
+  //     .display === "block"
+  // ) {
+  //   if (highPopup.checked) importanceLevels = 3;
+  //   else if (midPopup.checked) importanceLevels = 2;
+  //   else importanceLevels = 1;
+  // } else
+  if (
+    window.getComputedStyle(document.getElementById("popupEdit")).display ===
+    "block"
+  ) {
+    if (highEdit.checked) importanceLevels = 3;
+    else if (midEdit.checked) importanceLevels = 2;
+    else importanceLevels = 1;
+  } else importanceLevels = 1;
+
+  return importanceLevels;
+}
+
+function editPriority() {
+  const importance = impLevels();
+  updateTaskInLocalStorage(task_id, editInput.value, false, importance);
+  closeModifTask();
+  render();
+}
+
 function getTasks() {
   return JSON.parse(localStorage.getItem("TasksList")) || [];
 }
@@ -34,22 +69,34 @@ function setTasks(tasks) {
 function saveTasksToLocalStorage(task) {
   let tasks = getTasks();
   let id = tasks.length > 0 ? tasks.toReversed()[0].id + 1 : 1;
-  tasks.push({ id: id, text: task, checked: false }); // Ajoute la tâche comme non cochée
+  tasks.push({ id: id, text: task, checked: false, importance: 1 });
   setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
 }
 
 function updateTask() {
-  updateTaskInLocalStorage(task_id, editInput.value, false);
+  const importance = impLevels();
+  updateTaskInLocalStorage(task_id, editInput.value, false, importance);
   closeModifTask();
+  render();
 }
 
 // Fonction pour mettre à jour une tâche dans le localStorage
-function updateTaskInLocalStorage(task_id, updatedTask, checkedStatus = true) {
+function updateTaskInLocalStorage(
+  task_id,
+  updatedTask,
+  checkedStatus,
+  importanceStatus,
+) {
   let tasks = getTasks();
   tasks = tasks.map((task) =>
     task.id == task_id
-      ? { id: task_id, text: updatedTask, checked: checkedStatus }
-      : task
+      ? {
+          id: task_id,
+          text: updatedTask,
+          checked: checkedStatus,
+          importance: importanceStatus,
+        }
+      : task,
   );
   setTasks(tasks);
   // Sauvegarder la nouvelle liste mise à jour
@@ -118,25 +165,25 @@ function render() {
     taskText.className = "task-text";
     taskText.textContent = task.text;
 
-    //   Btn  Calendario -> "\u{1F4C6}\uFE0E"
-    const dateBtn = document.createElement("span");
-    dateBtn.className = "date";
-    dateBtn.textContent = "\u{1F4C6}\uFE0E";
-    dateBtn.onclick = function () {
-      document.getElementById("calendrierPopup").style.display = "block";
-      document.getElementById("closePopUpsTasks").style.display = "block";
-      document.getElementById("bkgPopUpBlur").style.display = "block";
-    };
+    // //   Btn  Calendario -> "\u{1F4C6}\uFE0E"
+    // const dateBtn = document.createElement("span");
+    // dateBtn.className = "date";
+    // dateBtn.textContent = "\u{1F4C6}\uFE0E";
+    // dateBtn.onclick = function () {
+    //   document.getElementById("calendrierPopup").style.display = "block";
+    //   document.getElementById("closePopUpsTasks").style.display = "block";
+    //   document.getElementById("bkgPopUpBlur").style.display = "block";
+    // };
 
-    // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
-    const importanceBtn = document.createElement("span");
-    importanceBtn.className = "importance";
-    importanceBtn.textContent = "\u{26A0}\uFE0E";
-    importanceBtn.onclick = function () {
-      document.getElementById("closePopUpsTasks").style.display = "block";
-      document.getElementById("importancePopup").style.display = "block";
-      document.getElementById("bkgPopUpBlur").style.display = "block";
-    };
+    // // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
+    // const importanceBtn = document.createElement("span");
+    // importanceBtn.className = "importance";
+    // importanceBtn.textContent = "\u{26A0}\uFE0E";
+    // importanceBtn.onclick = function () {
+    //   document.getElementById("closePopUpsTasks").style.display = "block";
+    //   document.getElementById("importancePopup").style.display = "block";
+    //   document.getElementById("bkgPopUpBlur").style.display = "block";
+    // };
 
     // Btn Edit
     const editBtn = document.createElement("span");
@@ -148,6 +195,10 @@ function render() {
       document.getElementById("closePopUpsTasks").style.display = "block";
       editInput.value = task.text;
       task_id = task.id;
+
+      document.getElementById("highLVL_edit").checked = task.importance === 3;
+      document.getElementById("midLVL_edit").checked = task.importance === 2;
+      document.getElementById("lowLVL_edit").checked = task.importance === 1;
     };
 
     // Btn Remove
@@ -160,28 +211,57 @@ function render() {
     };
 
     editBtn.style.display = task.checked ? "none" : "inline-block";
-    importanceBtn.style.display = task.checked ? "none" : "inline-block";
-    dateBtn.style.display = task.checked ? "none" : "inline-block";
+    // importanceBtn.style.display = task.checked ? "none" : "inline-block";
+    // dateBtn.style.display = task.checked ? "none" : "inline-block";
 
     // Task complete (Marquer comme terminé)
     taskBox.onclick = function (e) {
       if (e.target === taskText) {
         taskBox.classList.toggle("checked");
         task.checked = taskBox.classList.contains("checked"); // Met à jour l'état de la tâche
-        updateTaskInLocalStorage(task.id, task.text, task.checked); // Sauvegarde le nouvel état
+        updateTaskInLocalStorage(
+          task.id,
+          task.text,
+          task.checked,
+          task.importance,
+        ); // Sauvegarde le nouvel état
       }
     };
 
     // Ajouter les éléments à la boîte
     taskBox.appendChild(taskText);
-    taskBox.appendChild(importanceBtn);
-    taskBox.appendChild(dateBtn);
+    // taskBox.appendChild(importanceBtn);
+    // taskBox.appendChild(dateBtn);
     taskBox.appendChild(editBtn);
     taskBox.appendChild(closeBtn);
 
     // Ajouter la boîte dans le conteneur
     document.getElementById("AddTâche").appendChild(taskBox);
   });
+
+  // function sortTasks(sort_Task) {
+  //   let tasks = getTasks();
+
+  //   switch (sort_Task) {
+  //     case 'lastAdded':
+  //       tasks.sort((a, b) => b.id - a.id); // Sort by Last Added (descending order)
+  //       break;
+  //     default:
+  //       tasks.sort((a, b) => a.id - b.id); // Sort by Last Added (descending order)
+  //       break;
+
+  //   document.getElementById('sortBtn').addEventListener('click', function () {
+  //   const dropdownContent = document.querySelector('.dropdownContent');
+  //   dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+  //   });
+
+  // document.querySelector('.sortP1').addEventListener('click', function () {
+  //   sortTasks('default');
+  // });
+
+  // document.querySelector('.sortP2').addEventListener('click', function () {
+  //   sortTasks('lastAdded');
+  // });}
 }
 
 // Hide/show = le login
@@ -222,60 +302,3 @@ function closePopUpsTasks() {
   document.getElementById("bkgPopUpBlur").style.display = "none";
   document.getElementById("popupEdit").style.display = "none";
 }
-
-
-// Function to sort the tasks based on the selected criteria
-// function sortTasks(criteria) {
-//   let tasks = getTasks();
-  
-//   switch (criteria) {
-//     case 'lastAdded':
-//       tasks.sort((a, b) => b.id - a.id); // Sort by Last Added (descending order)
-//       break;
-      
-//     case 'importance':
-//       tasks.sort((a, b) => {
-//         const importanceLevels = { 'High': 3, 'Mid': 2, 'Low': 1 };
-//         return importanceLevels[b.importance] - importanceLevels[a.importance];
-//       });
-//       break;
-      
-//     case 'date':
-//       tasks.sort((a, b) => {
-//         const startDateA = new Date(a.startDate);
-//         const startDateB = new Date(b.startDate);
-//         return startDateA - startDateB; // Sort by Start Date (ascending)
-//       });
-//       break;
-      
-//     default: 
-//       // Default (no sorting, or sorted by task ID)
-//       tasks.sort((a, b) => a.id - b.id);
-//   }
-  
-//   setTasks(tasks); // Update the tasks in localStorage
-//   render(); // Re-render the tasks after sorting
-// }
-
-// // Event listener for the Sort button
-// document.getElementById('sortBtn').addEventListener('click', function () {
-//   const dropdownContent = document.querySelector('.dropdownContent');
-//   dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-// });
-
-// // Event listeners for sorting options
-// document.querySelector('.sortP1').addEventListener('click', function () {
-//   sortTasks('default');
-// });
-
-// document.querySelector('.sortP2').addEventListener('click', function () {
-//   sortTasks('lastAdded');
-// });
-
-// document.querySelector('.sortP3').addEventListener('click', function () {
-//   sortTasks('importance');
-// });
-
-// document.querySelector('.sortP4').addEventListener('click', function () {
-//   sortTasks('date');
-// });

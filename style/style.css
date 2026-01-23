@@ -503,7 +503,7 @@ label {
 }
 
 .BtnConnect {
-  background-color: #9dbbc944;
+  background-color: #475364;
   border-radius: 10px;
   height: auto;
   width: 28%;
@@ -583,7 +583,7 @@ label {
 .popupEdit {
   align-items: center;
   background: #c4e9ff;
-  height: 550px;
+  height: 500px;
   padding: 10px;
   display: none;
   bottom: 200px;
@@ -600,8 +600,7 @@ label {
   display: none;
 }
 
-.popupEditCloseBtn,
-.importancePopup .close-btn,
+.importancePopup, .popupEditCloseBtn, .close-btn,
 .calendrierPopup .close-btn {
   position: absolute;
   color: #383d60;
