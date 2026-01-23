@@ -26,8 +26,9 @@ function impLevels() {
   // var highPopup = document.getElementById("highLVL_popup");
   // var midPopup = document.getElementById("midLVL_popup");
 
-  var highEdit = document.getElementById("highLVL_edit");
-  var midEdit = document.getElementById("midLVL_edit");
+  var highEdit = document.getElementById("highLVL");
+  var midEdit = document.getElementById("midLVLt");
+  var lowEdit = document.getElementById("lowLVL");
 
   // if (
   //   window.getComputedStyle(document.getElementById("importancePopup"))
@@ -43,6 +44,7 @@ function impLevels() {
   ) {
     if (highEdit.checked) importanceLevels = 3;
     else if (midEdit.checked) importanceLevels = 2;
+    else if (lowEdit.checked) importanceLevels = 1;
     else importanceLevels = 1;
   } else importanceLevels = 1;
 
@@ -196,9 +198,9 @@ function render() {
       editInput.value = task.text;
       task_id = task.id;
 
-      document.getElementById("highLVL_edit").checked = task.importance === 3;
-      document.getElementById("midLVL_edit").checked = task.importance === 2;
-      document.getElementById("lowLVL_edit").checked = task.importance === 1;
+      document.getElementById("highLVL").checked = task.importance === 3;
+      document.getElementById("midLVL").checked = task.importance === 2;
+      document.getElementById("lowLVL").checked = task.importance === 1;
     };
 
     // Btn Remove
@@ -239,29 +241,57 @@ function render() {
     document.getElementById("AddTâche").appendChild(taskBox);
   });
 
-  // function sortTasks(sort_Task) {
-  //   let tasks = getTasks();
+  function sortTasks(criteria) {
+    let tasks = getTasks();
 
-  //   switch (sort_Task) {
-  //     case 'lastAdded':
-  //       tasks.sort((a, b) => b.id - a.id); // Sort by Last Added (descending order)
-  //       break;
-  //     default:
-  //       tasks.sort((a, b) => a.id - b.id); // Sort by Last Added (descending order)
-  //       break;
+    switch (criteria) {
+      case "lastAdded":
+        tasks.sort((a, b) => b.id - a.id); // Sort by Last Added (descending order)
+        break;
 
-  //   document.getElementById('sortBtn').addEventListener('click', function () {
-  //   const dropdownContent = document.querySelector('.dropdownContent');
-  //   dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-  //   });
+      case "importance":
+        tasks.sort((a, b) => b.importance - a.importance);
+        break;
 
-  // document.querySelector('.sortP1').addEventListener('click', function () {
-  //   sortTasks('default');
-  // });
+      // case "date":
+      //   tasks.sort((a, b) => {
+      //     const startDateA = new Date(a.startDate);
+      //     const startDateB = new Date(b.startDate);
+      //     return startDateA - startDateB; // Sort by Start Date (ascending)
+      //   });
+      //   break;
 
-  // document.querySelector('.sortP2').addEventListener('click', function () {
-  //   sortTasks('lastAdded');
-  // });}
+      default:
+        // Default (no sorting, or sorted by task ID)
+        tasks.sort((a, b) => a.id - b.id);
+    }
+
+    setTasks(tasks); // Update the tasks in localStorage
+  }
+
+  // Event listener for the Sort button
+  document.getElementById("sortBtn").addEventListener("click", function () {
+    const dropdownContent = document.querySelector(".dropdownContent");
+    dropdownContent.style.display =
+      dropdownContent.style.display === "block" ? "none" : "block";
+  });
+
+  // Event listeners for sorting options
+  document.querySelector(".sortP1").addEventListener("click", function () {
+    sortTasks("default");
+  });
+
+  document.querySelector(".sortP2").addEventListener("click", function () {
+    sortTasks("lastAdded");
+  });
+
+  document.querySelector(".sortP3").addEventListener("click", function () {
+    sortTasks("importance");
+  });
+
+  document.querySelector(".sortP4").addEventListener("click", function () {
+    sortTasks("date");
+  });
 }
 
 // Hide/show = le login
