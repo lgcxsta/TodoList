@@ -55,11 +55,15 @@ ul {
   white-space: nowrap;
   margin: 0 auto;
   letter-spacing: 0.1em;
-  animation: typing 3s steps(10, end), blink-caret 0.75s step-end infinite;
+  animation:
+    typing 3s steps(10, end),
+    blink-caret 0.75s step-end infinite;
 }
 
 .dark-mode .typewrite h2 {
-  animation: typing 3s steps(10, end), blink-caret-dark 0.75s step-end infinite;
+  animation:
+    typing 3s steps(10, end),
+    blink-caret-dark 0.75s step-end infinite;
 }
 
 /* The typing effect */
@@ -243,19 +247,19 @@ input {
 }
 
 .checked .close {
-  color: rgba(0, 0, 0, 0.164)
+  color: rgba(0, 0, 0, 0.164);
 }
 
 .dark-mode .checked .close {
-  color: rgba(255, 255, 255, 0.247)
+  color: rgba(255, 255, 255, 0.247);
 }
 
 .checked .close:hover {
-  color: rgba(0, 0, 0, 0.247)
+  color: rgba(0, 0, 0, 0.247);
 }
 
 .dark-mode .checked .close:hover {
-  color: rgba(255, 255, 255, 0.438)
+  color: rgba(255, 255, 255, 0.438);
 }
 /*Edit btn*/
 .task-box .edit {
@@ -468,8 +472,7 @@ label {
 .dark-mode .labeltext1,
 .dark-mode .labeltext2,
 .dark-mode .logintitle,
-.dark-mode .creatAccountText,
-.BtnConnectStyle {
+.dark-mode .creatAccountText {
   color: white;
 }
 
@@ -500,7 +503,7 @@ label {
 }
 
 .BtnConnect {
-  background-color: #626283de;
+  background-color: #9dbbc944;
   border-radius: 10px;
   height: auto;
   width: 28%;
@@ -509,10 +512,19 @@ label {
   margin-top: -20px;
   position: relative;
   left: 35%;
+  color: rgb(255, 255, 255);
+}
+
+.BtnConnect:hover {
+  background-color: #9dbbc975;
 }
 
 .dark-mode .BtnConnect {
   background-color: #848484bd;
+}
+
+.dark-mode .BtnConnect:hover {
+  background-color: #848484da;
 }
 
 .boxForm {
@@ -639,8 +651,7 @@ label {
 .dark-mode .popupEdit,
 .dark-mode .calendrierPopup,
 .dark-mode .importancePopup,
-.dark-mode .boxForm
-{
+.dark-mode .boxForm {
   background: #000000;
   background: linear-gradient(180deg, #464646, #000000);
   box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
@@ -659,7 +670,6 @@ label {
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   background-color: #fff1eb;
 }
-
 
 .dark-mode #textTaskModif {
   color: rgba(255, 255, 255, 0.856);
@@ -793,7 +803,7 @@ input[type="radio"] {
   position: absolute;
   min-width: 130px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  padding: 0px 0px;;
+  padding: 0px 0px;
   display: none;
   text-align: center;
   color: #041229;
@@ -801,9 +811,10 @@ input[type="radio"] {
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   background-color: #fff1eb;
   right: 85px;
+  font-family: "Work Sans", serif;
 }
 
-.dark-mode .dropdownContent{
+.dark-mode .dropdownContent {
   background: linear-gradient(180deg, #383838, #1f1e1e);
   color: rgb(255, 255, 255);
 }
@@ -826,7 +837,7 @@ input[type="radio"] {
 .dark-mode .sortP4:hover {
   background-color: #0505053b;
   padding: 1px 0px;
-  color: rgb(180, 180, 180)
+  color: rgb(180, 180, 180);
 }
 .sortP1:hover,
 .sortP2:hover,
@@ -861,8 +872,8 @@ input[type="radio"] {
     margin-top: 10px;
   }
 
-  .dropdownContent{
-    margin-right: 17px;;
+  .dropdownContent {
+    margin-right: 17px;
   }
 
   .container {

@@ -222,3 +222,60 @@ function closePopUpsTasks() {
   document.getElementById("bkgPopUpBlur").style.display = "none";
   document.getElementById("popupEdit").style.display = "none";
 }
+
+
+// Function to sort the tasks based on the selected criteria
+// function sortTasks(criteria) {
+//   let tasks = getTasks();
+  
+//   switch (criteria) {
+//     case 'lastAdded':
+//       tasks.sort((a, b) => b.id - a.id); // Sort by Last Added (descending order)
+//       break;
+      
+//     case 'importance':
+//       tasks.sort((a, b) => {
+//         const importanceLevels = { 'High': 3, 'Mid': 2, 'Low': 1 };
+//         return importanceLevels[b.importance] - importanceLevels[a.importance];
+//       });
+//       break;
+      
+//     case 'date':
+//       tasks.sort((a, b) => {
+//         const startDateA = new Date(a.startDate);
+//         const startDateB = new Date(b.startDate);
+//         return startDateA - startDateB; // Sort by Start Date (ascending)
+//       });
+//       break;
+      
+//     default: 
+//       // Default (no sorting, or sorted by task ID)
+//       tasks.sort((a, b) => a.id - b.id);
+//   }
+  
+//   setTasks(tasks); // Update the tasks in localStorage
+//   render(); // Re-render the tasks after sorting
+// }
+
+// // Event listener for the Sort button
+// document.getElementById('sortBtn').addEventListener('click', function () {
+//   const dropdownContent = document.querySelector('.dropdownContent');
+//   dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+// });
+
+// // Event listeners for sorting options
+// document.querySelector('.sortP1').addEventListener('click', function () {
+//   sortTasks('default');
+// });
+
+// document.querySelector('.sortP2').addEventListener('click', function () {
+//   sortTasks('lastAdded');
+// });
+
+// document.querySelector('.sortP3').addEventListener('click', function () {
+//   sortTasks('importance');
+// });
+
+// document.querySelector('.sortP4').addEventListener('click', function () {
+//   sortTasks('date');
+// });
