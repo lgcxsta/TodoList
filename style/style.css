@@ -554,7 +554,7 @@ label {
   display: none;
 }
 
-.popupEditCloseBtn{
+.popupEditCloseBtn {
   position: absolute;
   color: #383d60;
   font-weight: 900;
@@ -567,12 +567,11 @@ label {
   color: #6e7399;
 }
 
-.dark-mode .popupEditCloseBtn:hover{
+.dark-mode .popupEditCloseBtn:hover {
   color: #aaaaaa;
 }
 
-#modifTask,
-.importancePopup p {
+#modifTask {
   color: #383d60;
   font-size: 20px;
   display: flex;
@@ -603,7 +602,7 @@ label {
   box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
 }
 
-.popupEdit{
+.popupEdit {
   background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   background-color: #fff1eb;
@@ -636,7 +635,7 @@ label {
 .dark-mode .StyleDateBox p,
 .dark-mode .StyleDateBox input,
 .dark-mode #modifTask,
-.dark-mode .popupEditCloseBtn{
+.dark-mode .popupEditCloseBtn {
   color: #ffffff;
 }
 

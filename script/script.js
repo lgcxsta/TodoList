@@ -158,26 +158,6 @@ function render() {
     taskText.className = "task-text";
     taskText.textContent = task.text;
 
-    // //   Btn  Calendario -> "\u{1F4C6}\uFE0E"
-    // const dateBtn = document.createElement("span");
-    // dateBtn.className = "date";
-    // dateBtn.textContent = "\u{1F4C6}\uFE0E";
-    // dateBtn.onclick = function () {
-    //   document.getElementById("calendrierPopup").style.display = "block";
-    //   document.getElementById("closePopUpsTasks").style.display = "block";
-    //   document.getElementById("bkgPopUpBlur").style.display = "block";
-    // };
-
-    // // Btn imporance -> "\u{26A0}\uFE0E"; "\u{2757}\uFE0E"; "\u{203C}\uFE0E"
-    // const importanceBtn = document.createElement("span");
-    // importanceBtn.className = "importance";
-    // importanceBtn.textContent = "\u{26A0}\uFE0E";
-    // importanceBtn.onclick = function () {
-    //   document.getElementById("closePopUpsTasks").style.display = "block";
-    //   document.getElementById("importancePopup").style.display = "block";
-    //   document.getElementById("bkgPopUpBlur").style.display = "block";
-    // };
-
     // Btn Edit
     const editBtn = document.createElement("span");
     editBtn.className = "edit";
@@ -204,8 +184,6 @@ function render() {
     };
 
     editBtn.style.display = task.checked ? "none" : "inline-block";
-    // importanceBtn.style.display = task.checked ? "none" : "inline-block";
-    // dateBtn.style.display = task.checked ? "none" : "inline-block";
 
     // Task complete (Marquer comme terminé)
     taskBox.onclick = function (e) {
