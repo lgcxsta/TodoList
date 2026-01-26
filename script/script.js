@@ -23,30 +23,21 @@ inputEditTask.addEventListener("keypress", function (event) {
 
 function impLevels() {
   let importanceLevels = 1;
-  // var highPopup = document.getElementById("highLVL_popup");
-  // var midPopup = document.getElementById("midLVL_popup");
+
 
   var highEdit = document.getElementById("highLVL");
-  var midEdit = document.getElementById("midLVLt");
+  var midEdit = document.getElementById("midLVL");
   var lowEdit = document.getElementById("lowLVL");
 
-  // if (
-  //   window.getComputedStyle(document.getElementById("importancePopup"))
-  //     .display === "block"
-  // ) {
-  //   if (highPopup.checked) importanceLevels = 3;
-  //   else if (midPopup.checked) importanceLevels = 2;
-  //   else importanceLevels = 1;
-  // } else
   if (
     window.getComputedStyle(document.getElementById("popupEdit")).display ===
     "block"
   ) {
-    if (highEdit.checked) importanceLevels = 3;
-    else if (midEdit.checked) importanceLevels = 2;
-    else if (lowEdit.checked) importanceLevels = 1;
-    else importanceLevels = 1;
-  } else importanceLevels = 1;
+    if (highEdit.checked) {importanceLevels = 3}
+    else if (midEdit.checked) {importanceLevels = 2}
+    else if (lowEdit.checked) {importanceLevels = 1}
+    else {importanceLevels = 1}
+  } else {importanceLevels = 1}
 
   return importanceLevels;
 }
@@ -246,11 +237,15 @@ function render() {
 
     switch (criteria) {
       case "lastAdded":
-        tasks.sort((a, b) => b.id - a.id); // Sort by Last Added (descending order)
+        tasks.sort((a, b) => b.id - a.id); // Organise les task ( dernier -> premier) (id d'une task - id d'une autre = x)
+        // x negatif = plus bas. x positif = plus haut
+        // Task 5 (id 5) ;;; Task 4 (id 4) ;; 5-4= 1 ; 4-5 = -1 ==== task 5 plus en haut, task 4 plus en bas
         break;
 
       case "importance":
-        tasks.sort((a, b) => b.importance - a.importance);
+        tasks.sort((a, b) => b.importance - a.importance); // Organise les task ( high -> mid -> low) (importance atsk (3,2 ou 1) - importance autre task)
+        // high=3; mid=2; low=1
+        // Task 1(imp = 3), task 2 (imp = 2)  ;; 3-2 = 1; 2-3= -1 ==== task 1 plus haut que task 2
         break;
 
       // case "date":
@@ -321,14 +316,10 @@ function fermeLoginBox() {
 function closeModifTask() {
   document.getElementById("popupEdit").style.display = "none";
   document.getElementById("bkgPopUpBlur").style.display = "none";
-  document.getElementById("importancePopup").style.display = "none";
-  document.getElementById("calendrierPopup").style.display = "none";
 }
 
 function closePopUpsTasks() {
-  document.getElementById("calendrierPopup").style.display = "none";
   document.getElementById("closePopUpsTasks").style.display = "none";
-  document.getElementById("importancePopup").style.display = "none";
   document.getElementById("bkgPopUpBlur").style.display = "none";
   document.getElementById("popupEdit").style.display = "none";
 }
