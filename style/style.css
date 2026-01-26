@@ -10,7 +10,6 @@ body {
 }
 
 #modifTask,
-.importancePopup p,
 #textTaskModif,
 body {
   justify-content: center;
@@ -18,9 +17,7 @@ body {
 }
 
 .container,
-.header,
-.calendrierPopup,
-.importancePopup {
+.header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,8 +125,6 @@ input {
 
 /*Btn add*/
 .addBtn,
-.impBtn,
-.dateBtn,
 .sortBtn,
 .modifBtn {
   padding: 10px;
@@ -153,8 +148,6 @@ input {
 }
 
 .addBtn,
-.impBtn,
-.dateBtn,
 .modifBtn {
   width: 25%;
 }
@@ -195,8 +188,6 @@ input {
 }
 
 .addBtn:hover,
-.modifBtn:hover .impBtn:hover,
-.dateBtn:hover,
 .modifBtn:hover {
   background-color: #acc2cc62;
 }
@@ -269,48 +260,11 @@ input {
   font-size: 17px;
 }
 
-/*Date*/
-.task-box .date {
-  position: absolute;
-  top: 10px;
-  right: 55px;
-  font-size: 15px;
-  color: rgb(0, 0, 0);
-}
-
-/*Importance*/
-.task-box .importance {
-  position: absolute;
-  top: 10px;
-  right: 79px;
-  font-size: 16px;
-  color: rgb(0, 0, 0);
-}
-
-.checked .importance,
-.checked .date {
-  color: rgba(49, 49, 49, 0.39);
-}
-
-.dark-mode .checked .importance,
-.dark-mode .checked .date {
-  color: rgba(206, 206, 206, 0.39);
-}
-
 /*Btn gen.*/
-.importance:hover,
-.date:hover,
 .edit:hover {
   color: rgb(95, 95, 95);
 }
 
-.dark-mode .importance,
-.dark-mode .date {
-  color: white;
-}
-
-.dark-mode .date:hover,
-.dark-mode .importance:hover,
 .dark-mode .edit:hover {
   color: rgb(160, 160, 160);
 }
@@ -600,8 +554,7 @@ label {
   display: none;
 }
 
-.importancePopup, .popupEditCloseBtn, .close-btn,
-.calendrierPopup .close-btn {
+.popupEditCloseBtn{
   position: absolute;
   color: #383d60;
   font-weight: 900;
@@ -610,15 +563,11 @@ label {
   cursor: pointer;
 }
 
-.popupEditCloseBtn:hover,
-.importancePopup .close-btn:hover,
-.calendrierPopup .close-btn:hover {
+.popupEditCloseBtn:hover {
   color: #6e7399;
 }
 
-.dark-mode .popupEditCloseBtn:hover,
-.dark-mode .importancePopup .close-btn:hover,
-.dark-mode .calendrierPopup .close-btn:hover {
+.dark-mode .popupEditCloseBtn:hover{
   color: #aaaaaa;
 }
 
@@ -648,17 +597,13 @@ label {
 }
 
 .dark-mode .popupEdit,
-.dark-mode .calendrierPopup,
-.dark-mode .importancePopup,
 .dark-mode .boxForm {
   background: #000000;
   background: linear-gradient(180deg, #464646, #000000);
   box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
 }
 
-.importancePopup,
-.popupEdit,
-.calendrierPopup {
+.popupEdit{
   background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   background-color: #fff1eb;
@@ -690,12 +635,8 @@ label {
 
 .dark-mode .StyleDateBox p,
 .dark-mode .StyleDateBox input,
-.dark-mode .importancePopup,
-.dark-mode .importancePopup p,
 .dark-mode #modifTask,
-.dark-mode .popupEditCloseBtn,
-.dark-mode .importancePopup .close-btn,
-.dark-mode .calendrierPopup .close-btn {
+.dark-mode .popupEditCloseBtn{
   color: #ffffff;
 }
 
@@ -711,25 +652,7 @@ label {
   background-color: #8f8f8f70;
 }
 
-.calendrierPopup {
-  height: 230px;
-  padding: 15px;
-}
-
-.dateBtn {
-  position: absolute;
-  margin-left: 130px;
-  margin-top: 10px;
-}
-
-.importancePopup {
-  height: 150px;
-  padding: 15px;
-}
-
-.importancePopup,
-.popupEdit,
-.calendrierPopup {
+.popupEdit {
   font-family: "Work Sans", sans-serif;
   width: 350px;
   border-radius: 34px;
@@ -739,19 +662,8 @@ label {
   transform: translate(-50%, -50%);
 }
 
-.dark-mode .dateBtn,
-.dark-mode .impBtn,
 .dark-mode .options-group span {
   color: white;
-}
-
-/*Important btn*/
-.importancePopup p {
-  font-weight: bold;
-  margin: 5px 0 15px 0;
-  color: #333;
-  text-align: center;
-  margin-top: 9%;
 }
 
 .options-group {
@@ -759,12 +671,6 @@ label {
   flex-direction: row;
   justify-content: space-around;
   width: 100%;
-}
-
-.importancePopup label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
 input[type="radio"] {
@@ -779,22 +685,6 @@ input[type="radio"] {
 
 input[type="radio"] {
   accent-color: #c7e5e7;
-}
-
-.importancePopup span {
-  position: static;
-  font-size: 15px;
-}
-
-.impBtn {
-  position: absolute;
-  margin-top: 40px;
-  margin-right: 0;
-}
-
-.importancePopup .close-btn,
-.calendrierPopup .close-btn {
-  font-size: 20px;
 }
 
 /* DROPDOWN */
@@ -887,20 +777,14 @@ input[type="radio"] {
 }
 
 .addBtn,
-.impBtn,
-.dateBtn,
 .modifBtn,
 .sortBtn,
 .BotãoDark,
 .popupEditCloseBtn,
-.importancePopup .close-btn,
-.importancePopup label,
-.calendrierPopup .close-btn,
 .sortBtn span,
 .task-box .close,
 .task-box .edit,
-.task-box .date,
-.task-box .importance {
+.task-box .date {
   cursor: pointer;
 }
 
@@ -934,8 +818,6 @@ input[type="radio"] {
 
 .boxForm,
 .popupEdit,
-.calendrierPopup,
-.importancePopup,
 .dropdownContent,
 .loginZindex {
   z-index: 4;
