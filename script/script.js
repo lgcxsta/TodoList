@@ -21,10 +21,9 @@ inputEditTask.addEventListener("keypress", function (event) {
   }
 });
 
+// Fonction importance
 function impLevels() {
   let importanceLevels = 1;
-
-
   var highEdit = document.getElementById("highLVL");
   var midEdit = document.getElementById("midLVL");
   var lowEdit = document.getElementById("lowLVL");
@@ -33,32 +32,41 @@ function impLevels() {
     window.getComputedStyle(document.getElementById("popupEdit")).display ===
     "block"
   ) {
-    if (highEdit.checked) {importanceLevels = 3}
-    else if (midEdit.checked) {importanceLevels = 2}
-    else if (lowEdit.checked) {importanceLevels = 1}
-    else {importanceLevels = 1}
-  } else {importanceLevels = 1}
+    if (highEdit.checked) {
+      importanceLevels = 3;
+    } else if (midEdit.checked) {
+      importanceLevels = 2;
+    } else if (lowEdit.checked) {
+      importanceLevels = 1;
+    } else {
+      importanceLevels = 1;
+    }
+  } else {
+    importanceLevels = 1;
+  }
 
   return importanceLevels;
 }
 
+//Update importance + texte tâche dans le localStorage
 function editPriority() {
-  const importance = impLevels();
   updateTaskInLocalStorage(task_id, editInput.value, false, importance);
-  closeModifTask();
-  render();
+  closeModifTask(); //ferme le popup
+  render(); // réaffiche la liste des tâches
 }
 
+//Recupere les tâches
 function getTasks() {
   return JSON.parse(localStorage.getItem("TasksList")) || [];
 }
 
+// Sauvegarde les tâches
 function setTasks(tasks) {
   localStorage.setItem("TasksList", JSON.stringify(tasks));
   render();
 }
 
-// Fonction pour sauvegarder une tâche dans le localStorage
+// Ajoute une tâche + crée un id + tâche (objet) + ajout au local storage
 function saveTasksToLocalStorage(task) {
   let tasks = getTasks();
   let id = tasks.length > 0 ? tasks.toReversed()[0].id + 1 : 1;
@@ -66,6 +74,7 @@ function saveTasksToLocalStorage(task) {
   setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
 }
 
+// Update quand uune tâche est éditer
 function updateTask() {
   const importance = impLevels();
   updateTaskInLocalStorage(task_id, editInput.value, false, importance);
@@ -74,6 +83,7 @@ function updateTask() {
 }
 
 // Fonction pour mettre à jour une tâche dans le localStorage
+// Modifie/mets a jour une tâche
 function updateTaskInLocalStorage(
   task_id,
   updatedTask,
@@ -102,10 +112,10 @@ function deleteTaskFromLocalStorage(task_id) {
   setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
 }
 
+//Ajoute une nouv. tâche
 function addTask() {
   const input = document.getElementById("myInput");
   const inputValue = input.value.trim();
-
   if (inputValue === "") {
     alert("Vous devez écrire quelque chose!");
     return;
@@ -117,6 +127,7 @@ function addTask() {
   input.value = "";
 }
 
+//Code executer seulement aprés que la page est totalement charger
 document.addEventListener("DOMContentLoaded", function () {
   const savedTheme = localStorage.getItem("theme");
   const toggle = document.getElementById("darkToggle");
@@ -135,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const editInput = document.getElementById("textTaskModif");
 let task_id = "";
 
+// affiche les tâches + crée le conteuneur avec les spans
 function render() {
   var container = document.getElementById("AddTâche");
   container.innerHTML = "";
@@ -201,8 +213,6 @@ function render() {
 
     // Ajouter les éléments à la boîte
     taskBox.appendChild(taskText);
-    // taskBox.appendChild(importanceBtn);
-    // taskBox.appendChild(dateBtn);
     taskBox.appendChild(editBtn);
     taskBox.appendChild(closeBtn);
 
@@ -215,13 +225,15 @@ function render() {
 
     switch (criteria) {
       case "lastAdded":
-        tasks.sort((a, b) => b.id - a.id); // Organise les task ( dernier -> premier) (id d'une task - id d'une autre = x)
+        tasks.sort((a, b) => b.id - a.id);
+        // Organise les task ( dernier -> premier) (id d'une task - id d'une autre = x)
         // x negatif = plus bas. x positif = plus haut
         // Task 5 (id 5) ;;; Task 4 (id 4) ;; 5-4= 1 ; 4-5 = -1 ==== task 5 plus en haut, task 4 plus en bas
         break;
 
       case "importance":
-        tasks.sort((a, b) => b.importance - a.importance); // Organise les task ( high -> mid -> low) (importance atsk (3,2 ou 1) - importance autre task)
+        tasks.sort((a, b) => b.importance - a.importance);
+        // Organise les task ( high -> mid -> low) (importance atsk (3,2 ou 1) - importance autre task)
         // high=3; mid=2; low=1
         // Task 1(imp = 3), task 2 (imp = 2)  ;; 3-2 = 1; 2-3= -1 ==== task 1 plus haut que task 2
         break;
@@ -242,13 +254,6 @@ function render() {
     setTasks(tasks); // Update the tasks in localStorage
   }
 
-  // Event listener for the Sort button
-  document.getElementById("sortBtn").addEventListener("click", function () {
-    const dropdownContent = document.querySelector(".dropdownContent");
-    dropdownContent.style.display =
-      dropdownContent.style.display === "block" ? "none" : "block";
-  });
-
   // Event listeners for sorting options
   document.querySelector(".sortP1").addEventListener("click", function () {
     sortTasks("default");
@@ -267,6 +272,14 @@ function render() {
   });
 }
 
+// Event listener pour le btn d'organiser des tâches
+document.getElementById("sortBtn").addEventListener("click", function () {
+  const dropdownContent = document.querySelector(".dropdownContent");
+  dropdownContent.style.display =
+    dropdownContent.style.display === "block" ? "none" : "block";
+});
+
+// Fonction pour les popup (display block/none)
 // Hide/show = le login
 function hideShow() {
   document.getElementById("loginBtn").style.visibility = "hidden";
@@ -298,6 +311,15 @@ function closeModifTask() {
 
 function closePopUpsTasks() {
   document.getElementById("closePopUpsTasks").style.display = "none";
-  document.getElementById("bkgPopUpBlur").style.display = "none";
   document.getElementById("popupEdit").style.display = "none";
+}
+
+function dropdownVisualisation() {
+  document.getElementById("dropdown").style.display = "block";
+  document.getElementById("belowDropdown").style.display = "block";
+}
+
+function closeDropdown() {
+  document.getElementById("belowDropdown").style.display = "none";
+  document.getElementById("dropdownContent").style.display = "none";
 }

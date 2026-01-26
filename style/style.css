@@ -808,16 +808,15 @@ input[type="radio"] {
 
 .zIndexBetweeenLoginTodo,
 .bkgPopUpBlur {
-  z-index: 2;
+  z-index: 3;
 }
 
-.sortPopup {
-  z-index: 3;
+.dropdown {
+  z-index: 400;
 }
 
 .boxForm,
 .popupEdit,
-.dropdownContent,
 .loginZindex {
   z-index: 4;
 }
@@ -825,3 +824,16 @@ input[type="radio"] {
 .ButtonDark {
   z-index: 5;
 }
+
+.belowDropdown {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  right: 0;
+  display: none;
+  z-index: -2;
+}
+
