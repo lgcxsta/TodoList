@@ -961,3 +961,8 @@ color: rgba(255, 90, 90, 0.473)
 .dark-mode .fa-solid {
   color: white;
 }
+
+.inputDate {
+  caret-color: rgba(255, 0, 0, 0);
+  width: 170px;
+}
