@@ -294,6 +294,7 @@ function croix() {
   document.getElementById("zIndexBetweeenLoginTodo").style.display = "none";
 }
 
+/*Close*/
 function zIndexBetweeenLoginTodo() {
   croix();
   document.getElementById("zIndexBetweeenLoginTodo").style.display = "none";
@@ -323,3 +324,86 @@ function closeDropdown() {
   document.getElementById("belowDropdown").style.display = "none";
   document.getElementById("dropdownContent").style.display = "none";
 }
+
+const monthYearElement = document.getElementById("monthYear");
+const datesYearElement = document.getElementById("dates");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+let currentDate = new Date();
+
+const updateCalendar = () => {
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+
+  // 1. Affichage du titre (Mois Année)
+  const monthYearString = currentDate.toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+  });
+  monthYearElement.textContent = monthYearString;
+
+  // 2. On va au mois suivant (currentMonth + 1) au jour 0 (qui est le dernier jour du mois actuel)
+  const lastDay = new Date(currentYear, currentMonth + 1, 0);
+  const totalDays = lastDay.getDate();
+
+  // 3. Calcul du jour de la semaine où tombe le 1er du mois
+  const firstDay = new Date(currentYear, currentMonth, 1);
+  const firstDayIndex = firstDay.getDay(); // 0 = Dimanche, 1 = Lundi, etc.
+
+  // 4. Ajustement pour le calendrier qui commence le Lundi (Mon)
+  // Si firstDayIndex est 0 (Dimanche), on décale de 6 cases. Sinon on décale de (jour - 1).
+  const paddingDays = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
+
+  // 5. Calcul des jours du mois précédent (pour les griser)
+  const prevLastDay = new Date(currentYear, currentMonth, 0);
+  const prevTotalDays = prevLastDay.getDate();
+
+  let datesHTML = ``;
+
+  // BOUCLE 1 : Jours du mois précédent (Gris)
+  for (let i = paddingDays; i > 0; i--) {
+    const dayNum = prevTotalDays - i + 1;
+    datesHTML += `<div class="date inactive">${dayNum}</div>`;
+  }
+
+  // BOUCLE 2 : Jours du mois actuel (Actifs)
+  for (let i = 1; i <= totalDays; i++) {
+    const date = new Date(currentYear, currentMonth, i);
+    // On vérifie si c'est "Aujourd'hui"
+    const isToday =
+      i === new Date().getDate() &&
+      currentMonth === new Date().getMonth() &&
+      currentYear === new Date().getFullYear();
+
+    const activeClass = isToday ? `active` : ``;
+    datesHTML += `<div class="date ${activeClass}">${i}</div>`;
+  }
+
+  // BOUCLE 3 : Jours du mois suivant (pour remplir la fin de la grille)
+  // On calcule combien de cases sont déjà remplies
+  const totalCellsFilled = paddingDays + totalDays;
+  // On remplit jusqu'à la fin de la grille (souvent 42 cases pour couvrir 6 semaines, ou 35 pour 5)
+  // Ici on remplit juste la fin de la semaine en cours pour faire propre
+  const remainingDays = 7 - (totalCellsFilled % 7);
+
+  if (remainingDays < 7) {
+    for (let i = 1; i <= remainingDays; i++) {
+      datesHTML += `<div class="date inactive">${i}</div>`;
+    }
+  }
+
+  datesYearElement.innerHTML = datesHTML;
+};
+
+prevBtn.addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  updateCalendar();
+});
+
+nextBtn.addEventListener("click", () => {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  updateCalendar();
+});
+
+updateCalendar();
