@@ -285,6 +285,7 @@ document.getElementById("sortBtn").addEventListener("click", function () {
 function hideShow() {
   document.getElementById("loginBtn").style.visibility = "hidden";
   document.getElementById("hideShow").style.visibility = "visible";
+  document.getElementById("hideShow").style.display = "block";
   document.getElementById("zIndexBetweeenLoginTodo").style.display = "block";
 }
 
@@ -299,11 +300,13 @@ function croix() {
 function zIndexBetweeenLoginTodo() {
   croix();
   document.getElementById("zIndexBetweeenLoginTodo").style.display = "none";
+  document.getElementById("boxFormCreateAcc").style.display = "none";
 }
 
 function fermeLoginBox() {
   document.getElementById("hideShow").style.visibility = "hidden";
   document.getElementById("loginBtn").style.visibility = "visible";
+  document.getElementById("loginZindexCreateAccount").style.display = "none";
 }
 
 function closeModifTask() {
@@ -413,3 +416,22 @@ nextBtn.addEventListener("click", () => {
 });
 
 updateCalendar();
+
+function croixCreateAcc() {
+  document.getElementById("loginZindexCreateAccount").style.display = "none";
+  document.getElementById("hideShow").style.display = "none";
+  document.getElementById("zIndexBetweeenLoginTodo").style.display = "none";
+  document.getElementById("loginBtn").style.visibility = "visible";
+}
+
+function createAccountPopUp() {
+  document.getElementById("loginZindexCreateAccount").style.display = "block";
+  document.getElementById("boxFormCreateAcc").style.display = "block";
+  document.getElementById("boxFormCreateAcc").style.visibility = "visible";
+  document.getElementById("hideShow").style.display = "none";
+}
+
+function creatToLoginPopup() {
+  document.getElementById("loginZindexCreateAccount").style.display = "none";
+  document.getElementById("hideShow").style.display = "block";
+}

@@ -403,28 +403,23 @@ label {
   display: block;
 }
 
-.label1,
-.label2 {
+.inputsCreateAndLog {
   background-color: #eeecec;
 }
 
-.dark-mode .label1,
-.dark-mode .label2 {
+.dark-mode .inputsCreateAndLog {
   background-color: #4d4d4d;
   color: #8e908b;
 }
 
-.label1,
-.label2,
-.labeltext2,
-.labeltext1 {
+.inputsCreateAndLog,
+.labeltextCreateAndLog {
   font-family: "Open Sans";
   font-size: 16px;
   color: #3c3c4b9c;
 }
 
-.dark-mode .labeltext1,
-.dark-mode .labeltext2,
+.dark-mode .labeltextCreateAndLog
 .dark-mode .logintitle,
 .dark-mode .creatAccountText {
   color: white;
@@ -449,18 +444,19 @@ label {
   bottom: 2em;
 }
 
-.BtnConnectStyle {
+.BtnConnectStyle,
+.BtnCreateStyle {
   text-decoration: none;
   font-family: "Open Sans";
   font-weight: bolder;
   font-size: 100%;
 }
 
-.BtnConnect {
+.BtnConnect,
+.BtnCreateAccount {
   background-color: #475364;
   border-radius: 10px;
   height: auto;
-  width: 28%;
   padding: 10px;
   margin-bottom: 4%;
   margin-top: -20px;
@@ -469,19 +465,33 @@ label {
   color: rgb(255, 255, 255);
 }
 
-.BtnConnect:hover {
-  background-color: #9dbbc975;
+.BtnConnect {
+  width: 28%;
 }
 
-.dark-mode .BtnConnect {
+.BtnCreateAccount {
+  width: 38%;
+  left: 28%;
+}
+
+.BtnConnect:hover,
+.BtnCreateAccount:hover {
+  background-color: #2a324ea1;
+  color: rgba(255, 255, 255, 0.726)
+}
+
+.dark-mode .BtnConnect,
+.dark-mode .BtnCreateAccount {
   background-color: #848484bd;
 }
 
-.dark-mode .BtnConnect:hover {
+.dark-mode .BtnConnect:hover,
+.dark-mode .BtnCreateAccount:hover {
   background-color: #848484da;
 }
 
-.boxForm {
+.boxForm,
+.boxFormCreateAcc {
   background-color: #ebf5fb;
   border-radius: 50px;
   padding: 20px;
@@ -490,12 +500,25 @@ label {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  visibility: hidden;
   width: 350px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-.dark-mode .boxForm {
+.boxForm {
+ visibility: hidden;
+}
+
+.boxFormCreateAcc {
+  z-index: 10;
+  display: none;
+}
+
+.boxFormCreateAcc h1 {
+  margin-bottom: 10px;;
+}
+
+.dark-mode .boxForm,
+.dark-mode .boxFormCreateAcc {
   background-color: #292929;
 }
 
@@ -596,7 +619,8 @@ label {
 }
 
 .dark-mode .popupEdit,
-.dark-mode .boxForm {
+.dark-mode .boxForm,
+.dark-mode .boxFormCreateAcc {
   background: #000000;
   background: linear-gradient(180deg, #464646, #000000);
   box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
@@ -608,7 +632,8 @@ label {
   background-color: #fff1eb;
 }
 
-.boxForm {
+.boxForm,
+.boxFormCreateAcc {
   background: linear-gradient(180deg, #f9f3ee, #b5e4fbb6);
   box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
   background-color: #fff1eb;
@@ -838,7 +863,7 @@ input[type="radio"] {
 }
 
 .Calendar {
-  position: absolute;
+  position: fixed;
   width: 280px;
   height: auto;
   display: flex;
@@ -959,7 +984,11 @@ background-color: #a3343431;
 color: rgba(255, 90, 90, 0.473)
 }
 
-.dark-mode .fa-solid {
+.dark-mode .fa-solid,
+.dark-mode .loginZindexCreateAccount h1,
+.dark-mode .loginZindexCreateAccount label,
+.dark-mode .loginZindex h1,
+.dark-mode .loginZindex label{
   color: white;
 }
 

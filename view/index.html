@@ -87,16 +87,16 @@
         </div>
         <form>
           <div>
-            <label for="user" class="labeltext1">Username</label>
-            <input class="label1" type="text" name="user" id="user" size="50px" maxlength="25" />
+            <label for="user" class="labeltextCreateAndLog labeltext1">Username</label>
+            <input class="inputsCreateAndLog label1" type="text" name="user" id="user" size="50px" maxlength="25" />
           </div>
           <div>
-            <label for="pwd" class="labeltext2">Password</label>
-            <input class="label2" type="password" name="pwd" id="pwd" maxlength="35" />
+            <label for="pwd" class="labeltextCreateAndLog labeltext2">Password</label>
+            <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwd" maxlength="35" />
           </div>
         </form>
         <p class="creatAccountText">
-          Don't have an account? <b>Create one here</b>
+          Don't have an account? <b onclick="createAccountPopUp()">Create one here</b>
         </p>
         <div class="BtnConnect">
           <a class="BtnConnectStyle">Connect</a>
@@ -104,62 +104,94 @@
       </div>
     </div>
 
-    <!-- POPUP EDIT TASK -->
-    <div class="popupEdit" id="popupEdit" style="display: none">
-      <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
-      <form>
-        <!-- EDIT -->
-        <label for="textTaskModif" id="modifTask">Edit the task: </label>
-        <input type="text" id="textTaskModif" name="textTaskModif" />
-        <!-- IMPORTANCE -->
-        <p id="modifTask">Importance</p>
-        <div class="options-group">
-          <label><input type="radio" name="importance" id="highLVL" />
-            <span>High</span></label>
-          <label><input type="radio" name="importance" id="midLVL" />
-            <span>Mid</span></label>
-          <label><input type="radio" name="importance" id="lowLVL" />
-            <span>Low</span></label>
+    <!--- POPUP CREATE ACCOUNT -->
+    <div= class="loginZindexCreateAccount" id="loginZindexCreateAccount">
+      <div class="boxFormCreateAcc" id="boxFormCreateAcc">
+        <div class="logintitle">
+          <h1 style="font-size: 55px;;">Create Account</h1>
         </div>
-
-        <!-- DATE -->
-        <div class="StyleDateBox" style="margin-top: 10px">
-          <p id="modifTask" style="margin-top: 50px; margin-bottom: 10px">
-            Dates
-          </p>
-          <p>Start</p>
-          <input type="text" class="startDate inputDate" id="startDate" placeholder="DD.MM.YYYY" onclick="srtCal()" />
-          <p>End</p>
-          <input type="text" class="endDate inputDate" id="endDate" placeholder="DD.MM.YYYY" />
+        <div class="croix" onclick="croixCreateAcc()">
+          <p>X</p>
         </div>
-        <button class="modifBtn" id="modifBtn" type="button" onclick="updateTask()">
-          Edit
-        </button>
-      </form>
-    </div>
+        <form>
+          <div>
+            <label for="email" class="labeltextCreateAndLog labeltext3">Email</label>
+            <input class="inputsCreateAndLog label3" type="text" name="user" id="user" size="50px" maxlength="25" />
+          </div>
+          <div>
+            <label for="pwdEmail" class="labeltextCreateAndLog labeltext4">Password</label>
+            <input class="inputsCreateAndLog label4" type="password" name="pwd" id="pwd" maxlength="35" />
+          </div>
+          <div>
+            <label for="username" class="labeltextCreateAndLog labeltext5">Username</label>
+            <input class="inputsCreateAndLog label5" type="password" name="username" id="username" maxlength="35" />
+          </div>
+        </form>
+        <p class="creatAccountText">
+          Already have an account? <b onclick="creatToLoginPopup()">Sign in</b>
+        </p>
+        <div class="BtnCreateAccount">
+          <a class="BtnCreateStyle" style="font-size: 15px;">Create Account</a>
+        </div>
+      </div>
+  </div>
 
-    <!-- https://youtu.be/OcncrLyddAs?si=X51vKj41qnmhkL9l -->
-    <div class="Calendar">
-      <div class="headerCalendar" id="headerCalendar">
-        <button id="prevBtn" class="prevBtn">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <div class="monthYear" id="monthYear"></div>
-        <button id="nextBtn">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
+  <!-- POPUP EDIT TASK -->
+  <div class="popupEdit" id="popupEdit" style="display: none">
+    <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
+    <form>
+      <!-- EDIT -->
+      <label for="textTaskModif" id="modifTask">Edit the task: </label>
+      <input type="text" id="textTaskModif" name="textTaskModif" />
+      <!-- IMPORTANCE -->
+      <p id="modifTask">Importance</p>
+      <div class="options-group">
+        <label><input type="radio" name="importance" id="highLVL" />
+          <span>High</span></label>
+        <label><input type="radio" name="importance" id="midLVL" />
+          <span>Mid</span></label>
+        <label><input type="radio" name="importance" id="lowLVL" />
+          <span>Low</span></label>
       </div>
-      <div class="days">
-        <div class="day">Mon</div>
-        <div class="day">Tue</div>
-        <div class="day">Wed</div>
-        <div class="day">Thu</div>
-        <div class="day">Fri</div>
-        <div class="day">Sat</div>
-        <div class="day">Sun</div>
+
+      <!-- DATE -->
+      <div class="StyleDateBox" style="margin-top: 10px">
+        <p id="modifTask" style="margin-top: 50px; margin-bottom: 10px">
+          Dates
+        </p>
+        <p>Start</p>
+        <input type="text" class="startDate inputDate" id="startDate" placeholder="DD.MM.YYYY" onclick="srtCal()" />
+        <p>End</p>
+        <input type="text" class="endDate inputDate" id="endDate" placeholder="DD.MM.YYYY" />
       </div>
-      <div class="dates" id="dates"></div>
+      <button class="modifBtn" id="modifBtn" type="button" onclick="updateTask()">
+        Edit
+      </button>
+    </form>
+  </div>
+
+  <!-- https://youtu.be/OcncrLyddAs?si=X51vKj41qnmhkL9l -->
+  <div class="Calendar">
+    <div class="headerCalendar" id="headerCalendar">
+      <button id="prevBtn" class="prevBtn">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <div class="monthYear" id="monthYear"></div>
+      <button id="nextBtn">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
     </div>
+    <div class="days">
+      <div class="day">Mon</div>
+      <div class="day">Tue</div>
+      <div class="day">Wed</div>
+      <div class="day">Thu</div>
+      <div class="day">Fri</div>
+      <div class="day">Sat</div>
+      <div class="day">Sun</div>
+    </div>
+    <div class="dates" id="dates"></div>
+  </div>
   </div>
   <script src="../script/script.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
