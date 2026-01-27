@@ -850,8 +850,9 @@ input[type="radio"] {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
   z-index: 100;
-  margin-top: 358px;
+  margin-top: 301px;
   font-family: sans-serif;
+  display: none;
 }
 
 .dark-mode .Calendar {

@@ -280,6 +280,7 @@ document.getElementById("sortBtn").addEventListener("click", function () {
 });
 
 // Fonction pour les popup (display block/none)
+
 // Hide/show = le login
 function hideShow() {
   document.getElementById("loginBtn").style.visibility = "hidden";
@@ -323,6 +324,11 @@ function dropdownVisualisation() {
 function closeDropdown() {
   document.getElementById("belowDropdown").style.display = "none";
   document.getElementById("dropdownContent").style.display = "none";
+}
+
+function srtCal() {
+  const calendar = document.querySelector(".Calendar");
+  calendar.style.display = "block";
 }
 
 const monthYearElement = document.getElementById("monthYear");
