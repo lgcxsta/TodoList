@@ -1,166 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open Sans"
+      rel="stylesheet"
+    />
+    <title>To-do List</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../style/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet" />
-  <title>To-do List</title>
-</head>
-
-<body>
-  <!-- BTN DARK/LIGHT MODE -->
-  <div class="ButtonDark" id="btnToggleDark" onclick="event.stopPropagation()">
-    <label class="switch">
-      <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()" />
-      <span class="BotãoDark"></span>
-    </label>
-  </div>
-
-  <div class="container">
-    <div class="zIndexBetweeenLoginTodo" id="zIndexBetweeenLoginTodo" onclick="zIndexBetweeenLoginTodo()"></div>
-    <div class="bkgPopUpBlur" id="bkgPopUpBlur" onclick="closeModifTask()"></div>
-    <div class="closePopUpsTasks" id="closePopUpsTasks" onclick="closePopUpsTasks()"></div>
-
-    <!-- TITLE -->
-    <div class="typewrite">
-      <div class="titleZindex">
-        <div class="headertext">
-          <h2>To-do List</h2>
-        </div>
-      </div>
+  <body>
+    <!-- BTN DARK/LIGHT MODE -->
+    <div
+      class="ButtonDark"
+      id="btnToggleDark"
+      onclick="event.stopPropagation()"
+    >
+      <label class="switch">
+        <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()" />
+        <span class="BotãoDark"></span>
+      </label>
     </div>
 
-    <!-- ADD TASK / INPUT -->
-    <div id="myDIV" class="header" onclick="fermeLoginBox()">
-      <input type="text" id="myInput" placeholder="Task..." />
-      <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
+    <div class="container">
+      <div
+        class="zIndexBetweeenLoginTodo"
+        id="zIndexBetweeenLoginTodo"
+        onclick="zIndexBetweeenLoginTodo()"
+      ></div>
+      <div
+        class="bkgPopUpBlur"
+        id="bkgPopUpBlur"
+        onclick="closeModifTask()"
+      ></div>
+      <div
+        class="closePopUpsTasks"
+        id="closePopUpsTasks"
+        onclick="closePopUpsTasks()"
+      ></div>
 
-      <!-- SORT TASKS -->
-      <div class="dropdown" id="dropdown">
-        <button class=" sortBtn" id="sortBtn" onclick="dropdownVisualisation()">
-          <span>Sort</span>
-        </button>
-        <div class="dropdownContent" id="dropdownContent">
-          <div class="belowDropdown" id="belowDropdown" onclick="closeDropdown()">
-            <p></p>
+      <!-- TITLE -->
+      <div class="typewrite">
+        <div class="titleZindex">
+          <div class="headertext">
+            <h2>To-do List</h2>
           </div>
-          <span class="sortP1">
-            <p>Default</p>
-          </span>
-          <span class="sortP2">
-            <p>Last Added</p>
-          </span>
-          <span class="sortP3">
-            <p>Importance</p>
-          </span>
-          <span class="sortP4">
-            <p>Date</p>
-          </span>
         </div>
       </div>
 
-      <div class="texttache" onclick="fermeLoginBox()">
-        <ul id="AddTâche"></ul>
-      </div>
+      <!-- ADD TASK / INPUT -->
+      <div id="myDIV" class="header" onclick="fermeLoginBox()">
+        <input type="text" id="myInput" placeholder="Task..." />
+        <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
 
-      <!-- BTN LOGIN -->
-      <div class="RedirectLogin" onclick="
+        <!-- SORT TASKS -->
+        <div class="dropdown" id="dropdown">
+          <button
+            class="sortBtn"
+            id="sortBtn"
+            onclick="dropdownVisualisation()"
+          >
+            <span>Sort</span>
+          </button>
+          <div class="dropdownContent" id="dropdownContent">
+            <div
+              class="belowDropdown"
+              id="belowDropdown"
+              onclick="closeDropdown()"
+            >
+              <p></p>
+            </div>
+            <span class="sortP1">
+              <p>Default</p>
+            </span>
+            <span class="sortP2">
+              <p>Last Added</p>
+            </span>
+            <span class="sortP3">
+              <p>Importance</p>
+            </span>
+            <span class="sortP4">
+              <p>Date</p>
+            </span>
+          </div>
+        </div>
+
+        <div class="texttache" onclick="fermeLoginBox()">
+          <ul id="AddTâche"></ul>
+        </div>
+
+        <!-- BTN LOGIN -->
+        <div
+          class="RedirectLogin"
+          onclick="
             hideShow();
             event.stopPropagation();
-          " id="loginBtn">
-        <img src="../img/keyW.png" width="25px" height="25px" />
-      </div>
-    </div>
-
-    <!-- LOGIN POPUP -->
-    <div class="loginZindex">
-      <div class="boxForm" id="hideShow">
-        <div class="logintitle">
-          <h1>Login</h1>
-        </div>
-        <div class="croix" onclick="croix()">
-          <p>X</p>
-        </div>
-        <form>
-          <div>
-            <label for="user" class="labeltext1">Username</label>
-            <input class="label1" type="text" name="user" id="user" size="50px" maxlength="25" />
-          </div>
-          <div>
-            <label for="pwd" class="labeltext2">Password</label>
-            <input class="label2" type="password" name="pwd" id="pwd" maxlength="35" />
-          </div>
-        </form>
-        <p class="creatAccountText">
-          Don't have an account? <b>Create one here</b>
-        </p>
-        <div class="BtnConnect">
-          <a class="BtnConnectStyle">Connect</a>
+          "
+          id="loginBtn"
+        >
+          <img src="../img/keyW.png" width="25px" height="25px" />
         </div>
       </div>
-    </div>
 
-    <!-- POPUP EDIT TASK -->
-    <div class="popupEdit" id="popupEdit" style="display: none">
-      <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
-      <form>
-        <!-- EDIT -->
-        <label for="textTaskModif" id="modifTask">Edit the task: </label>
-        <input type="text" id="textTaskModif" name="textTaskModif" />
-        <!-- IMPORTANCE -->
-        <p id="modifTask">Importance</p>
-        <div class="options-group">
-          <label><input type="radio" name="importance" id="highLVL" />
-            <span>High</span></label>
-          <label><input type="radio" name="importance" id="midLVL" />
-            <span>Mid</span></label>
-          <label><input type="radio" name="importance" id="lowLVL" />
-            <span>Low</span></label>
-        </div>
-
-        <!-- DATE -->
-        <div class="StyleDateBox" style="margin-top: 10px">
-          <p id="modifTask" style="margin-top: 50px; margin-bottom: 10px">
-            Dates
+      <!-- LOGIN POPUP -->
+      <div class="loginZindex">
+        <div class="boxForm" id="hideShow">
+          <div class="logintitle">
+            <h1>Login</h1>
+          </div>
+          <div class="croix" onclick="croix()">
+            <p>X</p>
+          </div>
+          <form>
+            <div>
+              <label for="user" class="labeltext1">Username</label>
+              <input
+                class="label1"
+                type="text"
+                name="user"
+                id="user"
+                size="50px"
+                maxlength="25"
+              />
+            </div>
+            <div>
+              <label for="pwd" class="labeltext2">Password</label>
+              <input
+                class="label2"
+                type="password"
+                name="pwd"
+                id="pwd"
+                maxlength="35"
+              />
+            </div>
+          </form>
+          <p class="creatAccountText">
+            Don't have an account? <b>Create one here</b>
           </p>
-          <p>Start</p>
-          <input type="date" class="startDate" id="startDate" />
-          <p>End</p>
-          <input type="date" class="endDate" id="endDate" />
+          <div class="BtnConnect">
+            <a class="BtnConnectStyle">Connect</a>
+          </div>
         </div>
-        <button class="modifBtn" id="modifBtn" type="button" onclick="updateTask()">
-          Edit
-        </button>
-      </form>
+      </div>
+
+      <!-- POPUP EDIT TASK -->
+      <div class="popupEdit" id="popupEdit" style="display: none">
+        <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
+        <form>
+          <!-- EDIT -->
+          <label for="textTaskModif" id="modifTask">Edit the task: </label>
+          <input type="text" id="textTaskModif" name="textTaskModif" />
+          <!-- IMPORTANCE -->
+          <p id="modifTask">Importance</p>
+          <div class="options-group">
+            <label
+              ><input type="radio" name="importance" id="highLVL" />
+              <span>High</span></label
+            >
+            <label
+              ><input type="radio" name="importance" id="midLVL" />
+              <span>Mid</span></label
+            >
+            <label
+              ><input type="radio" name="importance" id="lowLVL" />
+              <span>Low</span></label
+            >
+          </div>
+
+          <!-- DATE -->
+          <div class="StyleDateBox" style="margin-top: 10px">
+            <p id="modifTask" style="margin-top: 50px; margin-bottom: 10px">
+              Dates
+            </p>
+            <p>Start</p>
+            <input type="date" class="startDate" id="startDate" />
+            <p>End</p>
+            <input type="date" class="endDate" id="endDate" />
+          </div>
+          <button
+            class="modifBtn"
+            id="modifBtn"
+            type="button"
+            onclick="updateTask()"
+          >
+            Edit
+          </button>
+        </form>
+      </div>
+
+      <div class="Calendar">
+        <div class="headerCalendar" id="headerCalendar">
+          <button id="prevBtn" class="prevBtn">
+            <i class="fa-solid fa-chevron-left"></i>
+          </button>
+          <div class="monthYear" id="monthYear"></div>
+          <button id="nextBtn">
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="days">
+          <div class="day">Mon</div>
+          <div class="day">Tue</div>
+          <div class="day">Wed</div>
+          <div class="day">Thu</div>
+          <div class="day">Fri</div>
+          <div class="day">Sat</div>
+          <div class="day">Sun</div>
+        </div>
+        <div class="dates" id="dates"></div>
+      </div>
     </div>
-
-    <!-- <div class="Calendar">
-      <div class="headerCalendar" id="headerCalendar">
-        <button id="prevBtn" class="prevBtn">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <div class="monthYear" id="monthYear"></div>
-        <button id="nextBtn">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-      <div class="days">
-        <div class="day">Mon</div>
-        <div class="day">Tue</div>
-        <div class="day">Wed</div>
-        <div class="day">Thu</div>
-        <div class="day">Fri</div>
-        <div class="day">Sat</div>
-        <div class="day">Sun</div>
-      </div>
-      <div class="dates" id="dates"></div>
-    </div> -->
-  </div>
-  <script src="../script/script.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</body>
-
+    <script src="../script/script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </body>
 </html>

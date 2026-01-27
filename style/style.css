@@ -703,13 +703,13 @@ input[type="radio"] {
 }
 
 .dark-mode .dropdownContent {
-  background: linear-gradient(180deg, #383838, #1f1e1e);
+  background: linear-gradient(180deg, #383838, #0e0d0d);
   color: rgb(255, 255, 255);
 }
 
-.dropdown:hover .dropdownContent {
+/* .dropdown:hover .dropdownContent {
   display: block;
-}
+} */
 
 .sortP1,
 .sortP2,
@@ -837,3 +837,7 @@ input[type="radio"] {
   z-index: -2;
 }
 
+.Calendar {
+  position: absolute;
+  color: red;
+}
