@@ -452,8 +452,9 @@ label {
   font-size: 100%;
 }
 
-.BtnConnect,
-.BtnCreateAccount {
+
+.BtnCreateStyle,
+.BtnConnectStyle {
   background-color: #475364;
   border-radius: 10px;
   height: auto;
@@ -463,30 +464,32 @@ label {
   position: relative;
   left: 35%;
   color: rgb(255, 255, 255);
+  border: none;
 }
 
-.BtnConnect {
-  width: 28%;
-}
-
-.BtnCreateAccount {
+.BtnConnectStyle {
   width: 38%;
-  left: 28%;
+  left: 2%;
 }
 
-.BtnConnect:hover,
-.BtnCreateAccount:hover {
+.BtnCreateStyle {
+  width: 38%;
+  left: 2%;
+}
+
+.BtnConnectStyle:hover,
+.BtnCreateStyle:hover {
   background-color: #2a324ea1;
   color: rgba(255, 255, 255, 0.726)
 }
 
-.dark-mode .BtnConnect,
-.dark-mode .BtnCreateAccount {
+.dark-mode .BtnConnectStyle,
+.dark-mode .BtnCreateStyle {
   background-color: #848484bd;
 }
 
-.dark-mode .BtnConnect:hover,
-.dark-mode .BtnCreateAccount:hover {
+.dark-mode .BtnConnectStyle:hover,
+.dark-mode .BtnCreateStyle:hover {
   background-color: #848484da;
 }
 
@@ -863,7 +866,7 @@ input[type="radio"] {
 }
 
 .Calendar {
-  position: fixed;
+  position: absolute;
   width: 280px;
   height: auto;
   display: flex;
@@ -875,7 +878,7 @@ input[type="radio"] {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   text-align: center;
   z-index: 100;
-  margin-top: 301px;
+  margin-top: 475px;
   font-family: sans-serif;
   display: none;
 }

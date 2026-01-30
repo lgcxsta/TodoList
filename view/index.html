@@ -88,18 +88,19 @@
         <form>
           <div>
             <label for="user" class="labeltextCreateAndLog labeltext1">Username</label>
-            <input class="inputsCreateAndLog label1" type="text" name="user" id="user" size="50px" maxlength="25" />
+            <input class="inputsCreateAndLog label1" type="text" name="user" id="user" size="50px" maxlength="25"
+              required />
           </div>
           <div>
             <label for="pwd" class="labeltextCreateAndLog labeltext2">Password</label>
-            <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwd" maxlength="35" />
+            <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwd" maxlength="35" required />
           </div>
         </form>
         <p class="creatAccountText">
           Don't have an account? <b onclick="createAccountPopUp()">Create one here</b>
         </p>
         <div class="BtnConnect">
-          <a class="BtnConnectStyle">Connect</a>
+          <input type="submit" class="BtnConnectStyle" value="submit" required>
         </div>
       </div>
     </div>
@@ -116,26 +117,27 @@
         <form>
           <div>
             <label for="email" class="labeltextCreateAndLog labeltext3">Email</label>
-            <input class="inputsCreateAndLog label3" type="text" name="user" id="user" size="50px" maxlength="25" />
+            <input class="inputsCreateAndLog label3" type="text" name="user" id="user" size="50px" maxlength="25"
+              required />
           </div>
           <div>
             <label for="pwdEmail" class="labeltextCreateAndLog labeltext4">Password</label>
-            <input class="inputsCreateAndLog label4" type="password" name="pwd" id="pwd" maxlength="35" />
+            <input class="inputsCreateAndLog label4" type="password" name="pwd" id="pwd" maxlength="35" required />
           </div>
           <div>
             <label for="username" class="labeltextCreateAndLog labeltext5">Username</label>
-            <input class="inputsCreateAndLog label5" type="password" name="username" id="username" maxlength="35" />
+            <input class="inputsCreateAndLog label5" type="password" name="username" id="username" maxlength="35"
+              required />
           </div>
         </form>
         <p class="creatAccountText">
           Already have an account? <b onclick="creatToLoginPopup()">Sign in</b>
         </p>
         <div class="BtnCreateAccount">
-          <a class="BtnCreateStyle" style="font-size: 15px;">Create Account</a>
+          <button class="BtnCreateStyle" style="font-size: 15px;" type="submit" value="Submit">Create Account</button>
         </div>
       </div>
   </div>
-
   <!-- POPUP EDIT TASK -->
   <div class="popupEdit" id="popupEdit" style="display: none">
     <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
