@@ -50,7 +50,18 @@ function impLevels() {
 
 //Update importance + texte tâche dans le localStorage
 function editPriority() {
-  updateTaskInLocalStorage(task_id, editInput.value, false, importance);
+  const importance = impLevels();
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+
+  updateTaskInLocalStorage(
+    task_id,
+    editInput.value,
+    false,
+    importance,
+    startDate,
+    endDate,
+  );
   closeModifTask(); //ferme le popup
   render(); // réaffiche la liste des tâches
 }
@@ -66,18 +77,40 @@ function setTasks(tasks) {
   render();
 }
 
+function parseDate(str) {
+  if (!str) return null; // si vide
+  const [day, month, year] = str.split("/").map(Number);
+  return new Date(year, month - 1, day);
+}
+
 // Ajoute une tâche + crée un id + tâche (objet) + ajout au local storage
 function saveTasksToLocalStorage(task) {
   let tasks = getTasks();
   let id = tasks.length > 0 ? tasks.toReversed()[0].id + 1 : 1;
-  tasks.push({ id: id, text: task, checked: false, importance: 1 });
+  tasks.push({
+    id: id,
+    text: task,
+    checked: false,
+    importance: 1,
+    startDate: "",
+    endDate: "",
+  });
   setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
 }
 
 // Update quand uune tâche est éditer
 function updateTask() {
   const importance = impLevels();
-  updateTaskInLocalStorage(task_id, editInput.value, false, importance);
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
+  updateTaskInLocalStorage(
+    task_id,
+    editInput.value,
+    false,
+    importance,
+    startDate,
+    endDate,
+  );
   closeModifTask();
   render();
 }
@@ -89,15 +122,19 @@ function updateTaskInLocalStorage(
   updatedTask,
   checkedStatus,
   importanceStatus,
+  startDate,
+  endDate,
 ) {
   let tasks = getTasks();
   tasks = tasks.map((task) =>
     task.id == task_id
       ? {
-          id: task_id,
+          ...task, //sa permet de réecrire seulement le texte qui est éditer
           text: updatedTask,
           checked: checkedStatus,
           importance: importanceStatus,
+          startDate,
+          endDate,
         }
       : task,
   );
@@ -175,15 +212,33 @@ function render() {
     editBtn.className = "edit";
     editBtn.textContent = "\u270E";
     editBtn.onclick = function () {
-      document.getElementById("popupEdit").style.display = "block";
-      document.getElementById("bkgPopUpBlur").style.display = "block";
-      document.getElementById("closePopUpsTasks").style.display = "block";
-      editInput.value = task.text;
-      task_id = task.id;
+      editBtn.onclick = function () {
+        document.getElementById("popupEdit").style.display = "block";
+        document.getElementById("bkgPopUpBlur").style.display = "block";
+        document.getElementById("closePopUpsTasks").style.display = "block";
 
-      document.getElementById("highLVL").checked = task.importance === 3;
-      document.getElementById("midLVL").checked = task.importance === 2;
-      document.getElementById("lowLVL").checked = task.importance === 1;
+        editInput.value = task.text;
+        task_id = task.id;
+
+        document.getElementById("highLVL").checked = task.importance === 3;
+        document.getElementById("midLVL").checked = task.importance === 2;
+        document.getElementById("lowLVL").checked = task.importance === 1;
+
+        // Mettre les dates de cette tâche
+        const startInput = document.getElementById("startDate");
+        const endInput = document.getElementById("endDate");
+
+        startInput.value = task.startDate || ""; // vide si aucune date
+        endInput.value = task.endDate || ""; // vide si aucune date
+
+        //0 Mettre à jour minEndDate
+        if (task.startDate) {
+          const parts = task.startDate.split("/");
+          minEndDate = new Date(parts[2], parts[1] - 1, parts[0]);
+        } else {
+          minEndDate = null;
+        }
+      };
     };
 
     // Btn Remove
@@ -207,6 +262,8 @@ function render() {
           task.text,
           task.checked,
           task.importance,
+          task.startDate,
+          task.endDate,
         ); // Sauvegarde le nouvel état
       }
     };
@@ -238,13 +295,13 @@ function render() {
         // Task 1(imp = 3), task 2 (imp = 2)  ;; 3-2 = 1; 2-3= -1 ==== task 1 plus haut que task 2
         break;
 
-      // case "date":
-      //   tasks.sort((a, b) => {
-      //     const startDateA = new Date(a.startDate);
-      //     const startDateB = new Date(b.startDate);
-      //     return startDateA - startDateB; // Sort by Start Date (ascending)
-      //   });
-      //   break;
+      case "date":
+        tasks.sort((a, b) => {
+          const dateA = parseDate(a.startDate) || new Date(0); // date minimale si vide
+          const dateB = parseDate(b.startDate) || new Date(0);
+          return dateA - dateB; // du plus ancien au plus récent
+        });
+        break;
 
       default:
         // Default (no sorting, or sorted by task ID)
@@ -312,6 +369,7 @@ function fermeLoginBox() {
 function closeModifTask() {
   document.getElementById("popupEdit").style.display = "none";
   document.getElementById("bkgPopUpBlur").style.display = "none";
+  document.querySelector(".Calendar").style.display = "none";
 }
 
 function closePopUpsTasks() {
@@ -329,73 +387,78 @@ function closeDropdown() {
   document.getElementById("dropdownContent").style.display = "none";
 }
 
-function srtCal() {
-  const calendar = document.querySelector(".Calendar");
-  calendar.style.display = "block";
-}
+// Calendrier
+// ==================== Variables ====================
+let activeDateInput = null; // L'input actif
+let minEndDate = null; // Date minimale selectable pour endDate
+let currentDate = new Date();
 
 const monthYearElement = document.getElementById("monthYear");
 const datesYearElement = document.getElementById("dates");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
-let currentDate = new Date();
+// ==================== Ouvrir calendrier ====================
+function srtCal(inputId) {
+  activeDateInput = document.getElementById(inputId);
+  document.querySelector(".Calendar").style.display = "block";
+  updateCalendar();
+}
 
-const updateCalendar = () => {
+// ==================== Mise à jour du calendrier ====================
+function updateCalendar() {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth();
 
-  // 1. Affichage du titre (Mois Année)
+  // 1. Titre mois/année
   const monthYearString = currentDate.toLocaleString("en-US", {
     month: "long",
     year: "numeric",
   });
   monthYearElement.textContent = monthYearString;
 
-  // 2. On va au mois suivant (currentMonth + 1) au jour 0 (qui est le dernier jour du mois actuel)
+  // 2. Dernier jour du mois
   const lastDay = new Date(currentYear, currentMonth + 1, 0);
   const totalDays = lastDay.getDate();
 
-  // 3. Calcul du jour de la semaine où tombe le 1er du mois
+  // 3. Premier jour du mois
   const firstDay = new Date(currentYear, currentMonth, 1);
-  const firstDayIndex = firstDay.getDay(); // 0 = Dimanche, 1 = Lundi, etc.
-
-  // 4. Ajustement pour le calendrier qui commence le Lundi (Mon)
-  // Si firstDayIndex est 0 (Dimanche), on décale de 6 cases. Sinon on décale de (jour - 1).
+  const firstDayIndex = firstDay.getDay();
   const paddingDays = firstDayIndex === 0 ? 6 : firstDayIndex - 1;
 
-  // 5. Calcul des jours du mois précédent (pour les griser)
+  // 4. Dernier jour du mois précédent
   const prevLastDay = new Date(currentYear, currentMonth, 0);
   const prevTotalDays = prevLastDay.getDate();
 
-  let datesHTML = ``;
+  let datesHTML = "";
 
-  // BOUCLE 1 : Jours du mois précédent (Gris)
+  // Jours du mois précédent (gris)
   for (let i = paddingDays; i > 0; i--) {
     const dayNum = prevTotalDays - i + 1;
     datesHTML += `<div class="date inactive">${dayNum}</div>`;
   }
 
-  // BOUCLE 2 : Jours du mois actuel (Actifs)
+  // Jours du mois actuel
   for (let i = 1; i <= totalDays; i++) {
     const date = new Date(currentYear, currentMonth, i);
-    // On vérifie si c'est "Aujourd'hui"
     const isToday =
       i === new Date().getDate() &&
       currentMonth === new Date().getMonth() &&
       currentYear === new Date().getFullYear();
 
-    const activeClass = isToday ? `active` : ``;
-    datesHTML += `<div class="date ${activeClass}">${i}</div>`;
+    let isInactive = false;
+    // Bloquer dates avant startDate si input endDate
+    if (activeDateInput && activeDateInput.id === "endDate" && minEndDate) {
+      if (date < minEndDate) isInactive = true;
+    }
+
+    const activeClass = isToday ? "active" : "";
+    datesHTML += `<div class="date ${isInactive ? "inactive" : activeClass}">${i}</div>`;
   }
 
-  // BOUCLE 3 : Jours du mois suivant (pour remplir la fin de la grille)
-  // On calcule combien de cases sont déjà remplies
+  // Jours du mois suivant (fin de semaine)
   const totalCellsFilled = paddingDays + totalDays;
-  // On remplit jusqu'à la fin de la grille (souvent 42 cases pour couvrir 6 semaines, ou 35 pour 5)
-  // Ici on remplit juste la fin de la semaine en cours pour faire propre
   const remainingDays = 7 - (totalCellsFilled % 7);
-
   if (remainingDays < 7) {
     for (let i = 1; i <= remainingDays; i++) {
       datesHTML += `<div class="date inactive">${i}</div>`;
@@ -403,19 +466,47 @@ const updateCalendar = () => {
   }
 
   datesYearElement.innerHTML = datesHTML;
-};
+}
 
+// ==================== Navigation mois ====================
 prevBtn.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() - 1);
   updateCalendar();
 });
-
 nextBtn.addEventListener("click", () => {
   currentDate.setMonth(currentDate.getMonth() + 1);
   updateCalendar();
 });
 
-updateCalendar();
+// ==================== Choix d'une date ====================
+datesYearElement.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("date") &&
+    !e.target.classList.contains("inactive")
+  ) {
+    const previousSelected = document.querySelector(".date.selected");
+    if (previousSelected) previousSelected.classList.remove("selected");
+    e.target.classList.add("selected");
+
+    const clickedDay = parseInt(e.target.innerText, 10);
+    const month = currentDate.getMonth() + 1;
+    const year = currentDate.getFullYear();
+    const formattedDay = clickedDay.toString().padStart(2, "0");
+    const formattedMonth = month.toString().padStart(2, "0");
+    const dateString = `${formattedDay}/${formattedMonth}/${year}`;
+
+    if (activeDateInput) {
+      activeDateInput.value = dateString;
+
+      // Si startDate choisi, update minEndDate
+      if (activeDateInput.id === "startDate") {
+        minEndDate = new Date(year, month - 1, clickedDay);
+      }
+    }
+
+    document.querySelector(".Calendar").style.display = "none";
+  }
+});
 
 function croixCreateAcc() {
   document.getElementById("loginZindexCreateAccount").style.display = "none";

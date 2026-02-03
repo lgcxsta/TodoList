@@ -100,7 +100,7 @@
           Don't have an account? <b onclick="createAccountPopUp()">Create one here</b>
         </p>
         <div class="BtnConnect">
-          <input type="submit" class="BtnConnectStyle" value="submit" required>
+          <input type="submit" class="BtnConnectStyle" value="Login" required>
         </div>
       </div>
     </div>
@@ -162,9 +162,11 @@
           Dates
         </p>
         <p>Start</p>
-        <input type="text" class="startDate inputDate" id="startDate" placeholder="DD.MM.YYYY" onclick="srtCal()" />
+        <input type="text" class="startDate inputDate" id="startDate" placeholder="DD.MM.YYYY"
+          onclick="srtCal('startDate')" />
         <p>End</p>
-        <input type="text" class="endDate inputDate" id="endDate" placeholder="DD.MM.YYYY" />
+        <input type="text" class="endDate inputDate" id="endDate" placeholder="DD.MM.YYYY"
+          onclick="srtCal('endDate')" />
       </div>
       <button class="modifBtn" id="modifBtn" type="button" onclick="updateTask()">
         Edit

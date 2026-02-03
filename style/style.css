@@ -865,7 +865,7 @@ input[type="radio"] {
   z-index: -2;
 }
 
-.Calendar {
+/* .Calendar {
   position: absolute;
   width: 280px;
   height: auto;
@@ -879,6 +879,25 @@ input[type="radio"] {
   text-align: center;
   z-index: 100;
   margin-top: 475px;
+  font-family: sans-serif;
+  display: none;
+} */
+
+
+.Calendar {
+  position: absolute;
+  width: 280px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  background-color: #cbecfc;
+  background-image: linear-gradient(to top, #cbecfc 0%, #fff8f5 100%);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  z-index: 100;
+  margin-top: 295px;
   font-family: sans-serif;
   display: none;
 }
