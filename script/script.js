@@ -78,7 +78,7 @@ function setTasks(tasks) {
 }
 
 function parseDate(str) {
-  if (!str) return null; // si vide
+  if (!str || str === "00/00/00") return null;
   const [day, month, year] = str.split("/").map(Number);
   return new Date(year, month - 1, day);
 }
@@ -297,9 +297,14 @@ function render() {
 
       case "date":
         tasks.sort((a, b) => {
-          const dateA = parseDate(a.startDate) || new Date(0); // date minimale si vide
-          const dateB = parseDate(b.startDate) || new Date(0);
-          return dateA - dateB; // du plus ancien au plus récent
+          const dateA = parseDate(a.startDate);
+          const dateB = parseDate(b.startDate);
+
+          if (!dateA && !dateB) return 0; // les deux sans date → même ordre
+          if (!dateA) return 1; // a n'a pas de date → après b
+          if (!dateB) return -1; // b n'a pas de date → après a
+
+          return dateA - dateB; // sinon tri normal du plus ancien au plus récent
         });
         break;
 
