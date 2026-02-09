@@ -404,7 +404,22 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 
 // ==================== Ouvrir calendrier ====================
+// ==================== Ouvrir calendrier ====================
 function srtCal(inputId) {
+  // Bloquer endDate si startDate est vide
+  if (inputId === "endDate") {
+    const startValue = document.getElementById("startDate").value;
+    if (!startValue) {
+      alert("Veuillez d'abord sélectionner une date de début");
+      return;
+    }
+
+    // recalculer minEndDate UNIQUEMENT pour endDate
+    const [day, month, year] = startValue.split("/");
+    minEndDate = new Date(year, month - 1, day);
+  }
+
+  // ouverture normale du calendrier
   activeDateInput = document.getElementById(inputId);
   document.querySelector(".Calendar").style.display = "block";
   updateCalendar();
@@ -471,6 +486,56 @@ function updateCalendar() {
   }
 
   datesYearElement.innerHTML = datesHTML;
+
+  // ==================== Choix d'une date ====================
+  datesYearElement.addEventListener("click", (e) => {
+    if (
+      !e.target.classList.contains("date") ||
+      e.target.classList.contains("inactive")
+    ) {
+      return;
+    }
+
+    const day = Number(e.target.innerText);
+    const selectedDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      day,
+    );
+
+    // BLOQUER endDate < startDate
+    if (
+      activeDateInput.id === "endDate" &&
+      minEndDate &&
+      selectedDate < minEndDate
+    ) {
+      return;
+    }
+
+    // Appliquer la date
+    const formattedDay = String(day).padStart(2, "0");
+    const formattedMonth = String(currentDate.getMonth() + 1).padStart(2, "0");
+    const year = currentDate.getFullYear();
+
+    activeDateInput.value = `${formattedDay}/${formattedMonth}/${year}`;
+
+    // Si startDate change → invalider endDate
+    if (activeDateInput.id === "startDate") {
+      minEndDate = selectedDate;
+      const endInput = document.getElementById("endDate");
+
+      if (endInput.value) {
+        const [d, m, y] = endInput.value.split("/").map(Number);
+        const endDate = new Date(y, m - 1, d);
+
+        if (endDate < minEndDate) {
+          endInput.value = "";
+        }
+      }
+    }
+
+    document.querySelector(".Calendar").style.display = "none";
+  });
 }
 
 // ==================== Navigation mois ====================
