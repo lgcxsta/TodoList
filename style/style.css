@@ -419,8 +419,7 @@ label {
   color: #3c3c4b9c;
 }
 
-.dark-mode .labeltextCreateAndLog
-.dark-mode .logintitle,
+.dark-mode .labeltextCreateAndLog .dark-mode .logintitle,
 .dark-mode .creatAccountText {
   color: white;
 }
@@ -452,7 +451,6 @@ label {
   font-size: 100%;
 }
 
-
 .BtnCreateStyle,
 .BtnConnectStyle {
   background-color: #475364;
@@ -480,7 +478,7 @@ label {
 .BtnConnectStyle:hover,
 .BtnCreateStyle:hover {
   background-color: #2a324ea1;
-  color: rgba(255, 255, 255, 0.726)
+  color: rgba(255, 255, 255, 0.726);
 }
 
 .dark-mode .BtnConnectStyle,
@@ -508,7 +506,7 @@ label {
 }
 
 .boxForm {
- visibility: hidden;
+  visibility: hidden;
 }
 
 .boxFormCreateAcc {
@@ -517,7 +515,7 @@ label {
 }
 
 .boxFormCreateAcc h1 {
-  margin-bottom: 10px;;
+  margin-bottom: 10px;
 }
 
 .dark-mode .boxForm,
@@ -883,7 +881,6 @@ input[type="radio"] {
   display: none;
 } */
 
-
 .Calendar {
   position: absolute;
   width: 280px;
@@ -943,20 +940,20 @@ input[type="radio"] {
 
 .days {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
+  grid-template-columns: repeat(7, 1fr);
 }
 
-.day{
+.day {
   text-align: center;
   padding: 5px;
-  color: #999FA6;
+  color: #999fa6;
   font-weight: 500;
-  font-family:Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .dates {
   display: grid;
-  grid-template-columns: repeat(7,1fr);
+  grid-template-columns: repeat(7, 1fr);
   gap: 5px;
 }
 
@@ -977,40 +974,39 @@ input[type="radio"] {
 
 .date:hover,
 .date.active {
-background-color: #ccd5df6b;
-color: rgba(0, 0, 0, 0.596)
+  background-color: #ccd5df6b;
+  color: rgba(0, 0, 0, 0.596);
 }
 
 .date.inactive {
-  color: rgb(218, 12, 12)
+  color: rgb(218, 12, 12);
 }
 
 .date.inactive:hover {
   color: rgb(126, 11, 11);
-background-color: #dfcccc6b;
+  background-color: #dfcccc6b;
 }
-
 
 .dark-mode .date:hover,
 .dark-mode .date.active {
-background-color: #ccd5df1a;
-color: rgba(255, 255, 255, 0.596)
+  background-color: #ccd5df1a;
+  color: rgba(255, 255, 255, 0.596);
 }
 
 .dark-mode .date.inactive {
-  color: rgb(168, 46, 46)
+  color: rgb(168, 46, 46);
 }
 
 .dark-mode .date.inactive:hover {
-background-color: #a3343431;
-color: rgba(255, 90, 90, 0.473)
+  background-color: #a3343431;
+  color: rgba(255, 90, 90, 0.473);
 }
 
 .dark-mode .fa-solid,
 .dark-mode .loginZindexCreateAccount h1,
 .dark-mode .loginZindexCreateAccount label,
 .dark-mode .loginZindex h1,
-.dark-mode .loginZindex label{
+.dark-mode .loginZindex label {
   color: white;
 }
 
