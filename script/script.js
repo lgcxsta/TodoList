@@ -300,9 +300,9 @@ function render() {
           const dateA = parseDate(a.startDate);
           const dateB = parseDate(b.startDate);
 
-          if (!dateA && !dateB) return 0; // les deux sans date → même ordre
-          if (!dateA) return 1; // a n'a pas de date → après b
-          if (!dateB) return -1; // b n'a pas de date → après a
+          if (!dateA && !dateB) return 0; // les deux sans date -> même ordre
+          if (!dateA) return 1; // a n'a pas de date -> après b
+          if (!dateB) return -1; // b n'a pas de date -> après a
 
           return dateA - dateB; // sinon tri normal du plus ancien au plus récent
         });
