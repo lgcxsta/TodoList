@@ -48,7 +48,7 @@ CREATE TABLE `tasks` (
 
 INSERT INTO `tasks` (`id`, `name`, `edited`, `checked`, `importance`, `deadline`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Faire du sport', '2026-01-01 09:15:00', 0, 3, '2026-01-20 17:00:00', '2026-01-01 08:00:00', '2026-01-01 09:15:00', NULL),
-(2, 'Réviser', NULL, 1, 1, '2026-01-15 11:00:00', '2026-01-02 07:30:00', '2026-01-02 08:00:00', NULL),
+(2, 'Réviser', NULL, 0, 1, '2026-01-15 11:00:00', '2026-01-02 07:30:00', '2026-01-02 08:00:00', NULL),
 (3, 'Acheter une carte cadeau', '2026-01-03 13:00:00', 0, 5, '2026-01-25 22:59:00', '2026-01-03 09:00:00', '2026-01-03 13:00:00', NULL),
 (4, 'Alimenter les pigeons', NULL, 0, 2, NULL, '2026-01-04 10:00:00', NULL, NULL),
 (5, "Faire les résumer d\'anglais", '2026-01-05 15:45:00', 1, 4, '2026-01-10 08:00:00', '2026-01-05 07:00:00', '2026-01-05 15:45:00', NULL),

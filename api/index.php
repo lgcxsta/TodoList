@@ -14,7 +14,7 @@ if ($origin && in_array($origin, $allowedOrigins, true)) {
   header("Access-Control-Allow-Origin: $origin");
   header("Vary: Origin");
 }
-header('Access-Control-Allow-Methods: DELETE, UPDATE, GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: DELETE, UPDATE, PATCH, GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
@@ -101,6 +101,16 @@ switch ($uri) {
       ]);
 
       jsonResponse(['message' => 'Task mise à jour']);
+    }
+
+    if ($method === 'PATCH') {
+      $data = json_decode(file_get_contents('php://input'), true);
+      $query = $pdo->prepare("UPDATE tasks SET checked = :checked WHERE id = :id");
+      $query->execute([
+        'checked' => $data['checked'] ?? 0,
+        'id' => $id
+      ]);
+      jsonResponse(['message' => 'Checked status mit à jour']);
     }
 
     if ($method === 'DELETE') {
