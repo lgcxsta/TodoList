@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000/api/tasks";
+const API_URL = "http://localhost:8000/api";
 
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle("dark-mode");
@@ -70,7 +70,7 @@ function editPriority() {
 
 //Recupere les tâches
 async function getTasks() {
-  const response = await fetch("http://localhost:8000/api/tasks");
+  const response = await fetch(API_URL + "/tasks");
   return await response.json();
 
   // return JSON.parse(localStorage.getItem("TasksList")) || [];
@@ -89,8 +89,8 @@ function parseDate(str) {
 }
 
 // Ajoute une tâche + crée un id + tâche (objet) + ajout au local storage
-function saveTasksToLocalStorage(task) {
-  let tasks = getTasks();
+async function saveTasksToLocalStorage(task) {
+  let tasks = await getTasks();
   let id = tasks.length > 0 ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
   const today = new Date();
   const day = String(today.getDate()).padStart(2, "0");
@@ -101,7 +101,7 @@ function saveTasksToLocalStorage(task) {
   tasks.push({
     id: id,
     text: task,
-    checked: false,
+    checked: 0,
     importance: 1,
     startDate: formattedToday,
     endDate: "",
@@ -196,14 +196,16 @@ const editInput = document.getElementById("textTaskModif");
 let task_id = "";
 
 // affiche les tâches + crée le conteuneur avec les spans
-function render() {
+async function render() {
   var container = document.getElementById("AddTâche");
   container.innerHTML = "";
 
-  getTasks().forEach(function (task) {
-    if (typeof task.text !== "string" || typeof task.checked !== "boolean") {
-      console.error("Tâche incorrecte dans localStorage", task);
-      return; // Si les données sont corrompues, on passe à la suivante
+  console.log(await getTasks());
+
+  (await getTasks()).forEach(function (task) {
+    if (!task.name) {
+      console.error("Tâche sans nom ignorée", task);
+      return;
     }
 
     // Créer la boîte de tâche
@@ -289,8 +291,8 @@ function render() {
 
 // ==================== TRI DES TÂCHES ====================
 // Fonction pour organiser les tâches
-function sortTasks(criteria) {
-  let tasks = getTasks();
+async function sortTasks(criteria) {
+  let tasks = await getTasks();
 
   switch (criteria) {
     case "lastAdded":
