@@ -155,10 +155,19 @@ function updateTaskInLocalStorage(
 }
 
 // Fonction pour supprimer une tâche du localStorage
-function deleteTaskFromLocalStorage(task_id) {
-  let tasks = getTasks();
+async function deleteTaskAPI(task_id) {
+  let tasks = await getTasks();
+  console.log(tasks);
   tasks = tasks.filter((task) => task.id !== task_id); // Filtrer la tâche à supprimer
   setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
+  console.log(task_id);
+  try {
+    await fetch(API_URL + "/tasks/" + task_id, {
+      method: "DELETE",
+    });
+  } catch (error) {
+    console.error("Delete error", error);
+  }
 }
 
 //Ajoute une nouv. tâche
@@ -211,7 +220,7 @@ async function render() {
     // Créer la boîte de tâche
     const taskBox = document.createElement("div");
     taskBox.className = "task-box";
-    if (task.checked) {
+    if (task.checked == 1) {
       taskBox.classList.add("checked"); // Si la tâche est cochée, on ajoute la classe "checked"
     }
 
@@ -257,7 +266,7 @@ async function render() {
     closeBtn.className = "close";
     closeBtn.textContent = "\u00D7";
     closeBtn.onclick = function () {
-      deleteTaskFromLocalStorage(task.id); // Supprimer du localStorage
+      deleteTaskAPI(task.id); // Supprimer du localStorage
       taskBox.remove(); // Supprime du DOM
     };
 

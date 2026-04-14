@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `todo_list`
 --
-DROP DATABASE IF EXISTS `to_do_list`
+DROP DATABASE IF EXISTS `to_do_list`;
 CREATE DATABASE IF NOT EXISTS `to_do_list` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `to_do_list`;
 
@@ -160,8 +160,8 @@ ALTER TABLE `users`
 -- Contraintes pour la table `users_task`
 --
 ALTER TABLE `users_task`
-  ADD CONSTRAINT `t_user_task` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`),
-  ADD CONSTRAINT `t_users_task` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `t_user_task` FOREIGN KEY (`task_id`) REFERENCES `tasks` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `t_users_task` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
