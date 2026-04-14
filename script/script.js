@@ -1,3 +1,5 @@
+const API_URL = "http://localhost:8000/api/tasks";
+
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle("dark-mode");
   localStorage.setItem("theme", isDark ? "dark" : "light");
@@ -67,8 +69,11 @@ function editPriority() {
 }
 
 //Recupere les tâches
-function getTasks() {
-  return JSON.parse(localStorage.getItem("TasksList")) || [];
+async function getTasks() {
+  const response = await fetch("http://localhost:8000/api/tasks");
+  return await response.json();
+
+  // return JSON.parse(localStorage.getItem("TasksList")) || [];
 }
 
 // Sauvegarde les tâches
