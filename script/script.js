@@ -270,8 +270,16 @@ async function render() {
       taskBox.remove(); // Supprime du DOM
     };
 
-    //edit btn display
-    editBtn.style.display = task.checked ? "none" : "inline-block";
+    function ediBtnVisibility(task) {
+      //editBtn.style.display = task.checked ? "none" : "inline-block";
+      if (task.checked == 1) {
+        editBtn.style.display = "none";
+      } else {
+        editBtn.style.display = "inline-block";
+      }
+    }
+
+    ediBtnVisibility(task); // execute la fonction
 
     // Task complet (Marquer comme terminé)
     taskBox.onclick = async function (e) {
@@ -281,15 +289,19 @@ async function render() {
         const checkedStatusAPI = task.checked ? 1 : 0;
 
         try {
-          await fetch(API_URL + "/tasks/" + task.id, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
+          await fetch(
+            API_URL + "/tasks/" + task.id,
+            {
+              method: "PATCH",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                checked: checkedStatusAPI,
+              }),
             },
-            body: JSON.stringify({
-              checked: checkedStatusAPI,
-            }),
-          });
+            test(task),
+          );
         } catch (error) {
           console.error("Edit check status error", error);
         }
