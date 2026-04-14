@@ -278,7 +278,6 @@ async function render() {
         editBtn.style.display = "inline-block";
       }
     }
-
     ediBtnVisibility(task); // execute la fonction
 
     // Task complet (Marquer comme terminé)
@@ -300,7 +299,7 @@ async function render() {
                 checked: checkedStatusAPI,
               }),
             },
-            test(task),
+            ediBtnVisibility(task),
           );
         } catch (error) {
           console.error("Edit check status error", error);
