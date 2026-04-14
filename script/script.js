@@ -270,13 +270,30 @@ async function render() {
       taskBox.remove(); // Supprime du DOM
     };
 
+    //edit btn display
     editBtn.style.display = task.checked ? "none" : "inline-block";
 
-    // Task complete (Marquer comme terminé)
-    taskBox.onclick = function (e) {
+    // Task complet (Marquer comme terminé)
+    taskBox.onclick = async function (e) {
       if (e.target === taskText) {
         taskBox.classList.toggle("checked");
         task.checked = taskBox.classList.contains("checked"); // Met à jour l'état de la tâche
+        const checkedStatusAPI = task.checked ? 1 : 0;
+
+        try {
+          await fetch(API_URL + "/tasks/" + task.id, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              checked: checkedStatusAPI,
+            }),
+          });
+        } catch (error) {
+          console.error("Edit check status error", error);
+        }
+
         updateTaskInLocalStorage(
           task.id,
           task.name,
@@ -284,7 +301,7 @@ async function render() {
           task.importance,
           task.startDate,
           task.endDate,
-        ); // Sauvegarde le nouvel état
+        ); // Sauvegarde le nouv. état
       }
     };
 
