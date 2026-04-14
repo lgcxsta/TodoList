@@ -63,9 +63,9 @@ switch ($uri) {
     if ($method === 'POST') {
       $data = json_decode(file_get_contents('php://input'), true);
 
-      $query = $pdo->prepare("INSERT INTO tasks (title) VALUES (:title)");
+      $query = $pdo->prepare("INSERT INTO tasks (name) VALUES (:name)");
       $query->execute([
-        'title' => $data['title'] ?? null
+        'name' => $data['name'] ?? null
       ]);
 
       jsonResponse([
@@ -94,9 +94,9 @@ switch ($uri) {
     if ($method === 'PUT') {
       $data = json_decode(file_get_contents('php://input'), true);
 
-      $query = $pdo->prepare("UPDATE tasks SET title = :title WHERE id = :id");
+      $query = $pdo->prepare("UPDATE tasks SET name = :name WHERE id = :id");
       $query->execute([
-        'title' => $data['title'] ?? null,
+        'name' => $data['name'] ?? null,
         'id' => $id
       ]);
 

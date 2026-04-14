@@ -216,7 +216,7 @@ function render() {
     // Span pour le texte de la tâche
     const taskText = document.createElement("span");
     taskText.className = "task-text";
-    taskText.textContent = task.text;
+    taskText.textContent = task.name;
 
     // Btn Edit
     const editBtn = document.createElement("span");
@@ -227,7 +227,7 @@ function render() {
       document.getElementById("bkgPopUpBlur").style.display = "block";
       document.getElementById("closePopUpsTasks").style.display = "block";
 
-      editInput.value = task.text;
+      editInput.value = task.name;
       task_id = task.id;
 
       document.getElementById("highLVL").checked = task.importance === 3;
@@ -268,7 +268,7 @@ function render() {
         task.checked = taskBox.classList.contains("checked"); // Met à jour l'état de la tâche
         updateTaskInLocalStorage(
           task.id,
-          task.text,
+          task.name,
           task.checked,
           task.importance,
           task.startDate,
