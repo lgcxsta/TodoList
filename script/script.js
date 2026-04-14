@@ -171,12 +171,26 @@ async function deleteTaskAPI(task_id) {
 }
 
 //Ajoute une nouv. tâche
-function addTask() {
+async function addTask() {
   const input = document.getElementById("myInput");
   const inputValue = input.value.trim();
   if (inputValue === "") {
     alert("Vous devez écrire quelque chose!");
     return;
+  }
+
+  try {
+    await fetch(API_URL + "/tasks", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: inputValue,
+      }),
+    });
+  } catch (error) {
+    console.error("Delete error", error);
   }
 
   // Sauvegarder la tâche dans le localStorage
