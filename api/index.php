@@ -69,7 +69,7 @@ switch ($uri) {
       ]);
 
       jsonResponse([
-        'message' => 'Task créée',
+        'message' => 'Task créé',
         'id' => $pdo->lastInsertId()
       ], 201);
     }
@@ -94,10 +94,11 @@ switch ($uri) {
     if ($method === 'PUT') {
       $data = json_decode(file_get_contents('php://input'), true);
 
-      $query = $pdo->prepare("UPDATE tasks SET name = :name WHERE id = :id");
+      $query = $pdo->prepare("UPDATE tasks SET name = :name, importance = :importance WHERE id = :id");
       $query->execute([
         'name' => $data['name'] ?? null,
-        'id' => $id
+        'id' => $id,
+        'importance' => $data['importance'] ?? 1,
       ]);
 
       jsonResponse(['message' => 'Task mise à jour']);
