@@ -24,6 +24,7 @@ A full-stack To-do List application featuring a modern interface with Dark/Light
 ## Project Structure
 
 TodoList
+
 ├── api/
 
 │ ├── index.php # API Router and Logic
