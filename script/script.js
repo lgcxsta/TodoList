@@ -142,7 +142,7 @@ function updateTaskInLocalStorage(
     task.id == task_id
       ? {
           ...task, //sa permet de réecrire seulement le texte qui est éditer
-          text: updatedTask,
+          name: updatedTask,
           checked: checkedStatus,
           importance: importanceStatus,
           startDate,
@@ -190,7 +190,7 @@ async function addTask() {
       }),
     });
   } catch (error) {
-    console.error("Delete error", error);
+    console.error("Add error", error);
   }
 
   // Sauvegarder la tâche dans le localStorage
@@ -273,6 +273,8 @@ async function render() {
       } else {
         minEndDate = null;
       }
+
+      // TODO add api funct.
     };
 
     // Btn Remove
@@ -398,6 +400,9 @@ document.getElementById("sortBtn").addEventListener("click", function () {
   dropdownContent.style.display =
     dropdownContent.style.display === "block" ? "none" : "block";
 });
+
+// TODO - create account - recup les users/pswd
+// TODO - login - get (verif credensc.)
 
 // ==================== FONCTIONS POUR LES POPUPS ====================
 
