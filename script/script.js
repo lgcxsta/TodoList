@@ -129,7 +129,7 @@ function updateTask() {
 
 // Fonction pour mettre à jour une tâche dans le localStorage
 // Modifie/mets a jour une tâche
-function updateTaskInLocalStorage(
+async function updateTaskInLocalStorage(
   task_id,
   updatedTask,
   checkedStatus,
@@ -137,7 +137,7 @@ function updateTaskInLocalStorage(
   startDate,
   endDate,
 ) {
-  let tasks = getTasks();
+  let tasks = await getTasks();
   tasks = tasks.map((task) =>
     task.id == task_id
       ? {
