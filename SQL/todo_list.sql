@@ -33,12 +33,11 @@ USE `to_do_list`;
 CREATE TABLE `tasks` (
   `id` int(11) NOT NULL,
   `name` varchar(150) DEFAULT NULL,
-  `edited` timestamp NULL DEFAULT NULL,
   `checked` tinyint(1) DEFAULT NULL,
   `importance` tinyint(4) DEFAULT NULL,
   `deadline` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -46,17 +45,22 @@ CREATE TABLE `tasks` (
 -- Déchargement des données de la table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `name`, `edited`, `checked`, `importance`, `deadline`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Faire du sport', '2026-01-01 09:15:00', 0, 3, '2026-01-20 17:00:00', '2026-01-01 08:00:00', '2026-01-01 09:15:00', NULL),
-(2, 'Réviser', NULL, 0, 1, '2026-01-15 11:00:00', '2026-01-02 07:30:00', '2026-01-02 08:00:00', NULL),
-(3, 'Acheter une carte cadeau', '2026-01-03 13:00:00', 0, 5, '2026-01-25 22:59:00', '2026-01-03 09:00:00', '2026-01-03 13:00:00', NULL),
-(4, 'Alimenter les pigeons', NULL, 0, 2, NULL, '2026-01-04 10:00:00', NULL, NULL),
-(5, "Faire les résumer d\'anglais", '2026-01-05 15:45:00', 1, 4, '2026-01-10 08:00:00', '2026-01-05 07:00:00', '2026-01-05 15:45:00', NULL),
-(6, 'Dessiner', NULL, 0, 3, '2026-02-01 19:00:00', '2026-01-06 12:00:00', NULL, NULL),
-(7, 'Acheter des légumes', '2026-01-07 18:30:00', 1, 5, '2026-01-08 17:00:00', '2026-01-07 08:30:00', '2026-01-07 18:30:00', NULL),
-(8, 'Faire les devoirs de maths', NULL, 0, 1, NULL, '2026-01-08 06:45:00', NULL, NULL),
-(9, 'Mémoriser les partition', '2026-01-09 11:00:00', 0, 4, '2026-01-30 16:00:00', '2026-01-09 08:00:00', '2026-01-09 11:00:00', NULL),
-(10, 'Rdv - 9h', NULL, 1, 2, '2026-01-12 09:00:00', '2026-01-10 07:15:00', NULL, NULL);
+INSERT INTO `tasks` (`id`, `name`, `checked`, `importance`, `deadline`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Faire du sport', 0, 3, '2026-01-20 17:00:00', '2026-01-01 08:00:00', '2026-01-01 09:15:00', NULL),
+(2, 'Réviser', 1, 1, '2026-01-15 11:00:00', '2026-01-02 07:30:00', '2026-01-02 08:00:00', NULL),
+(3, 'Acheter une carte cadeau', 0, 5, '2026-01-25 22:59:00', '2026-01-03 09:00:00', '2026-01-03 13:00:00', NULL),
+(4, 'Alimenter les pigeons', 0, 2, NULL, '2026-01-04 10:00:00', NULL, NULL),
+(5, 'Faire les résumer d\'anglais', 1, 4, '2026-01-10 08:00:00', '2026-01-05 07:00:00', '2026-01-05 15:45:00', NULL),
+(6, 'Dessiner', 0, 3, '2026-02-01 19:00:00', '2026-01-06 12:00:00', NULL, NULL),
+(7, 'Acheter des légumes', 1, 5, '2026-01-08 17:00:00', '2026-01-07 08:30:00', '2026-01-07 18:30:00', NULL),
+(8, 'Faire les devoirs de maths', 0, 1, NULL, '2026-01-08 06:45:00', NULL, NULL),
+(9, 'Mémoriser les partition', 0, 4, '2026-01-30 16:00:00', '2026-01-09 08:00:00', '2026-01-09 11:00:00', NULL),
+(10, 'Rdv - 9h', 1, 2, '2026-01-12 09:00:00', '2026-01-10 07:15:00', NULL, NULL),
+(12, 'b', 0, NULL, NULL, NULL, NULL, NULL),
+(13, 'vfraesvs', NULL, NULL, NULL, '2026-04-17 08:16:41', '2026-04-17 08:16:41', NULL),
+(14, 'a', NULL, NULL, NULL, '2026-04-17 08:21:43', '2026-04-17 08:21:43', NULL),
+(15, 'ZZZzzz', NULL, NULL, NULL, '2026-04-17 08:25:45', '2026-04-17 08:25:45', NULL),
+(16, 's', NULL, NULL, NULL, '2026-04-20 05:36:07', '2026-04-20 05:36:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -145,6 +149,12 @@ ALTER TABLE `users_task`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `tasks`
+--
+ALTER TABLE `tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `users`
