@@ -24,10 +24,7 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: 480px;
-  padding: 0 10px;
-  box-sizing: border-box;
+  width: 480px;
   position: relative;
 }
 
@@ -102,7 +99,7 @@ ul {
 input {
   margin: 0;
   border: none;
-  width: 90%;
+  width: 95%;
   padding: 10px;
   font-size: 16px;
   margin-bottom: 16px;
@@ -199,14 +196,19 @@ input {
   list-style-type: none;
   margin-top: 16px;
   margin-bottom: 10px;
-  scrollbar-color: rgba(138, 160, 175, 0) rgba(190, 211, 225, 0);
+  overflow-y: scroll;
+  /* scrollbar-color: rgba(138, 160, 175, 0) rgba(190, 211, 225, 0); */
   max-height: 300px;
-  width: 100%;
-  max-height: 300px;
-  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.texttache::-webkit-scrollbar {
+  display: none;
 }
 
 .task-box {
+  width: 365px;
   margin: 10px 0;
   padding-left: 15px;
   padding-top: 15px;
@@ -223,9 +225,6 @@ input {
   white-space: normal;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-  width: 100%;
-  box-sizing: border-box;
 }
 
 /*Close*/
@@ -779,7 +778,7 @@ input[type="radio"] {
 
 @media (max-width: 600px) {
   .task-box {
-    max-width: 350px;
+    max-width: 233px;
   }
 
   .header .addBtn {
@@ -789,7 +788,7 @@ input[type="radio"] {
 
   .sortBtn {
     width: 150px;
-    margin-right: 0;
+    margin-right: 5px;
     margin-top: 10px;
   }
 
