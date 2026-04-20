@@ -25,18 +25,31 @@ A full-stack To-do List application featuring a modern interface with Dark/Light
 
 TodoList
 ├── api/
+
 │ ├── index.php # API Router and Logic
+
 │ ├── config/
+
 │ │ ├── config.php # DB Credentials
+
 │ │ └── database.php # PDO Connection
+
 │ └── helpers/
+
 │ └── response.php # JSON response helper
+
 ├── script/
+
 │ └── script.js # Frontend Logic
+
 ├── style/
+
 │ └── style.css # Custom styling
+
 ├── img/ # Icons and assets
+
 ├── index.html # Main UI
+
 └── todo_list.sql # Database schema
 
 ## Installation
