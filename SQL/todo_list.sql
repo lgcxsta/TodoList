@@ -33,7 +33,7 @@ USE `to_do_list`;
 CREATE TABLE `tasks` (
   `id` int(11) NOT NULL,
   `name` varchar(150) DEFAULT NULL,
-  `checked` tinyint(1) DEFAULT NULL,
+  `checked` tinyint(1) DEFAULT 0,
   `importance` tinyint(4) DEFAULT NULL,
   `deadline` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
@@ -56,11 +56,6 @@ INSERT INTO `tasks` (`id`, `name`, `checked`, `importance`, `deadline`, `created
 (8, 'Faire les devoirs de maths', 0, 1, NULL, '2026-01-08 06:45:00', NULL, NULL),
 (9, 'Mémoriser les partition', 0, 4, '2026-01-30 16:00:00', '2026-01-09 08:00:00', '2026-01-09 11:00:00', NULL),
 (10, 'Rdv - 9h', 1, 2, '2026-01-12 09:00:00', '2026-01-10 07:15:00', NULL, NULL),
-(12, 'b', 0, NULL, NULL, NULL, NULL, NULL),
-(13, 'vfraesvs', NULL, NULL, NULL, '2026-04-17 08:16:41', '2026-04-17 08:16:41', NULL),
-(14, 'a', NULL, NULL, NULL, '2026-04-17 08:21:43', '2026-04-17 08:21:43', NULL),
-(15, 'ZZZzzz', NULL, NULL, NULL, '2026-04-17 08:25:45', '2026-04-17 08:25:45', NULL),
-(16, 's', NULL, NULL, NULL, '2026-04-20 05:36:07', '2026-04-20 05:36:07', NULL);
 
 -- --------------------------------------------------------
 
