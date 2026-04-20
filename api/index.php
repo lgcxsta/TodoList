@@ -137,17 +137,20 @@ switch ($uri) {
 
     if ($method === 'POST') {
       $data = json_decode(file_get_contents('php://input'), true);
+      $query = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"); // Préparer la requête d'insertion
+      $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT); // Hash du mot de passe avant insertion
 
-      $query = $pdo->prepare("INSERT INTO users (name) VALUES (:name)");
       $query->execute([
-        'name' => $data['name'] ?? null
+        'username' => $data['username'] ?? null,
+        'email' => $data['email'] ?? null,
+        'password' => $hashedPassword
       ]);
 
       jsonResponse([
         'message' => 'User créé',
         'id' => $pdo->lastInsertId()
       ], 201);
-    }
+}
 
     jsonResponse(['error' => 'Méthode non autorisée'], 405);
     break;
