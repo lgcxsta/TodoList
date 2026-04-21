@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `todo_list`
+-- Base de données : `to_do_list`
 --
 DROP DATABASE IF EXISTS `to_do_list`;
 CREATE DATABASE IF NOT EXISTS `to_do_list` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
@@ -37,25 +37,24 @@ CREATE TABLE `tasks` (
   `importance` tinyint(3) DEFAULT 1,
   `deadline` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `tasks`
 --
 
-INSERT INTO `tasks` (`id`, `name`, `checked`, `importance`, `deadline`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Faire du sport', 0, 3, '2026-01-20 17:00:00', '2026-01-01 08:00:00', '2026-01-01 09:15:00', NULL),
-(2, 'Réviser', 0, 1, '2026-01-02 07:30:00', '2026-01-02 08:00:00', NULL, NULL),
-(3, 'Acheter une carte cadeau', 0, 1, '2026-01-25 22:59:00', '2026-01-03 09:00:00', '2026-01-03 13:00:00', NULL),
-(4, 'Alimenter les pigeons', 0, 3, NULL, '2026-01-04 10:00:00', NULL, NULL),
-(5, "Faire les résumer d\'anglais", 1, 3, '2026-01-10 08:00:00', '2026-01-05 07:00:00', '2026-01-05 15:45:00', NULL),
-(6, 'Dessiner', 0, 3, '2026-02-01 19:00:00', '2026-01-06 12:00:00', NULL, NULL),
-(7, 'Acheter des légumes', 1, 2, '2026-01-08 17:00:00', '2026-01-07 08:30:00', '2026-01-07 18:30:00', NULL),
-(8, 'Faire les devoirs de maths', 0, 1, NULL, '2026-01-08 06:45:00', NULL, NULL),
-(9, 'Mémoriser les partition', 0, 3, '2026-01-30 16:00:00', '2026-01-09 08:00:00', '2026-01-09 11:00:00', NULL),
-(10, 'Rdv - 9h', 1, 2, '2026-01-12 09:00:00', '2026-01-10 07:15:00', NULL, NULL);
+INSERT INTO `tasks` (`id`, `name`, `checked`, `importance`, `deadline`, `created_at`, `updated_at`) VALUES
+(1, 'Faire du sport', 1, 3, '2026-01-20 17:00:00', '2026-01-01 08:00:00', '2026-01-01 09:15:00'),
+(2, 'Réviser', 1, 1, '2026-01-02 07:30:00', '2026-01-02 08:00:00', NULL),
+(3, 'Acheter une carte cadeau', 1, 1, '2026-01-25 22:59:00', '2026-01-03 09:00:00', '2026-01-03 13:00:00'),
+(4, 'Alimenter les pigeons', 0, 3, NULL, '2026-01-04 10:00:00', NULL),
+(5, 'Faire les résumer d\'anglais', 1, 3, '2026-01-10 08:00:00', '2026-01-05 07:00:00', '2026-01-05 15:45:00'),
+(6, 'Dessiner', 0, 3, '2026-02-01 19:00:00', '2026-01-06 12:00:00', NULL),
+(7, 'Acheter des légumes', 1, 2, '2026-01-08 17:00:00', '2026-01-07 08:30:00', '2026-01-07 18:30:00'),
+(8, 'Faire les devoirs de maths', 0, 1, NULL, '2026-01-08 06:45:00', NULL),
+(9, 'Mémoriser les partition', 1, 3, '2026-01-30 16:00:00', '2026-01-09 08:00:00', '2026-01-09 11:00:00'),
+(10, 'Rdv - 9h', 1, 2, '2026-01-12 09:00:00', '2026-01-10 07:15:00', NULL);
 -- --------------------------------------------------------
 
 --
@@ -68,26 +67,23 @@ CREATE TABLE `users` (
   `email` varchar(35) DEFAULT NULL,
   `password` varchar(155) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
-
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'alice01', 'alice01@mail.com', '$2y$10$eImiTXuWVxfM37uY4JANjQ==', '2026-01-01 08:00:00', '2026-01-01 08:00:00', NULL),
-(2, 'bob02', 'bob02@mail.com', '$2y$10$7EqJtq98hPqEX7fNZaFWo.', '2026-01-02 09:15:00', NULL, NULL),
-(3, 'charlie03', 'charlie03@mail.com', '$2y$10$KbQi9QkX8eR5EJ9rPZ9ZQ.', '2026-01-03 10:30:00', '2026-01-04 07:00:00', NULL),
-(4, 'diana04', 'diana04@mail.com', '$2y$10$F9g3hGxH8ZxFqN5uK9R0y.', '2026-01-04 13:00:00', NULL, NULL),
-(5, 'eric05', 'eric05@mail.com', '$2y$10$QWERTYuiopASDFGHJKLZX', '2026-01-05 15:45:00', '2026-01-06 08:20:00', NULL),
-(6, 'fatima06', 'fatima06@mail.com', '$2y$10$XyZ123456789abcdefghijklmn', '2026-01-06 07:30:00', NULL, NULL),
-(7, 'george07', 'george07@mail.com', '$2y$10$AbCdEfGhIjKlMnOpQrStUv', '2026-01-07 11:00:00', '2026-01-08 09:10:00', NULL),
-(8, 'hana08', 'hana08@mail.com', '$2y$10$LmNoPqRsTuVwXyZ0123456', '2026-01-08 08:45:00', NULL, NULL),
-(9, 'ivan09', 'ivan09@mail.com', '$2y$10$ZyXwVuTsRqPoNmLkJiHgFe', '2026-01-09 14:20:00', '2026-01-10 10:00:00', NULL),
-(10, 'julie10', 'julie10@mail.com', '$2y$10$AaBbCcDdEeFfGgHhIiJjKk', '2026-01-10 07:00:00', NULL, NULL);
-
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `created_at`, `updated_at`) VALUES
+(1, 'alice01', 'alice01@mail.com', '$2y$10$eImiTXuWVxfM37uY4JANjQ==', '2026-01-01 08:00:00', '2026-01-01 08:00:00'),
+(2, 'bob02', 'bob02@mail.com', '$2y$10$7EqJtq98hPqEX7fNZaFWo.', '2026-01-02 09:15:00', NULL),
+(3, 'charlie03', 'charlie03@mail.com', '$2y$10$KbQi9QkX8eR5EJ9rPZ9ZQ.', '2026-01-03 10:30:00', '2026-01-04 07:00:00'),
+(4, 'diana04', 'diana04@mail.com', '$2y$10$F9g3hGxH8ZxFqN5uK9R0y.', '2026-01-04 13:00:00', NULL),
+(5, 'eric05', 'eric05@mail.com', '$2y$10$QWERTYuiopASDFGHJKLZX', '2026-01-05 15:45:00', '2026-01-06 08:20:00'),
+(6, 'fatima06', 'fatima06@mail.com', '$2y$10$XyZ123456789abcdefghijklmn', '2026-01-06 07:30:00', NULL),
+(7, 'george07', 'george07@mail.com', '$2y$10$AbCdEfGhIjKlMnOpQrStUv', '2026-01-07 11:00:00', '2026-01-08 09:10:00'),
+(8, 'hana08', 'hana08@mail.com', '$2y$10$LmNoPqRsTuVwXyZ0123456', '2026-01-08 08:45:00', NULL),
+(9, 'ivan09', 'ivan09@mail.com', '$2y$10$ZyXwVuTsRqPoNmLkJiHgFe', '2026-01-09 14:20:00', '2026-01-10 10:00:00'),
+(10, 'julie10', 'julie10@mail.com', '$2y$10$AaBbCcDdEeFfGgHhIiJjKk', '2026-01-10 07:00:00', NULL);
 -- --------------------------------------------------------
 
 --
