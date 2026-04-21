@@ -66,7 +66,7 @@ CREATE TABLE `users` (
   `username` varchar(25) DEFAULT NULL,
   `email` varchar(35) DEFAULT NULL,
   `password` varchar(155) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
