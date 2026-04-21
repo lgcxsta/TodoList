@@ -646,3 +646,36 @@ function creatToLoginPopup() {
   document.getElementById("loginZindexCreateAccount").style.display = "none";
   document.getElementById("hideShow").style.display = "block";
 }
+
+//USER
+
+// CREATE ACCOUNT
+const btnInscrire = document.getElementById("createAccBTN");
+btnInscrire.onclick = () => {
+  const username = document.getElementById("usernameCreate").value;
+  const email = document.getElementById("userCreate").value;
+  const password = document.getElementById("pwdCreate").value;
+  creatAccountFunction(username, email, password);
+};
+
+async function creatAccountFunction(username, email, password) {
+  try {
+    const response = await fetch(API_URL + "/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    });
+
+    if (response.ok) {
+      creatToLoginPopup(); // Renvoie l'utilisateur vers le login
+    }
+  } catch (error) {
+    console.error("Erreur de création :", error);
+  }
+}

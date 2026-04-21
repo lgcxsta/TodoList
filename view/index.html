@@ -122,16 +122,17 @@
         <form>
           <div>
             <label for="email" class="labeltextCreateAndLog labeltext3">Email</label>
-            <input class="inputsCreateAndLog label3" type="text" name="user" id="user" size="50px" maxlength="25"
+            <input class="inputsCreateAndLog label3" type="text" name="user" id="userCreate" size="50px" maxlength="25"
               required />
           </div>
           <div>
             <label for="pwdEmail" class="labeltextCreateAndLog labeltext4">Password</label>
-            <input class="inputsCreateAndLog label4" type="password" name="pwd" id="pwd" maxlength="35" required />
+            <input class="inputsCreateAndLog label4" type="password" name="pwd" id="pwdCreate" maxlength="35"
+              required />
           </div>
           <div>
             <label for="username" class="labeltextCreateAndLog labeltext5">Username</label>
-            <input class="inputsCreateAndLog label5" type="text" name="username" id="username" maxlength="35"
+            <input class="inputsCreateAndLog label5" type="text" name="username" id="usernameCreate" maxlength="35"
               required />
           </div>
 
@@ -140,8 +141,8 @@
             <b onclick="creatToLoginPopup()">Sign in</b>
           </p>
           <div class="BtnCreateAccount">
-            <button class="BtnCreateStyle" style="font-size: 15px" type="submit" value="Submit"
-              onclick="creatAccountFunction()">
+            <button class="BtnCreateStyle" style="font-size: 15px" type="button" value="Submit"
+              onclick="creatAccountFunction()" id="createAccBTN">
               Create Account
             </button>
           </div>
