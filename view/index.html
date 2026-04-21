@@ -88,12 +88,12 @@
         <form>
           <div>
             <label for="user" class="labeltextCreateAndLog labeltext1">Username/Email</label>
-            <input class="inputsCreateAndLog label1" type="text" name="user" id="user" size="50px" maxlength="25"
+            <input class="inputsCreateAndLog label1" type="text" name="user" id="userMailLOG" size="50px" maxlength="25"
               required />
           </div>
           <div>
             <label for="pwd" class="labeltextCreateAndLog labeltext2">Password</label>
-            <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwd" maxlength="35" required />
+            <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwdLOG" maxlength="35" required />
           </div>
 
           <p class="creatAccountText">
@@ -101,8 +101,7 @@
             <b onclick="createAccountPopUp()">Create one here</b>
           </p>
           <div class="BtnConnect">
-            <button class="BtnConnectStyle" style="font-size: 15px" type="button" value="Submit"
-              onclick="logAcccountFunction()" id="logAccountBTN">
+            <button class="BtnConnectStyle" style="font-size: 15px" type="button" value="Submit" id="logAccountBTN">
               Login
             </button>
           </div>
@@ -141,8 +140,7 @@
             <b onclick="creatToLoginPopup()">Sign in</b>
           </p>
           <div class="BtnCreateAccount">
-            <button class="BtnCreateStyle" style="font-size: 15px" type="button" value="Submit"
-              onclick="creatAccountFunction()" id="createAccBTN">
+            <button class="BtnCreateStyle" style="font-size: 15px" type="button" value="Submit" id="createAccBTN">
               Create Account
             </button>
           </div>
