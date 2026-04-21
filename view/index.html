@@ -95,18 +95,19 @@
             <label for="pwd" class="labeltextCreateAndLog labeltext2">Password</label>
             <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwd" maxlength="35" required />
           </div>
-        </form>
-        <p class="creatAccountText">
-          Don't have an account?
-          <b onclick="createAccountPopUp()">Create one here</b>
-        </p>
-        <div class="BtnConnect">
-          <button class="BtnConnectStyle" style="font-size: 15px" type="submit" value="Submit"
-            onclick="enterAcccountFunction()">
-            Login
-          </button>
-        </div>
+
+          <p class="creatAccountText">
+            Don't have an account?
+            <b onclick="createAccountPopUp()">Create one here</b>
+          </p>
+          <div class="BtnConnect">
+            <button class="BtnConnectStyle" style="font-size: 15px" type="submit" value="Submit"
+              onclick="logAcccountFunction()">
+              Login
+            </button>
+          </div>
       </div>
+      </form>
     </div>
 
     <!--- POPUP CREATE ACCOUNT -->
@@ -133,19 +134,22 @@
             <input class="inputsCreateAndLog label5" type="text" name="username" id="username" maxlength="35"
               required />
           </div>
-        </form>
-        <p class="creatAccountText">
-          Already have an account?
-          <b onclick="creatToLoginPopup()">Sign in</b>
-        </p>
-        <div class="BtnCreateAccount">
-          <button class="BtnCreateStyle" style="font-size: 15px" type="submit" value="Submit"
-            onclick="creatAccountFunction()">
-            Create Account
-          </button>
-        </div>
+
+          <p class="creatAccountText">
+            Already have an account?
+            <b onclick="creatToLoginPopup()">Sign in</b>
+          </p>
+          <div class="BtnCreateAccount">
+            <button class="BtnCreateStyle" style="font-size: 15px" type="submit" value="Submit"
+              onclick="creatAccountFunction()">
+              Create Account
+            </button>
+          </div>
       </div>
+      </form>
     </div>
+
+
     <!-- POPUP EDIT TASK -->
     <div class="popupEdit" id="popupEdit" style="display: none">
       <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
@@ -182,7 +186,8 @@
       </form>
     </div>
 
-    <!-- https://youtu.be/OcncrLyddAs?si=X51vKj41qnmhkL9l -->
+    <!-- CALENDRIER -->
+    <!-- SOURCE:  https://youtu.be/OcncrLyddAs?si=X51vKj41qnmhkL9l -->
     <div class="Calendar">
       <div class="headerCalendar" id="headerCalendar">
         <button id="prevBtn" class="prevBtn">
