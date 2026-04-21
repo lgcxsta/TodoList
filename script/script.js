@@ -23,6 +23,7 @@ inputEditTask.addEventListener("keypress", function (event) {
   }
 });
 
+// ! ==================== IMPORTANCE DES TÂCHES ====================
 // Fonction importance
 function impLevels() {
   let importanceLevels = 1;
@@ -50,6 +51,7 @@ function impLevels() {
   return importanceLevels;
 }
 
+// ! ==================== EDITION DES TÂCHES ====================
 //Update importance + texte tâche dans le localStorage
 function editPriority() {
   const importance = impLevels();
@@ -170,6 +172,7 @@ async function deleteTaskAPI(task_id) {
   }
 }
 
+// ! ==================== AJOUT DE TÂCHES ====================
 //Ajoute une nouv. tâche
 async function addTask() {
   const input = document.getElementById("myInput");
@@ -218,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const editInput = document.getElementById("textTaskModif");
 let task_id = "";
 
+// ! ==================== AFFICHAGE DES TÂCHES ====================
 // affiche les tâches + crée le conteuneur avec les spans
 async function render() {
   var container = document.getElementById("AddTâche");
@@ -342,7 +346,7 @@ async function render() {
   });
 }
 
-// ==================== TRI DES TÂCHES ====================
+// ! ==================== TRI DES TÂCHES ====================
 // Fonction pour organiser les tâches
 async function sortTasks(criteria) {
   let tasks = await getTasks();
@@ -404,7 +408,7 @@ document.getElementById("sortBtn").addEventListener("click", function () {
 // TODO - create account - recup les users/pswd
 // TODO - login - get (verif credensc.)
 
-// ==================== FONCTIONS POUR LES POPUPS ====================
+// ! ==================== FONCTIONS POUR LES POPUPS ====================
 
 // Hide/show = le login
 function hideShow() {
@@ -455,7 +459,7 @@ function closeDropdown() {
   document.getElementById("dropdownContent").style.display = "none";
 }
 
-// ==================== CALENDRIER ====================
+// ! ==================== CALENDRIER ====================
 let activeDateInput = null; // L'input actif
 let minEndDate = null; // Date minimale selectable pour endDate
 let currentDate = new Date();
@@ -627,7 +631,7 @@ nextBtn.addEventListener("click", () => {
   updateCalendar();
 });
 
-// ==================== ACCOUNT POPUPS ====================
+// ! ==================== ACCOUNT POPUPS ====================
 function croixCreateAcc() {
   document.getElementById("loginZindexCreateAccount").style.display = "none";
   document.getElementById("hideShow").style.display = "none";
@@ -647,7 +651,7 @@ function creatToLoginPopup() {
   document.getElementById("hideShow").style.display = "block";
 }
 
-//USER
+// !  ==================== USER ====================
 
 // CREATE ACCOUNT
 const btnInscrire = document.getElementById("createAccBTN");
