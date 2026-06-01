@@ -183,7 +183,7 @@ async function addTask() {
   }
 
   try {
-    await fetch(API_URL + "/tasks", {
+    const response = await fetch(API_URL + "/users/" + userId + "/tasks", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -195,9 +195,6 @@ async function addTask() {
   } catch (error) {
     console.error("Add error", error);
   }
-
-  // Sauvegarder la tâche dans le localStorage
-  saveTasksToLocalStorage(inputValue);
 
   input.value = "";
 }
@@ -277,8 +274,6 @@ async function render() {
       } else {
         minEndDate = null;
       }
-
-      // TODO add api funct.
     };
 
     // Btn Remove
@@ -404,9 +399,6 @@ document.getElementById("sortBtn").addEventListener("click", function () {
   dropdownContent.style.display =
     dropdownContent.style.display === "block" ? "none" : "block";
 });
-
-// TODO - create account - recup les users/pswd
-// TODO - login - get (verif credensc.)
 
 // ! ==================== FONCTIONS POUR LES POPUPS ====================
 
@@ -677,18 +669,14 @@ async function creatAccountFunction(username, email, password) {
     });
 
     if (response.ok) {
-      creatToLoginPopup(); // Renvoie l'utilisateur vers le login
+      creatToLoginPopup(); //  Affiche le popup de login
     }
   } catch (error) {
     console.error("Erreur de création :", error);
   }
 }
 
-// TODO - Login dans les comptes crées (verif credensc.) - API get users + verif dans la fonction login
-// ? - faire un get de tous les users et vérifier si les credentials entrés matchent avec un des users (dans loginAccountFunction)
-// ? - ou faire une route API spécifique pour le login qui vérifie les credentials et renvoie une réponse positive ou négative ?
-
-// LOGIN
+// ! ==================== LOGIN ====================
 const btnLog = document.getElementById("logAccountBTN");
 btnLog.onclick = () => {
   const UserMail = document.getElementById("userMailLOG").value;
