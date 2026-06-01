@@ -94,11 +94,13 @@ switch ($uri) {
     if ($method === 'PUT') {
       $data = json_decode(file_get_contents('php://input'), true);
 
-      $query = $pdo->prepare("UPDATE tasks SET name = :name, importance = :importance WHERE id = :id");
+      $query = $pdo->prepare("UPDATE tasks SET name = :name, importance = :importance, start_date = :start_date, end_date = :end_date WHERE id = :id");
       $query->execute([
         'name' => $data['name'] ?? null,
         'id' => $id,
         'importance' => $data['importance'] ?? 1,
+        'start_date' => $data['start_date'] ?? null,
+        'end_date' => $data['end_date'] ?? null
       ]);
 
       jsonResponse(['message' => 'Task mise à jour']);
@@ -212,8 +214,12 @@ switch ($uri) {
       $data = json_decode(file_get_contents('php://input'), true);
       $taskName = $data['name'] ?? null;
 
-      $queryTask = $pdo->prepare("INSERT INTO tasks (name) VALUES (:name)");
-      $queryTask->execute(['name' => $taskName]);
+      $queryTask = $pdo->prepare("INSERT INTO tasks (name, start_date, end_date) VALUES (:name, :start_date, :end_date)");
+      $queryTask->execute([
+        'name' => $taskName,
+        'start_date' => $data['start_date'] ?? null,
+        'end_date' => $data['end_date'] ?? null
+        ]);
       $newTaskId = $pdo->lastInsertId();
 
       $queryRelation = $pdo->prepare("

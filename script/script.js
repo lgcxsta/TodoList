@@ -201,6 +201,8 @@ async function addTask() {
       },
       body: JSON.stringify({
         name: inputValue,
+        start_date: formatedToday,
+        end_date: "",
       }),
     });
 
@@ -242,9 +244,11 @@ async function render() {
   var container = document.getElementById("AddTâche");
   container.innerHTML = "";
 
-  console.log(await getTasks());
+  //console.log(await getTasks());
+  const tasks = await getTasks();
+  console.log(tasks);
 
-  (await getTasks()).forEach(function (task) {
+  tasks.forEach(function (task) {
     if (!task.name) {
       console.error("Tâche sans nom ignorée", task);
       return;
@@ -285,7 +289,7 @@ async function render() {
       startInput.value = task.startDate || ""; // vide si aucune date
       endInput.value = task.endDate || ""; // vide si aucune date
 
-      //0 Mettre à jour minEndDate
+      //Mettre à jour minEndDate
       if (task.startDate) {
         const parts = task.startDate.split("/");
         minEndDate = new Date(parts[2], parts[1] - 1, parts[0]);
@@ -321,31 +325,29 @@ async function render() {
         const checkedStatusAPI = task.checked ? 1 : 0;
 
         try {
-          await fetch(
-            API_URL + "/tasks/" + task.id,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                checked: checkedStatusAPI,
-              }),
+          await fetch(API_URL + "/tasks/" + task.id, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
             },
-            ediBtnVisibility(task),
-          );
+            body: JSON.stringify({
+              checked: checkedStatusAPI,
+            }),
+          });
+          ediBtnVisibility(task);
+          await render();
         } catch (error) {
           console.error("Edit check status error", error);
         }
 
-        updateTaskInLocalStorage(
-          task.id,
-          task.name,
-          task.checked,
-          task.importance,
-          task.startDate,
-          task.endDate,
-        ); // Sauvegarde le nouv. état
+        // updateTaskInLocalStorage(
+        //   task.id,
+        //   task.name,
+        //   task.checked,
+        //   task.importance,
+        //   task.startDate,
+        //   task.endDate,
+        // ); // Sauvegarde le nouv. état
       }
     };
 
@@ -781,4 +783,37 @@ if (localStorage.getItem("currentUserId") == null) {
   };
 } else {
   document.getElementById("logoutText").style.display = "display";
+}
+
+// ! ==================== MODIF TASKS ====================
+// Modif Task
+const btnInscrire = document.getElementById("createAccBTN");
+btnInscrire.onclick = () => {
+  const username = document.getElementById("usernameCreate").value;
+  const email = document.getElementById("userCreate").value;
+  const password = document.getElementById("pwdCreate").value;
+  creatAccountFunction(username, email, password); // Appel de la fonction de création de compte
+};
+
+async function creatAccountFunction(username, email, password) {
+  try {
+    const response = await fetch(API_URL + "/users", {
+      // Appel à l'API pour créer un utilisateur
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        email: email,
+        password: password,
+      }),
+    });
+
+    if (response.ok) {
+      creatToLoginPopup(); //  Affiche le popup de login
+    }
+  } catch (error) {
+    console.error("Erreur de création :", error);
+  }
 }
