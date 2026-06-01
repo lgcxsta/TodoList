@@ -256,4 +256,48 @@ switch ($uri) {
 
   default:
     jsonResponse(["error" => "Route inconnue"], 404);
+
+
+
+  // =========================
+  // LOGIN
+  // =========================
+
+  // Permet de chercher l'utilisateur dans la DB, et utiliser la fonction password_verify() pour comparer le mot de passe
+  case $base . '/login':
+    if ($method === 'POST') {
+      $data = json_decode(file_get_contents('php://input'), true);
+      $username = $data['username'] ?? null;
+      $password = $data['password'] ?? null;
+
+      if (!$username || !$password) {
+        jsonResponse(['error' => 'Veuiller fournir un username/pwd'], 400);
+      }
+
+      //chercher utilisateur par email ou username
+      $query = $pdo->prepare("SELECT * FROM users WHERE username = :login_user OR email = :login_email");
+      $query->execute([
+        'login_user' => $username,
+        'login_email' => $username
+        ]);
+      $user = $query->fetch(PDO::FETCH_OBJ);
+
+  if ($user && password_verify($password, $user->password)) {
+        // Authentification réussie
+        jsonResponse([
+          'message' => 'Authentification réussie',
+          'user' => [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email
+          ]
+        ]);
+      } else {
+        // Authentification échouée
+        jsonResponse(['error' => 'Identifiants invalides'], 401);
+      }
+    }
+
+    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    break;
 }

@@ -683,38 +683,42 @@ async function creatAccountFunction(username, email, password) {
     console.error("Erreur de création :", error);
   }
 }
+
 // TODO - Login dans les comptes crées (verif credensc.) - API get users + verif dans la fonction login
 // ? - faire un get de tous les users et vérifier si les credentials entrés matchent avec un des users (dans loginAccountFunction)
 // ? - ou faire une route API spécifique pour le login qui vérifie les credentials et renvoie une réponse positive ou négative ?
 
 // LOGIN
-// const btnLog = document.getElementById("logAccountBTN");
-// btnLog.onclick = () => {
-//   const UserMail = document.getElementById("userMailLOG").value;
-//   const passwordLOG = document.getElementById("pwdLOG").value;
-//   loginAccountFunction(UserMail, passwordLOG);
-// };
+const btnLog = document.getElementById("logAccountBTN");
+btnLog.onclick = () => {
+  const UserMail = document.getElementById("userMailLOG").value;
+  const passwordLOG = document.getElementById("pwdLOG").value;
+  loginAccountFunction(UserMail, passwordLOG);
+};
 
-// async function loginAccountFunction(UserMail, passwordLOG, users_id) {
-//   try {
-//     const response = await fetch(API_URL + "/users/" + users_id, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         id: users_id,
-//         username: UserMail,
-//         password: passwordLOG,
-//       }),
-//     });
+async function loginAccountFunction(UserMail, passwordLOG) {
+  try {
+    const response = await fetch(API_URL + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: UserMail,
+        password: passwordLOG,
+      }),
+    });
 
-//     if (response.ok) {
-//       croixCreateAcc(); // Renvoie l'utilisateur vers le login
-//     } else {
-//       alert("Identifiants incorrects. Veuillez réessayer.");
-//     }
-//   } catch (error) {
-//     console.error("Erreur de création :", error);
-//   }
-// }
+    if (response.ok) {
+      const data = await response.json();
+      console.log("Login réussi :", data);
+      alert("Vous avez reussi à vous connecter!");
+      croixCreateAcc(); // Renvoie l'utilisateur vers le login
+    } else {
+      const errorData = await response.json();
+      alert("Identifiants incorrects. Veuillez réessayer.");
+    }
+  } catch (error) {
+    console.error("Erreur de création :", error);
+  }
+}
