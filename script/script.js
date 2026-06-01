@@ -181,8 +181,15 @@ async function deleteTaskAPI(task_id) {
 async function addTask() {
   const input = document.getElementById("myInput");
   const inputValue = input.value.trim();
+  const userId = localStorage.getItem("currentUserId");
+
   if (inputValue === "") {
     alert("Vous devez écrire quelque chose!");
+    return;
+  }
+
+  if (!userId) {
+    alert("Vous devez être connecté pour ajouter une tâche...");
     return;
   }
 
@@ -196,6 +203,13 @@ async function addTask() {
         name: inputValue,
       }),
     });
+
+    if (response.ok) {
+      input.value = ""; // On vide le champ texte
+      await render(); // On rafraîchit la liste depuis la DB
+    } else {
+      alert("Erreur lors de la sauvegarde de la tâche.");
+    }
   } catch (error) {
     console.error("Add error", error);
   }
