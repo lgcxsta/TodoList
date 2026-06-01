@@ -72,7 +72,11 @@ function editPriority() {
 
 //Recupere les tâches
 async function getTasks() {
-  const response = await fetch(API_URL + "/tasks");
+  const userId = localStorage.getItem("currentUserId");
+  if (!userId) {
+    return [];
+  }
+  const response = await fetch(API_URL + "/users/" + userId + "/tasks");
   return await response.json();
 
   // return JSON.parse(localStorage.getItem("TasksList")) || [];
