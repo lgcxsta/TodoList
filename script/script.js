@@ -669,12 +669,13 @@ btnInscrire.onclick = () => {
   const username = document.getElementById("usernameCreate").value;
   const email = document.getElementById("userCreate").value;
   const password = document.getElementById("pwdCreate").value;
-  creatAccountFunction(username, email, password);
+  creatAccountFunction(username, email, password); // Appel de la fonction de création de compte
 };
 
 async function creatAccountFunction(username, email, password) {
   try {
     const response = await fetch(API_URL + "/users", {
+      // Appel à l'API pour créer un utilisateur
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -716,15 +717,68 @@ async function loginAccountFunction(UserMail, passwordLOG) {
     });
 
     if (response.ok) {
-      const data = await response.json();
+      const data = await response.json(); // Récupérer les données de l'utilisateur connecté
+
+      localStorage.setItem("currentUserId", data.user.id); // Stocker le id dans le localStorage
+      // data attent les données du fichier json, et user.id as été crée dans index.php
+      localStorage.setItem("currentUsername", data.user.username);
+
+      window.onload(); // Met à jour le label utilisateur dès le login - recharge la page
+
       console.log("Login réussi :", data);
       alert("Vous avez reussi à vous connecter!");
-      croixCreateAcc(); // Renvoie l'utilisateur vers le login
+
+      document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
+      document.getElementById("logoutText").style.display = "display";
+
+      render(); // raffraichit
+      croixCreateAcc(); // Ferme le popup de login
     } else {
       const errorData = await response.json();
       alert("Identifiants incorrects. Veuillez réessayer.");
+      document.getElementById("pwdLOG").value = "";
     }
   } catch (error) {
     console.error("Erreur de création :", error);
   }
+}
+
+// UserLabel - (texte en dessous de la page qui affiche le nom de l'utilisateur connecté)
+window.onload = () => {
+  // Met à jour le label utilisateur dès le chargement de la page
+  const userlabelTest = document.getElementById("userLabel"); // test si l'élément existe avant de tenter de le modifier
+  if (userlabelTest) {
+    // Si l'élément existe, on peut mettre à jour son contenu
+    userlabelTest.innerHTML = localStorage.getItem("currentUserId")
+      ? `User: ${localStorage.getItem("currentUsername")}`
+      : "Veuillez vous connecter...";
+  }
+};
+
+// ! ==================== LOG OUT ====================
+const logoutBtn = document.getElementById("logoutText");
+logoutBtn.onclick = () => {
+  localStorage.removeItem("currentUserId");
+  localStorage.removeItem("currentUsername");
+  window.onload(); // Met à jour le label utilisateur dès le logout - recharge la page
+  alert("Vous avez été déconnecté.");
+  render(); // raffraichit
+  document.getElementById("logoutText").style.display = "none";
+};
+
+// Si n'est pas connecter
+if (localStorage.getItem("currentUserId") == null) {
+  document.getElementById("logoutText").style.display = "none";
+
+  // Message erreur quand input cliquer + disable
+  document.getElementById("myInput").onclick = function () {
+    alert("Veuillez vous connecter pour ajouter une tâche.");
+    document.getElementById("myInput").disabled = true;
+  };
+  // Message erreur quand btn add cliquer
+  document.getElementById("addBtn").onclick = function () {
+    alert("Veuillez vous connecter pour ajouter une tâche.");
+  };
+} else {
+  document.getElementById("logoutText").style.display = "display";
 }

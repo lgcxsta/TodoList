@@ -994,11 +994,33 @@ input[type="radio"] {
 .dark-mode .loginZindexCreateAccount h1,
 .dark-mode .loginZindexCreateAccount label,
 .dark-mode .loginZindex h1,
-.dark-mode .loginZindex label {
+.dark-mode .loginZindex label{
   color: white;
 }
 
 .inputDate {
   caret-color: rgba(255, 0, 0, 0);
   width: 170px;
+}
+
+#userLabel, #logoutText {
+  font-family: "Open Sans";
+  font-size: 14px;
+  color: #3c3c4b9c;
+  width: 100%;
+  position: fixed;}
+
+#userLabel {
+  bottom: 0px;
+  text-align: center;}
+
+#logoutText {
+  bottom: -13px;
+  left: 5px;
+  display: inline-block;
+}
+
+.dark-mode #userLabel, 
+.dark-mode #logoutText {
+  color: rgba(255, 255, 255, 0.438);
 }
