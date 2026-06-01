@@ -208,6 +208,29 @@ switch ($uri) {
       jsonResponse($query->fetchAll(PDO::FETCH_OBJ));
     }
 
+    if ($method === 'POST') {
+      $data = json_decode(file_get_contents('php://input'), true);
+      $taskName = $data['name'] ?? null;
+
+      $queryTask = $pdo->prepare("INSERT INTO tasks (name) VALUES (:name)");
+      $queryTask->execute(['name' => $taskName]);
+      $newTaskId = $pdo->lastInsertId();
+
+      $queryRelation = $pdo->prepare("
+                INSERT INTO users_task (user_id, task_id)
+                VALUES (:user_id, :task_id)
+            ");
+      $queryRelation->execute([
+        'user_id' => $userId,
+        'task_id' => $newTaskId
+      ]);
+
+      jsonResponse([
+        'message' => "Tâche créée et associée à l'utilisateur",
+        'id' => $newTaskId
+      ], 201);
+    }
+
     jsonResponse(['error' => 'Méthode non autorisée'], 405);
     break;
 
@@ -254,11 +277,6 @@ switch ($uri) {
     jsonResponse(['error' => 'Méthode non autorisée'], 405);
     break;
 
-  default:
-    jsonResponse(["error" => "Route inconnue"], 404);
-
-
-
   // =========================
   // LOGIN
   // =========================
@@ -299,5 +317,9 @@ switch ($uri) {
     }
 
     jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    break;
+
+      default:
+    jsonResponse(["error" => "Route inconnue"], 404);
     break;
 }
