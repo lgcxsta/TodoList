@@ -309,15 +309,6 @@ async function render() {
         } catch (error) {
           console.error("Edit check status error", error);
         }
-
-        // updateTaskInLocalStorage(
-        //   task.id,
-        //   task.name,
-        //   task.checked,
-        //   task.importance,
-        //   task.startDate,
-        //   task.endDate,
-        // ); // Sauvegarde le nouv. état
       }
     };
 
@@ -612,9 +603,16 @@ function creatToLoginPopup() {
 // CREATE ACCOUNT
 const btnInscrire = document.getElementById("createAccBTN");
 btnInscrire.onclick = () => {
-  const username = document.getElementById("usernameCreate").value;
-  const email = document.getElementById("userCreate").value;
-  const password = document.getElementById("pwdCreate").value;
+  const username = document.getElementById("usernameCreate").value.trim();
+  const email = document.getElementById("userCreate").value.trim();
+  const password = document.getElementById("pwdCreate").value.trim();
+
+  if (!username || !password) {
+    // Vérifie que le nom d'utilisateur et le mot de passe ne sont pas vides
+    alert("Le nom d'utilisateur et le mot de passe sont obligatoires !");
+    return;
+  }
+
   creatAccountFunction(username, email, password); // Appel de la fonction de création de compte
 };
 
@@ -635,6 +633,12 @@ async function creatAccountFunction(username, email, password) {
 
     if (response.ok) {
       creatToLoginPopup(); //  Affiche le popup de login
+    } else {
+      const errorData = await response.json();
+      alert(
+        "Erreur lors de la création du compte : " +
+          (errorData.error || "Veuillez réessayer."),
+      );
     }
   } catch (error) {
     console.error("Erreur de création :", error);

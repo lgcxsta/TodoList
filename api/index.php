@@ -141,9 +141,25 @@ switch ($uri) {
 
     if ($method === 'POST') {
       $data = json_decode(file_get_contents('php://input'), true);
+
+      $username = trim($data['username'] ?? '');
+      $email = trim($data['email'] ?? '');
+      $password = trim($data['password'] ?? '');
+      
+      if ($username === '' || $password === '') {
+        jsonResponse(['error' => 'Username/password obligatoires'], 400);
+      }
+
+      $checkQuery = $pdo->prepare("SELECT id FROM users WHERE username = :username");
+      $checkQuery->execute(['username' => $username]);
+      if ($checkQuery->fetch()) {
+        // Le pseudo existe déja
+        jsonResponse(['error' => 'Cet username existe déjà...'], 409); // 409 = Conflict
+      }
+
       $query = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"); // Préparer la requête d'insertion
       $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT); // Hash du mot de passe avant insertion
-
+      
       $query->execute([
         'username' => $data['username'] ?? null,
         'email' => $data['email'] ?? null,
