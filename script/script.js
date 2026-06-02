@@ -171,6 +171,7 @@ async function deleteTaskAPI(task_id) {
     await fetch(API_URL + "/tasks/" + task_id, {
       method: "DELETE",
     });
+    render();
   } catch (error) {
     console.error("Delete error", error);
   }
@@ -193,6 +194,10 @@ async function addTask() {
     return;
   }
 
+  const today = new Date(); // Date actuelle
+  const formatedToday = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
+  // Formatage de la date au format "dd/mm/yyyy"
+
   try {
     const response = await fetch(API_URL + "/users/" + userId + "/tasks", {
       method: "POST",
@@ -201,8 +206,8 @@ async function addTask() {
       },
       body: JSON.stringify({
         name: inputValue,
-        start_date: formatedToday,
-        end_date: "",
+        startDate: formatedToday,
+        endDate: "",
       }),
     });
 
@@ -290,8 +295,8 @@ async function render() {
       endInput.value = task.endDate || ""; // vide si aucune date
 
       //Mettre à jour minEndDate
-      if (task.startDate) {
-        const parts = task.startDate.split("/");
+      if (task.start_date) {
+        const parts = task.start_date.split("/");
         minEndDate = new Date(parts[2], parts[1] - 1, parts[0]);
       } else {
         minEndDate = null;
@@ -377,8 +382,8 @@ async function sortTasks(criteria) {
 
     case "date":
       tasks.sort((a, b) => {
-        const dateA = parseDate(a.startDate);
-        const dateB = parseDate(b.startDate);
+        const dateA = parseDate(a.start_date);
+        const dateB = parseDate(b.start_date);
 
         if (!dateA && !dateB) return 0; // les deux sans date -> même ordre
         if (!dateA) return 1; // a n'a pas de date -> après b
@@ -778,39 +783,51 @@ window.onload = () => {
     if (userlabelTest)
       userlabelTest.innerHTML = `User: ${localStorage.getItem("currentUsername")}`; // Affiche le nom de l'utilisateur connecté
     if (logoutBtn) logoutBtn.style.display = "block"; // Affiche Logout si connecté
-} else {
+  } else {
     if (userlabelTest) userlabelTest.innerHTML = "Veuillez vous connecter...";
     if (logoutBtn) logoutBtn.style.display = "none"; // Cache Logout si invité
-}
+  }
 };
 
 // ! ==================== MODIF TASKS ====================
 // Modif Task
-const btnInscrire = document.getElementById("createAccBTN");
-btnInscrire.onclick = () => {
-  const username = document.getElementById("usernameCreate").value;
-  const email = document.getElementById("userCreate").value;
-  const password = document.getElementById("pwdCreate").value;
-  creatAccountFunction(username, email, password); // Appel de la fonction de création de compte
+const btnModif = document.getElementById("modifBtn");
+btnModif.onclick = (e) => {
+  e.preventDefault();
+  const newTask = document.getElementById("textTaskModif").value;
+  const importance = impLevels(); // Récupère le niveau d'importance sélectionné
+  const startDates = document.getElementById("startDate").value;
+  const endDates = document.getElementById("endDate").value;
+  changeTaskPropretys(task_id, newTask, importance, startDates, endDates);
 };
 
-async function creatAccountFunction(username, email, password) {
+async function changeTaskPropretys(
+  taskId,
+  newTask,
+  importance,
+  startDates,
+  endDates,
+) {
   try {
-    const response = await fetch(API_URL + "/users", {
-      // Appel à l'API pour créer un utilisateur
-      method: "POST",
+    const response = await fetch(API_URL + "/tasks/" + taskId, {
+      method: "PUT", // Utilisation de PUT pour mettre à jour la tâche entière
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: username,
-        email: email,
-        password: password,
+        name: newTask,
+        importance: importance,
+        startDate: startDates,
+        endDate: endDates,
       }),
     });
 
     if (response.ok) {
-      creatToLoginPopup(); //  Affiche le popup de login
+      alert("Tâche modifiée avec succès!");
+      closeModifTask(); // Ferme le popup de modification
+      await render(); //  raffraîchit la liste depuis la DB pour afficher les changements
+    } else {
+      alert("Erreur lors de la modification de la tâche.");
     }
   } catch (error) {
     console.error("Erreur de création :", error);

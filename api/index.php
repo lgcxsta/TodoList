@@ -14,7 +14,7 @@ if ($origin && in_array($origin, $allowedOrigins, true)) {
   header("Access-Control-Allow-Origin: $origin");
   header("Vary: Origin");
 }
-header('Access-Control-Allow-Methods: DELETE, UPDATE, PATCH, GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: DELETE, PUT, PATCH, GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
@@ -99,8 +99,8 @@ switch ($uri) {
         'name' => $data['name'] ?? null,
         'id' => $id,
         'importance' => $data['importance'] ?? 1,
-        'start_date' => $data['start_date'] ?? null,
-        'end_date' => $data['end_date'] ?? null
+        'start_date' => $data['startDate'] ?? null,
+        'end_date' => $data['endDate'] ?? null
       ]);
 
       jsonResponse(['message' => 'Task mise à jour']);
@@ -217,8 +217,8 @@ switch ($uri) {
       $queryTask = $pdo->prepare("INSERT INTO tasks (name, start_date, end_date) VALUES (:name, :start_date, :end_date)");
       $queryTask->execute([
         'name' => $taskName,
-        'start_date' => $data['start_date'] ?? null,
-        'end_date' => $data['end_date'] ?? null
+        'start_date' => $data['startDate'] ?? null,
+        'end_date' => $data['endDate'] ?? null
         ]);
       $newTaskId = $pdo->lastInsertId();
 

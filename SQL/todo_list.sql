@@ -35,7 +35,8 @@ CREATE TABLE `tasks` (
   `name` varchar(150) DEFAULT NULL,
   `checked` tinyint(1) DEFAULT 0,
   `importance` tinyint(3) DEFAULT 1,
-  `deadline` timestamp NULL DEFAULT NULL,
+  `start_date` VARCHAR(20) DEFAULT NULL,
+  `end_date` VARCHAR(20) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
