@@ -731,7 +731,7 @@ async function loginAccountFunction(UserMail, passwordLOG) {
       alert("Vous avez reussi à vous connecter!");
 
       document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
-      document.getElementById("logoutText").style.display = "display";
+      document.getElementById("logoutText").style.display = "block";
 
       render(); // raffraichit
       croixCreateAcc(); // Ferme le popup de login
@@ -769,21 +769,20 @@ logoutBtn.onclick = () => {
 };
 
 // Si n'est pas connecter
-if (localStorage.getItem("currentUserId") == null) {
-  document.getElementById("logoutText").style.display = "none";
+window.onload = () => {
+  const userlabelTest = document.getElementById("userLabel");
+  const logoutBtn = document.getElementById("logoutText"); // On récupère le bouton logout
 
-  // Message erreur quand input cliquer + disable
-  document.getElementById("myInput").onclick = function () {
-    alert("Veuillez vous connecter pour ajouter une tâche.");
-    document.getElementById("myInput").disabled = true;
-  };
-  // Message erreur quand btn add cliquer
-  document.getElementById("addBtn").onclick = function () {
-    alert("Veuillez vous connecter pour ajouter une tâche.");
-  };
+  if (localStorage.getItem("currentUserId")) {
+    // Si un utilisateur est connecté
+    if (userlabelTest)
+      userlabelTest.innerHTML = `User: ${localStorage.getItem("currentUsername")}`; // Affiche le nom de l'utilisateur connecté
+    if (logoutBtn) logoutBtn.style.display = "block"; // Affiche Logout si connecté
 } else {
-  document.getElementById("logoutText").style.display = "display";
+    if (userlabelTest) userlabelTest.innerHTML = "Veuillez vous connecter...";
+    if (logoutBtn) logoutBtn.style.display = "none"; // Cache Logout si invité
 }
+};
 
 // ! ==================== MODIF TASKS ====================
 // Modif Task
