@@ -94,13 +94,15 @@ switch ($uri) {
     if ($method === 'PUT') {
       $data = json_decode(file_get_contents('php://input'), true);
 
-      $query = $pdo->prepare("UPDATE tasks SET name = :name, importance = :importance, start_date = :start_date, end_date = :end_date WHERE id = :id");
+      $query = $pdo->prepare("UPDATE tasks SET name = :name, importance = :importance, start_date = :start_date, end_date = :end_date, updated_at = CURRENT_TIMESTAMP WHERE id = :id");
       $query->execute([
         'name' => $data['name'] ?? null,
         'id' => $id,
         'importance' => $data['importance'] ?? 1,
         'start_date' => $data['startDate'] ?? null,
         'end_date' => $data['endDate'] ?? null
+        // pad besoin de updated_at pcq c géré avec CURRENT_TIMESTAMP
+        // 'updated_at' => date('Y-m-d H:i:s'),
       ]);
 
       jsonResponse(['message' => 'Task mise à jour']);

@@ -799,6 +799,7 @@ btnModif.onclick = (e) => {
   const importance = impLevels(); // Récupère le niveau d'importance sélectionné
   const startDates = document.getElementById("startDate").value;
   const endDates = document.getElementById("endDate").value;
+  const updated_at = Date.now(); // Date de modification actuelle
   changeTaskPropretys(task_id, newTask, importance, startDates, endDates);
 };
 
@@ -808,6 +809,7 @@ async function changeTaskPropretys(
   importance,
   startDates,
   endDates,
+  updated_at,
 ) {
   try {
     const response = await fetch(API_URL + "/tasks/" + taskId, {
@@ -820,6 +822,7 @@ async function changeTaskPropretys(
         importance: importance,
         startDate: startDates,
         endDate: endDates,
+        // pas besoin de updated_at pcq c gérer par le php
       }),
     });
 
