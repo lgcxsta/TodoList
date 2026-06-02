@@ -251,7 +251,34 @@ async function render() {
 
   //console.log(await getTasks());
   const tasks = await getTasks();
-  console.log(tasks);
+
+  // Fonction pour organiser les tâches
+  switch (currentSort) {
+    case "lastAdded":
+      tasks.sort((a, b) => b.id - a.id);
+      break;
+
+    case "importance":
+      tasks.sort((a, b) => b.importance - a.importance);
+      break;
+
+    case "date":
+      tasks.sort((a, b) => {
+        const dateA = parseDate(a.start_date);
+        const dateB = parseDate(b.start_date);
+
+        if (!dateA && !dateB) return 0; // les deux sans date -> même ordre
+        if (!dateA) return 1; // a n'a pas de date -> après b
+        if (!dateB) return -1; // b n'a pas de date -> après a
+
+        return dateA - dateB; // sinon tri normal du plus ancien au plus récent
+      });
+      break;
+
+    default:
+      // Default (no sorting, or sorted by task ID)
+      tasks.sort((a, b) => a.id - b.id);
+  }
 
   tasks.forEach(function (task) {
     if (!task.name) {
@@ -367,55 +394,29 @@ async function render() {
 }
 
 // ! ==================== TRI DES TÂCHES ====================
-// Fonction pour organiser les tâches
-async function sortTasks(criteria) {
-  let tasks = await getTasks();
+// ! Une partie de la fonction de trie est dans render() pour trier les tâches selon différents critères (dernier ajouté, importance, date)
 
-  switch (criteria) {
-    case "lastAdded":
-      tasks.sort((a, b) => b.id - a.id);
-      break;
-
-    case "importance":
-      tasks.sort((a, b) => b.importance - a.importance);
-      break;
-
-    case "date":
-      tasks.sort((a, b) => {
-        const dateA = parseDate(a.start_date);
-        const dateB = parseDate(b.start_date);
-
-        if (!dateA && !dateB) return 0; // les deux sans date -> même ordre
-        if (!dateA) return 1; // a n'a pas de date -> après b
-        if (!dateB) return -1; // b n'a pas de date -> après a
-
-        return dateA - dateB; // sinon tri normal du plus ancien au plus récent
-      });
-      break;
-
-    default:
-      // Default (no sorting, or sorted by task ID)
-      tasks.sort((a, b) => a.id - b.id);
-  }
-
-  setTasks(tasks); // Update the tasks in localStorage
-}
+let currentSort = "default"; // Valeur par défaut du tri
 
 // Event listeners for sorting options (SORTIS DE LA FONCTION RENDER)
 document.querySelector(".sortP1").addEventListener("click", function () {
-  sortTasks("default");
+  currentSort = "default";
+  render();
 });
 
 document.querySelector(".sortP2").addEventListener("click", function () {
-  sortTasks("lastAdded");
+  currentSort = "lastAdded";
+  render();
 });
 
 document.querySelector(".sortP3").addEventListener("click", function () {
-  sortTasks("importance");
+  currentSort = "importance";
+  render();
 });
 
 document.querySelector(".sortP4").addEventListener("click", function () {
-  sortTasks("date");
+  currentSort = "date";
+  render();
 });
 
 // Event listener pour le btn d'organiser des tâches
@@ -836,4 +837,3 @@ async function changeTaskPropretys(
 
 // TODO: updated_date (date de dernière modification) à ajouter dans la DB et afficher dans le frontend
 // TODO: ajouter une confirmation avant de supprimer une tâche
-// TODO: Sort taks
