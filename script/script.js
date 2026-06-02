@@ -52,24 +52,6 @@ function impLevels() {
 }
 
 // ! ==================== EDITION DES TÂCHES ====================
-//Update importance + texte tâche dans le localStorage
-// function editPriority() {
-//   const importance = impLevels();
-//   const startDate = document.getElementById("startDate").value;
-//   const endDate = document.getElementById("endDate").value;
-
-//   updateTaskInLocalStorage(
-//     task_id,
-//     editInput.value,
-//     false,
-//     importance,
-//     startDate,
-//     endDate,
-//   );
-//   closeModifTask(); //ferme le popup
-//   render(); // réaffiche la liste des tâches
-// }
-
 //Recupere les tâches
 async function getTasks() {
   const userId = localStorage.getItem("currentUserId");
@@ -115,50 +97,6 @@ async function saveTasksToLocalStorage(task) {
 
   setTasks(tasks);
 }
-
-// Update quand uune tâche est éditer
-// function updateTask() {
-//   const importance = impLevels();
-//   const startDate = document.getElementById("startDate").value;
-//   const endDate = document.getElementById("endDate").value;
-//   updateTaskInLocalStorage(
-//     task_id,
-//     editInput.value,
-//     false,
-//     importance,
-//     startDate,
-//     endDate,
-//   );
-//   closeModifTask();
-//   render();
-// }
-
-// Fonction pour mettre à jour une tâche dans le localStorage
-// Modifie/mets a jour une tâche
-// async function updateTaskInLocalStorage(
-//   task_id,
-//   updatedTask,
-//   checkedStatus,
-//   importanceStatus,
-//   startDate,
-//   endDate,
-// ) {
-//   let tasks = await getTasks();
-//   tasks = tasks.map((task) =>
-//     task.id == task_id
-//       ? {
-//           ...task, //sa permet de réecrire seulement le texte qui est éditer
-//           name: updatedTask,
-//           checked: checkedStatus,
-//           importance: importanceStatus,
-//           startDate,
-//           endDate,
-//         }
-//       : task,
-//   );
-//   setTasks(tasks);
-//   // Sauvegarder la nouvelle liste mise à jour
-// }
 
 // Fonction pour supprimer une tâche du localStorage
 async function deleteTaskAPI(task_id) {
@@ -751,18 +689,6 @@ async function loginAccountFunction(UserMail, passwordLOG) {
   }
 }
 
-// UserLabel - (texte en dessous de la page qui affiche le nom de l'utilisateur connecté)
-// window.onload = () => {
-//   // Met à jour le label utilisateur dès le chargement de la page
-//   const userlabelTest = document.getElementById("userLabel"); // test si l'élément existe avant de tenter de le modifier
-//   if (userlabelTest) {
-//     // Si l'élément existe, on peut mettre à jour son contenu
-//     userlabelTest.innerHTML = localStorage.getItem("currentUserId")
-//       ? `User: ${localStorage.getItem("currentUsername")}`
-//       : "Veuillez vous connecter...";
-//   }
-// };
-
 // ! ==================== LOG OUT ====================
 const logoutBtn = document.getElementById("logoutText");
 logoutBtn.onclick = () => {
@@ -837,6 +763,3 @@ async function changeTaskPropretys(
     console.error("Erreur de création :", error);
   }
 }
-
-// TODO: updated_date (date de dernière modification) à ajouter dans la DB et afficher dans le frontend
-// TODO: ajouter une confirmation avant de supprimer une tâche
