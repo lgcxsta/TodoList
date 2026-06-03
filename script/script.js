@@ -1,29 +1,13 @@
 const API_URL = "http://localhost:8000/api";
 
+// ! ==================== TOGGLE THEME  ====================
+
 function toggleDarkMode() {
   const isDark = document.body.classList.toggle("dark-mode");
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
-// TODO: factoriser btns enter
-
-// // Enter - myInput
-// var input = document.getElementById("myInput");
-// input.addEventListener("keypress", function (event) {
-//   if (event.key === "Enter") {
-//     event.preventDefault();
-//     document.getElementById("addBtn").click();
-//   }
-// });
-
-// // Enter popup modifier la tâche
-// var inputEditTask = document.getElementById("textTaskModif");
-// inputEditTask.addEventListener("keypress", function (event) {
-//   if (event.key === "Enter") {
-//     event.preventDefault();
-//     document.getElementById("modifBtn").click();
-//   }
-// });
+// ! ==================== ENTER ====================
 
 function enterKey(inputId, btnId) {
   const inputElement = document.getElementById(inputId);
@@ -38,30 +22,14 @@ enterKey("myInput", "addBtn");
 enterKey("textTaskModif", "modifBtn");
 
 // ! ==================== IMPORTANCE DES TÂCHES ====================
-// Fonction importance
+
 function impLevels() {
   let importanceLevels = 1;
-  var highEdit = document.getElementById("highLVL");
-  var midEdit = document.getElementById("midLVL");
-  var lowEdit = document.getElementById("lowLVL");
-
-  if (
-    window.getComputedStyle(document.getElementById("popupEdit")).display ===
-    "block"
-  ) {
-    if (highEdit.checked) {
-      importanceLevels = 3;
-    } else if (midEdit.checked) {
-      importanceLevels = 2;
-    } else if (lowEdit.checked) {
-      importanceLevels = 1;
-    } else {
-      importanceLevels = 1;
-    }
-  } else {
-    importanceLevels = 1;
+  const impRadio = document.querySelector('input[name="importance"]:checked');
+  if (impRadio) {
+    // if (impRadio != null)
+    importanceLevels = Number(impRadio.value);
   }
-
   return importanceLevels;
 }
 
@@ -129,6 +97,7 @@ async function addTask() {
         name: inputValue,
         startDate: formatedToday,
         endDate: "",
+        importance: 1,
       }),
     });
 
@@ -231,9 +200,10 @@ async function render() {
       editInput.value = task.name;
       task_id = task.id;
 
-      document.getElementById("highLVL").checked = task.importance === 3;
-      document.getElementById("midLVL").checked = task.importance === 2;
-      document.getElementById("lowLVL").checked = task.importance === 1;
+      document.getElementById("highLVL").checked =
+        Number(task.importance) === 3;
+      document.getElementById("midLVL").checked = Number(task.importance) === 2;
+      document.getElementById("lowLVL").checked = Number(task.importance) === 1;
 
       // Mettre les dates de cette tâche
       const startInput = document.getElementById("startDate");
