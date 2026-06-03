@@ -113,7 +113,7 @@ input {
 .RedirectLogin {
   background-color: rgb(51, 180, 255);
   border-radius: 100%;
-  display: block;
+  display: none;
   width: 34px;
   height: 30px;
   position: fixed;
@@ -1006,24 +1006,93 @@ input[type="radio"] {
   width: 170px;
 }
 
-#userLabel, #logoutText {
+#userLabel, #logoutS {
   font-family: "Open Sans";
   font-size: 14px;
-  color: #3c3c4b9c;
-  width: 100%;
-  position: fixed;}
+  color: #3c3c4b9c;}
 
 #userLabel {
   bottom: 0px;
-  text-align: center;}
+  text-align: center;
+  width: 100%;
+  position: fixed;}
 
-#logoutText {
-  bottom: -13px;
-  left: 5px;
-  display: inline-block;
+#symbolLogout{
+  position: fixed;
+  top: 10px;
+  left: 12px;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 21px;
+  width: 34px;
+  height: 30px;
 }
+
+#textLogout {
+  position: fixed;
+  top: -1px;
+  left: 12px;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 12px;
+  width: 150px;
+  color: white;
+  font-family: "Open Sans";
+}
+
 
 .dark-mode #userLabel, 
 .dark-mode #logoutText {
   color: rgba(255, 255, 255, 0.438);
+}
+
+.bubble {
+  width: 60px;
+  height: 20px;
+  background: #383d607a;
+  border-radius: 5px;
+  position: fixed;
+  top: 15px;
+  left: 60px;
+  visibility: hidden;
+}
+
+/* La pointe */
+.bubble::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 10px;
+
+  width: 0;
+  height: 0;
+
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  left: -6px;
+  
+  top: 4px;
+
+  width: 0;
+  height: 0;
+
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-right: 6px solid #383d607a;
+}
+
+.dark-mode .bubble::after {
+  border-right: 6px solid #ffffff3d;
+}
+.dark-mode .bubble {background: #ffffff3d;}
+  
+#symbolLogout:hover + #logOutTS .bubble,
+#symbolLogout:hover  {
+  visibility: visible;
+  transition: 1s;
 }

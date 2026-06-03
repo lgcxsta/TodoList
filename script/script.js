@@ -662,7 +662,7 @@ async function loginAccountFunction(UserMail, passwordLOG) {
       alert("Vous avez reussi à vous connecter!");
 
       document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
-      document.getElementById("logoutText").style.display = "block";
+      document.getElementById("logoutS").style.display = "block";
       document.getElementById("loginBtn").style.display = "none"; // Cache le bouton de login/créé un compte après connexion
 
       render(); // raffraichit
@@ -678,20 +678,20 @@ async function loginAccountFunction(UserMail, passwordLOG) {
 }
 
 // ! ==================== LOG OUT ====================
-const logoutBtn = document.getElementById("logoutText");
+const logoutBtn = document.getElementById("logoutS");
 logoutBtn.onclick = () => {
   localStorage.removeItem("currentUserId");
   localStorage.removeItem("currentUsername");
   window.onload(); // Met à jour le label utilisateur dès le logout - recharge la page
   alert("Vous avez été déconnecté.");
   render(); // raffraichit
-  document.getElementById("logoutText").style.display = "none";
+  document.getElementById("logoutS").style.display = "none";
 };
 
 // Si n'est pas connecter
 window.onload = () => {
   const userlabelTest = document.getElementById("userLabel");
-  const logoutBtn = document.getElementById("logoutText"); // On récupère le bouton logout
+  const logoutBtn = document.getElementById("logoutS"); // On récupère le bouton logout
 
   if (localStorage.getItem("currentUserId")) {
     // Si un utilisateur est connecté
