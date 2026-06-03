@@ -67,8 +67,7 @@ async function getTasks() {
   if (!userId) {
     return [];
   }
-  const response = await fetch(API_URL + "/users/" + userId + "/tasks");
-  return await response.json();
+  return await apiCall("/users/" + userId + "/tasks");
 }
 
 function parseDate(str) {
@@ -79,18 +78,8 @@ function parseDate(str) {
 
 // Fonction pour supprimer une tâche du localStorage
 async function deleteTaskAPI(task_id) {
-  let tasks = await getTasks();
-  console.log(tasks);
-  tasks = tasks.filter((task) => task.id !== task_id); // Filtrer la tâche à supprimer
-  console.log(task_id);
-  try {
-    await fetch(API_URL + "/tasks/" + task_id, {
-      method: "DELETE",
-    });
+  await apiCall("/tasks/" + task_id, "DELETE");
     render();
-  } catch (error) {
-    console.error("Delete error", error);
-  }
 }
 
 // ! ==================== AJOUT DE TÂCHES ====================
