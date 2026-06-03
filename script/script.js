@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:8000/api";
+let currentSort = "default"; // Valeur par défaut du tri
 
 // ! ==================== TOGGLE THEME  ====================
 
@@ -285,27 +286,11 @@ async function render() {
 // ! ==================== TRI DES TÂCHES ====================
 // ! Une partie de la fonction de trie est dans render() pour trier les tâches selon différents critères (dernier ajouté, importance, date)
 
-let currentSort = "default"; // Valeur par défaut du tri
-
-// Event listeners for sorting options (SORTIS DE LA FONCTION RENDER)
-document.querySelector(".sortP1").addEventListener("click", function () {
-  currentSort = "default";
-  render();
-});
-
-document.querySelector(".sortP2").addEventListener("click", function () {
-  currentSort = "lastAdded";
-  render();
-});
-
-document.querySelector(".sortP3").addEventListener("click", function () {
-  currentSort = "importance";
-  render();
-});
-
-document.querySelector(".sortP4").addEventListener("click", function () {
-  currentSort = "date";
-  render();
+document.querySelectorAll(".sort-option").forEach((btn) => {
+  btn.addEventListener("click", function () {
+    currentSort = this.getAttribute("data-sort");
+    render();
+  });
 });
 
 // Event listener pour le btn d'organiser des tâches
