@@ -255,20 +255,15 @@ async function render() {
         task.checked = taskBox.classList.contains("checked"); // Met à jour l'état de la tâche
         const checkedStatusAPI = task.checked ? 1 : 0;
 
-        try {
-          await fetch(API_URL + "/tasks/" + task.id, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
+        const renderAPI = {
               checked: checkedStatusAPI,
-            }),
-          });
+        };
+
+        const response = await apiCall("/tasks/" + task.id, "PATCH", renderAPI);
+
+        if (response) {
           ediBtnVisibility(task);
           await render();
-        } catch (error) {
-          console.error("Edit check status error", error);
         }
       }
     };
