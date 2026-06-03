@@ -674,30 +674,23 @@ async function changeTaskPropretys(
   endDates,
   updated_at,
 ) {
-  try {
-    const response = await fetch(API_URL + "/tasks/" + taskId, {
-      method: "PUT", // Utilisation de PUT pour mettre à jour la tâche entière
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+  const newTaskProprety = {
         name: newTask,
         importance: importance,
         startDate: startDates,
         endDate: endDates,
-        // pas besoin de updated_at pcq c gérer par le php
-      }),
-    });
+  };
 
-    if (response.ok) {
+  const response = await apiCall(
+    "/tasks/" + taskId, // endpoint
+    "PUT", // method
+    newTaskProprety, // données de la tâche - body
+  );
+
+  if (response) {
       alert("Task modified successfully!");
-      closeModifTask(); // Ferme le popup de modification
-      await render(); //  raffraîchit la liste depuis la DB pour afficher les changements
-    } else {
-      alert("Error modifying task.");
-    }
-  } catch (error) {
-    console.error("Creation error: ", error);
+    closeModifTask();
+    await render(); // On rafraîchit la liste depuis la DB
   }
 }
 
