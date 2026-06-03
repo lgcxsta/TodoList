@@ -33,6 +33,33 @@ function impLevels() {
   return importanceLevels;
 }
 
+// ! ==================== API FUNCTION ====================
+
+async function apiCall(endpoint, method = "GET", body = null) {
+  // endpoint = fin de URL (/login, /tasks/, etc)
+  // methode = GET, DELETE, ... Par défaut GET
+  // body = données  envoyer, par défaut null
+
+  const options = {
+    method: method,
+  };
+
+  if (body) {
+    options.headers = { "Content-Type": "application/json" };
+    options.body = JSON.stringify(body);
+  }
+
+  try {
+    const response = await fetch(API_URL + endpoint, options);
+    if (!response.ok) {
+      console.error("Erreur API :", response.status);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("error: ", error);
+  }
+}
+
 // ! ==================== EDITION DES TÂCHES ====================
 //Recupere les tâches
 async function getTasks() {
