@@ -103,31 +103,23 @@ async function addTask() {
   const formatedToday = `${String(today.getDate()).padStart(2, "0")}/${String(today.getMonth() + 1).padStart(2, "0")}/${today.getFullYear()}`;
   // Formatage de la date au format "dd/mm/yyyy"
 
-  try {
-    const response = await fetch(API_URL + "/users/" + userId + "/tasks", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+  const newTaskData = {
         name: inputValue,
         startDate: formatedToday,
         endDate: "",
         importance: 1,
-      }),
-    });
+  };
 
-    if (response.ok) {
+  const response = await apiCall(
+    "/users/" + userId + "/tasks", // endpoint
+    "POST", // body
+    newTaskData, // données de la tâche
+  );
+
+  if (response) {
       input.value = ""; // On vide le champ texte
       await render(); // On rafraîchit la liste depuis la DB
-    } else {
-      alert("Error saving task...");
-    }
-  } catch (error) {
-    console.error("Add error", error);
   }
-
-  input.value = "";
 }
 
 //Code executer seulement aprés que la page est totalement charger
