@@ -573,30 +573,17 @@ btnInscrire.onclick = () => {
 };
 
 async function creatAccountFunction(username, email, password) {
-  try {
-    const response = await fetch(API_URL + "/users", {
-      // Appel à l'API pour créer un utilisateur
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+  const newAccount = {
         username: username,
         email: email,
         password: password,
-      }),
-    });
+  };
 
-    if (response.ok) {
-      creatToLoginPopup(); //  Affiche le popup de login
-    } else {
-      const errorData = await response.json();
-      alert(
-        "Error creating account: " + (errorData.error || "Please try again."),
-      );
-    }
-  } catch (error) {
-    console.error("Creation error: ", error);
+  const response = await apiCall("/users", "POST", newAccount);
+
+  if (response) {
+    creatToLoginPopup();
+    alert("Account created :)");
   }
 }
 
