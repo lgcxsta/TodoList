@@ -155,7 +155,8 @@ switch ($uri) {
       if ($checkQuery->fetch()) {
         // Le pseudo existe déja
         jsonResponse(['error' => 'That username already exists...'], 409); // 409 = Conflict
-      }
+      exit ();
+        }
 
       $query = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"); // Préparer la requête d'insertion
       $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT); // Hash du mot de passe avant insertion

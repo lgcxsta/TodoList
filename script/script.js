@@ -52,7 +52,11 @@ async function apiCall(endpoint, method = "GET", body = null) {
   try {
     const response = await fetch(API_URL + endpoint, options);
     if (!response.ok) {
-      console.error("Erreur API :", response.status);
+      console.error("API error :", response.status);
+      const errorData = await response.json();
+      alert(errorData.error || "Error...");
+
+      return null;
     }
     return await response.json();
   } catch (error) {
@@ -79,7 +83,7 @@ function parseDate(str) {
 // Fonction pour supprimer une tâche du localStorage
 async function deleteTaskAPI(task_id) {
   await apiCall("/tasks/" + task_id, "DELETE");
-    render();
+  render();
 }
 
 // ! ==================== AJOUT DE TÂCHES ====================
@@ -104,10 +108,10 @@ async function addTask() {
   // Formatage de la date au format "dd/mm/yyyy"
 
   const newTaskData = {
-        name: inputValue,
-        startDate: formatedToday,
-        endDate: "",
-        importance: 1,
+    name: inputValue,
+    startDate: formatedToday,
+    endDate: "",
+    importance: 1,
   };
 
   const response = await apiCall(
@@ -117,8 +121,8 @@ async function addTask() {
   );
 
   if (response) {
-      input.value = ""; // On vide le champ texte
-      await render(); // On rafraîchit la liste depuis la DB
+    input.value = ""; // On vide le champ texte
+    await render(); // On rafraîchit la liste depuis la DB
   }
 }
 
@@ -256,7 +260,7 @@ async function render() {
         const checkedStatusAPI = task.checked ? 1 : 0;
 
         const renderAPI = {
-              checked: checkedStatusAPI,
+          checked: checkedStatusAPI,
         };
 
         const response = await apiCall("/tasks/" + task.id, "PATCH", renderAPI);
@@ -311,7 +315,7 @@ document.getElementById("sortBtn").addEventListener("click", function () {
     dropdownContent.style.display === "block" ? "none" : "block";
 });
 
-// ! ==================== FONCTIONS POUR LES POPUPS ====================
+// ! ==================== FONCTIONS POUR LES POPUPS - VISIBILITY ====================
 
 // Hide/show = le login
 function hideShow() {
@@ -574,9 +578,9 @@ btnInscrire.onclick = () => {
 
 async function creatAccountFunction(username, email, password) {
   const newAccount = {
-        username: username,
-        email: email,
-        password: password,
+    username: username,
+    email: email,
+    password: password,
   };
 
   const response = await apiCall("/users", "POST", newAccount);
@@ -584,6 +588,9 @@ async function creatAccountFunction(username, email, password) {
   if (response) {
     creatToLoginPopup();
     alert("Account created :)");
+  } else {
+    const errorData = await response;
+    alert("Error creating account : " + (errorData.error || "Retry..."));
   }
 }
 
@@ -597,32 +604,32 @@ btnLog.onclick = () => {
 
 async function loginAccountFunction(UserMail, passwordLOG) {
   const loginAPI = {
-        username: UserMail,
-        password: passwordLOG,
+    username: UserMail,
+    password: passwordLOG,
   };
 
   const response = await apiCall("/login", "POST", loginAPI);
 
   if (response) {
     localStorage.setItem("currentUserId", response.user.id); // Stocker le id dans le localStorage
-      // data attent les données du fichier json, et user.id as été crée dans index.php
+    // data attent les données du fichier json, et user.id as été crée dans index.php
     localStorage.setItem("currentUsername", response.user.username);
 
-      window.onload(); // Met à jour le label utilisateur dès le login - recharge la page
+    window.onload(); // Met à jour le label utilisateur dès le login - recharge la page
 
     console.log("Login réussi :", response);
-      alert("You have successfully connected!");
+    alert("You have successfully connected!");
 
-      document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
-      document.getElementById("logoutS").style.display = "block";
-      document.getElementById("loginBtn").style.display = "none"; // Cache le bouton de login/créé un compte après connexion
+    document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
+    document.getElementById("logoutS").style.display = "block";
+    document.getElementById("loginBtn").style.display = "none"; // Cache le bouton de login/créé un compte après connexion
 
-      render(); // raffraichit
-      croixCreateAcc(); // Ferme le popup de login
-    } else {
-      alert("Incorrect login details. Please try again.");
-      document.getElementById("pwdLOG").value = "";
-    }
+    render(); // raffraichit
+    croixCreateAcc(); // Ferme le popup de login
+  } else {
+    alert("Incorrect login details. Please try again.");
+    document.getElementById("pwdLOG").value = "";
+  }
 }
 
 // ! ==================== LOG OUT ====================
@@ -675,10 +682,10 @@ async function changeTaskPropretys(
   updated_at,
 ) {
   const newTaskProprety = {
-        name: newTask,
-        importance: importance,
-        startDate: startDates,
-        endDate: endDates,
+    name: newTask,
+    importance: importance,
+    startDate: startDates,
+    endDate: endDates,
   };
 
   const response = await apiCall(
@@ -688,7 +695,7 @@ async function changeTaskPropretys(
   );
 
   if (response) {
-      alert("Task modified successfully!");
+    alert("Task modified successfully!");
     closeModifTask();
     await render(); // On rafraîchit la liste depuis la DB
   }
