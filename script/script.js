@@ -5,23 +5,37 @@ function toggleDarkMode() {
   localStorage.setItem("theme", isDark ? "dark" : "light");
 }
 
-// Enter - myInput
-var input = document.getElementById("myInput");
-input.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("addBtn").click();
-  }
-});
+// TODO: factoriser btns enter
 
-// Enter popup modifier la tâche
-var inputEditTask = document.getElementById("textTaskModif");
-inputEditTask.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("modifBtn").click();
-  }
-});
+// // Enter - myInput
+// var input = document.getElementById("myInput");
+// input.addEventListener("keypress", function (event) {
+//   if (event.key === "Enter") {
+//     event.preventDefault();
+//     document.getElementById("addBtn").click();
+//   }
+// });
+
+// // Enter popup modifier la tâche
+// var inputEditTask = document.getElementById("textTaskModif");
+// inputEditTask.addEventListener("keypress", function (event) {
+//   if (event.key === "Enter") {
+//     event.preventDefault();
+//     document.getElementById("modifBtn").click();
+//   }
+// });
+
+function enterKey(inputId, btnId) {
+  const inputElement = document.getElementById(inputId);
+  inputElement.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      document.getElementById(btnId).click();
+    }
+  });
+}
+enterKey("myInput", "addBtn");
+enterKey("textTaskModif", "modifBtn");
 
 // ! ==================== IMPORTANCE DES TÂCHES ====================
 // Fonction importance
@@ -60,14 +74,6 @@ async function getTasks() {
   }
   const response = await fetch(API_URL + "/users/" + userId + "/tasks");
   return await response.json();
-
-  // return JSON.parse(localStorage.getItem("TasksList")) || [];
-}
-
-// Sauvegarde les tâches
-function setTasks(tasks) {
-  localStorage.setItem("TasksList", JSON.stringify(tasks));
-  render();
 }
 
 function parseDate(str) {
@@ -76,34 +82,11 @@ function parseDate(str) {
   return new Date(year, month - 1, day);
 }
 
-// Ajoute une tâche + crée un id + tâche (objet) + ajout au local storage
-async function saveTasksToLocalStorage(task) {
-  let tasks = await getTasks();
-  let id = tasks.length > 0 ? Math.max(...tasks.map((t) => t.id)) + 1 : 1;
-  const today = new Date();
-  const day = String(today.getDate()).padStart(2, "0");
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const year = today.getFullYear();
-  const formattedToday = `${day}/${month}/${year}`;
-
-  tasks.push({
-    id: id,
-    text: task,
-    checked: 0,
-    importance: 1,
-    startDate: formattedToday,
-    endDate: "",
-  });
-
-  setTasks(tasks);
-}
-
 // Fonction pour supprimer une tâche du localStorage
 async function deleteTaskAPI(task_id) {
   let tasks = await getTasks();
   console.log(tasks);
   tasks = tasks.filter((task) => task.id !== task_id); // Filtrer la tâche à supprimer
-  setTasks(tasks); // Sauvegarder la nouvelle liste mise à jour
   console.log(task_id);
   try {
     await fetch(API_URL + "/tasks/" + task_id, {
@@ -769,3 +752,7 @@ async function changeTaskPropretys(
     console.error("Erreur de création :", error);
   }
 }
+
+// TODO: remplacer calendrie js par html?
+// TODO: créé fonct generique pour ouvrir/fermer les popups
+// TODO: simplifier btn importance (mm attribut)
