@@ -69,12 +69,12 @@ switch ($uri) {
       ]);
 
       jsonResponse([
-        'message' => 'Task créé',
+        'message' => 'Task created',
         'id' => $pdo->lastInsertId()
       ], 201);
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   case $base . '/tasks/:id':
@@ -85,7 +85,7 @@ switch ($uri) {
       $task = $query->fetch(PDO::FETCH_OBJ);
 
       if (!$task) {
-        jsonResponse(['error' => 'Task introuvable'], 404);
+        jsonResponse(['error' => 'Task not found'], 404);
       }
 
       jsonResponse($task);
@@ -101,11 +101,11 @@ switch ($uri) {
         'importance' => $data['importance'] ?? 1,
         'start_date' => $data['startDate'] ?? null,
         'end_date' => $data['endDate'] ?? null
-        // pad besoin de updated_at pcq c géré avec CURRENT_TIMESTAMP
+        // pas besoin de updated_at pcq c géré avec CURRENT_TIMESTAMP
         // 'updated_at' => date('Y-m-d H:i:s'),
       ]);
 
-      jsonResponse(['message' => 'Task mise à jour']);
+      jsonResponse(['message' => 'Task updated']);
     }
 
     if ($method === 'PATCH') {
@@ -115,17 +115,17 @@ switch ($uri) {
         'checked' => $data['checked'] ?? 0,
         'id' => $id
       ]);
-      jsonResponse(['message' => 'Checked status mit à jour']);
+      jsonResponse(['message' => 'Checked updated']);
     }
 
     if ($method === 'DELETE') {
       $query = $pdo->prepare("DELETE FROM tasks WHERE id = :id");
       $query->execute(['id' => $id]);
 
-      jsonResponse(['message' => 'Task supprimée']);
+      jsonResponse(['message' => 'Task deleted']);
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   // =========================
@@ -147,14 +147,14 @@ switch ($uri) {
       $password = trim($data['password'] ?? '');
       
       if ($username === '' || $password === '') {
-        jsonResponse(['error' => 'Username/password obligatoires'], 400);
+        jsonResponse(['error' => 'Username/password mandatory'], 400);
       }
 
       $checkQuery = $pdo->prepare("SELECT id FROM users WHERE username = :username");
       $checkQuery->execute(['username' => $username]);
       if ($checkQuery->fetch()) {
         // Le pseudo existe déja
-        jsonResponse(['error' => 'Cet username existe déjà...'], 409); // 409 = Conflict
+        jsonResponse(['error' => 'That username already exists...'], 409); // 409 = Conflict
       }
 
       $query = $pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)"); // Préparer la requête d'insertion
@@ -172,7 +172,7 @@ switch ($uri) {
       ], 201);
 }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   case $base . '/users/:id':
@@ -183,7 +183,7 @@ switch ($uri) {
       $user = $query->fetch(PDO::FETCH_OBJ);
 
       if (!$user) {
-        jsonResponse(['error' => 'User introuvable'], 404);
+        jsonResponse(['error' => 'User not found'], 404);
       }
 
       jsonResponse($user);
@@ -198,17 +198,17 @@ switch ($uri) {
         'id' => $id
       ]);
 
-      jsonResponse(['message' => 'User mis à jour']);
+      jsonResponse(['message' => 'User updated']);
     }
 
     if ($method === 'DELETE') {
       $query = $pdo->prepare("DELETE FROM users WHERE id = :id");
       $query->execute(['id' => $id]);
 
-      jsonResponse(['message' => 'User supprimé']);
+      jsonResponse(['message' => 'User deleted']);
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   // =========================
@@ -250,12 +250,12 @@ switch ($uri) {
       ]);
 
       jsonResponse([
-        'message' => "Tâche créée et associée à l'utilisateur",
+        'message' => "Task created and associated with the user",
         'id' => $newTaskId
       ], 201);
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   // =========================
@@ -287,7 +287,7 @@ switch ($uri) {
       ], 201);
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   case $base . '/users-task/:id':
@@ -295,10 +295,10 @@ switch ($uri) {
       $query = $pdo->prepare("DELETE FROM users_task WHERE id = :id");
       $query->execute(['id' => $id]);
 
-      jsonResponse(['message' => 'Relation supprimée']);
+      jsonResponse(['message' => 'Relation deleted']);
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
   // =========================
@@ -313,7 +313,7 @@ switch ($uri) {
       $password = $data['password'] ?? null;
 
       if (!$username || !$password) {
-        jsonResponse(['error' => 'Veuiller fournir un username/pwd'], 400);
+        jsonResponse(['error' => 'Please provide a username/password'], 400);
       }
 
       //chercher utilisateur par email ou username
@@ -327,7 +327,7 @@ switch ($uri) {
   if ($user && password_verify($password, $user->password)) {
         // Authentification réussie
         jsonResponse([
-          'message' => 'Authentification réussie',
+          'message' => 'Authentication successful',
           'user' => [
             'id' => $user->id,
             'username' => $user->username,
@@ -336,14 +336,14 @@ switch ($uri) {
         ]);
       } else {
         // Authentification échouée
-        jsonResponse(['error' => 'Identifiants invalides'], 401);
+        jsonResponse(['error' => 'Invalid credentials'], 401);
       }
     }
 
-    jsonResponse(['error' => 'Méthode non autorisée'], 405);
+    jsonResponse(['error' => 'Unauthorized method'], 405);
     break;
 
       default:
-    jsonResponse(["error" => "Route inconnue"], 404);
+    jsonResponse(["error" => "Unkown root"], 404);
     break;
 }

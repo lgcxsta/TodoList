@@ -106,12 +106,12 @@ async function addTask() {
   const userId = localStorage.getItem("currentUserId");
 
   if (inputValue === "") {
-    alert("Vous devez écrire quelque chose!");
+    alert("You must write something!");
     return;
   }
 
   if (!userId) {
-    alert("Vous devez être connecté pour ajouter une tâche...");
+    alert("You must be logged in to add a task...");
     return;
   }
 
@@ -136,7 +136,7 @@ async function addTask() {
       input.value = ""; // On vide le champ texte
       await render(); // On rafraîchit la liste depuis la DB
     } else {
-      alert("Erreur lors de la sauvegarde de la tâche.");
+      alert("Error saving task...");
     }
   } catch (error) {
     console.error("Add error", error);
@@ -203,7 +203,7 @@ async function render() {
 
   tasks.forEach(function (task) {
     if (!task.name) {
-      console.error("Tâche sans nom ignorée", task);
+      console.error("Unnamed task ignored ", task);
       return;
     }
 
@@ -405,7 +405,7 @@ function srtCal(inputId) {
   if (inputId === "endDate") {
     const startValue = document.getElementById("startDate").value;
     if (!startValue) {
-      alert("Veuillez d'abord sélectionner une date de début");
+      alert("Please select a start date first.");
       return;
     }
 
@@ -592,7 +592,7 @@ btnInscrire.onclick = () => {
 
   if (!username || !password) {
     // Vérifie que le nom d'utilisateur et le mot de passe ne sont pas vides
-    alert("Le nom d'utilisateur et le mot de passe sont obligatoires !");
+    alert("A username and password are required!");
     return;
   }
 
@@ -619,12 +619,11 @@ async function creatAccountFunction(username, email, password) {
     } else {
       const errorData = await response.json();
       alert(
-        "Erreur lors de la création du compte : " +
-          (errorData.error || "Veuillez réessayer."),
+        "Error creating account: " + (errorData.error || "Please try again."),
       );
     }
   } catch (error) {
-    console.error("Erreur de création :", error);
+    console.error("Creation error: ", error);
   }
 }
 
@@ -659,7 +658,7 @@ async function loginAccountFunction(UserMail, passwordLOG) {
       window.onload(); // Met à jour le label utilisateur dès le login - recharge la page
 
       console.log("Login réussi :", data);
-      alert("Vous avez reussi à vous connecter!");
+      alert("You have successfully connected!");
 
       document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
       document.getElementById("logoutS").style.display = "block";
@@ -669,11 +668,11 @@ async function loginAccountFunction(UserMail, passwordLOG) {
       croixCreateAcc(); // Ferme le popup de login
     } else {
       const errorData = await response.json();
-      alert("Identifiants incorrects. Veuillez réessayer.");
+      alert("Incorrect login details. Please try again.");
       document.getElementById("pwdLOG").value = "";
     }
   } catch (error) {
-    console.error("Erreur de création :", error);
+    console.error("Creation error: ", error);
   }
 }
 
@@ -683,7 +682,7 @@ logoutBtn.onclick = () => {
   localStorage.removeItem("currentUserId");
   localStorage.removeItem("currentUsername");
   window.onload(); // Met à jour le label utilisateur dès le logout - recharge la page
-  alert("Vous avez été déconnecté.");
+  alert("You have been disconnected");
   render(); // raffraichit
   document.getElementById("logoutS").style.display = "none";
 };
@@ -699,7 +698,7 @@ window.onload = () => {
       userlabelTest.innerHTML = `User: ${localStorage.getItem("currentUsername")}`; // Affiche le nom de l'utilisateur connecté
     if (logoutBtn) logoutBtn.style.display = "block"; // Affiche Logout si connecté
   } else {
-    if (userlabelTest) userlabelTest.innerHTML = "Veuillez vous connecter...";
+    if (userlabelTest) userlabelTest.innerHTML = "Please log in...";
     if (logoutBtn) logoutBtn.style.display = "none"; // Cache Logout si invité
     document.getElementById("loginBtn").style.display = "block";
   }
@@ -742,14 +741,14 @@ async function changeTaskPropretys(
     });
 
     if (response.ok) {
-      alert("Tâche modifiée avec succès!");
+      alert("Task modified successfully!");
       closeModifTask(); // Ferme le popup de modification
       await render(); //  raffraîchit la liste depuis la DB pour afficher les changements
     } else {
-      alert("Erreur lors de la modification de la tâche.");
+      alert("Error modifying task.");
     }
   } catch (error) {
-    console.error("Erreur de création :", error);
+    console.error("Creation error: ", error);
   }
 }
 
