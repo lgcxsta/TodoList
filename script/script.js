@@ -680,6 +680,7 @@ async function loginAccountFunction(UserMail, passwordLOG) {
 
       document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
       document.getElementById("logoutText").style.display = "block";
+      document.getElementById("loginBtn").style.display = "none"; // Cache le bouton de login/créé un compte après connexion
 
       render(); // raffraichit
       croixCreateAcc(); // Ferme le popup de login
@@ -717,6 +718,7 @@ window.onload = () => {
   } else {
     if (userlabelTest) userlabelTest.innerHTML = "Veuillez vous connecter...";
     if (logoutBtn) logoutBtn.style.display = "none"; // Cache Logout si invité
+    document.getElementById("loginBtn").style.display = "block";
   }
 };
 

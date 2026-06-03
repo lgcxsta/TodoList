@@ -113,7 +113,7 @@ input {
 .RedirectLogin {
   background-color: rgb(51, 180, 255);
   border-radius: 100%;
-  display: inline-block;
+  display: block;
   width: 34px;
   height: 30px;
   position: fixed;
@@ -750,6 +750,8 @@ input[type="radio"] {
   display: block;
   cursor: pointer;
   padding: 1px 0px;
+  font-family: "Open Sans";
+  font-size: 12px;
 }
 .dark-mode .sortP2:hover,
 .dark-mode .sortP3:hover,
@@ -779,6 +781,7 @@ input[type="radio"] {
 @media (max-width: 600px) {
   .task-box {
     max-width: 233px;
+
   }
 
   .header .addBtn {
