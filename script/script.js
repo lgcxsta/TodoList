@@ -596,28 +596,21 @@ btnLog.onclick = () => {
 };
 
 async function loginAccountFunction(UserMail, passwordLOG) {
-  try {
-    const response = await fetch(API_URL + "/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+  const loginAPI = {
         username: UserMail,
         password: passwordLOG,
-      }),
-    });
+  };
 
-    if (response.ok) {
-      const data = await response.json(); // Récupérer les données de l'utilisateur connecté
+  const response = await apiCall("/login", "POST", loginAPI);
 
-      localStorage.setItem("currentUserId", data.user.id); // Stocker le id dans le localStorage
+  if (response) {
+    localStorage.setItem("currentUserId", response.user.id); // Stocker le id dans le localStorage
       // data attent les données du fichier json, et user.id as été crée dans index.php
-      localStorage.setItem("currentUsername", data.user.username);
+    localStorage.setItem("currentUsername", response.user.username);
 
       window.onload(); // Met à jour le label utilisateur dès le login - recharge la page
 
-      console.log("Login réussi :", data);
+    console.log("Login réussi :", response);
       alert("You have successfully connected!");
 
       document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
@@ -627,13 +620,9 @@ async function loginAccountFunction(UserMail, passwordLOG) {
       render(); // raffraichit
       croixCreateAcc(); // Ferme le popup de login
     } else {
-      const errorData = await response.json();
       alert("Incorrect login details. Please try again.");
       document.getElementById("pwdLOG").value = "";
     }
-  } catch (error) {
-    console.error("Creation error: ", error);
-  }
 }
 
 // ! ==================== LOG OUT ====================
