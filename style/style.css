@@ -1088,7 +1088,8 @@ input[type="radio"] {
 .dark-mode .bubble {background: #ffffff3d;}
   
 #symbolLogout:hover + #logOutTS .bubble,
-#symbolLogout:hover  {
-  display: block;
+#symbolLogout:hover,
+#logoutS:hover {
+  visibility: visible;
   transition: 1s;
 }
