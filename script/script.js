@@ -222,8 +222,8 @@ async function render() {
       const startInput = document.getElementById("startDate");
       const endInput = document.getElementById("endDate");
 
-      startInput.value = task.startDate || ""; // vide si aucune date
-      endInput.value = task.endDate || ""; // vide si aucune date
+      startInput.value = task.start_date || ""; // vide si aucune date
+      endInput.value = task.end_date || ""; // vide si aucune
 
       //Mettre à jour minEndDate
       if (task.start_date) {
@@ -340,7 +340,3 @@ async function changeTaskPropretys(
     await render(); // On rafraîchit la liste depuis la DB
   }
 }
-
-// TODO: remplacer calendrie js par html?
-// TODO: créé fonct generique pour ouvrir/fermer les popups
-// TODO: simplifier btn importance (mm attribut)
