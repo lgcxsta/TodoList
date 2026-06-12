@@ -149,7 +149,7 @@ let task_id = "";
 // ! ==================== AFFICHAGE DES TÂCHES ====================
 // affiche les tâches + crée le conteuneur avec les spans
 async function render() {
-  var container = document.getElementById("AddTâche");
+  var container = document.getElementById("AddTache");
   container.innerHTML = "";
 
   //console.log(await getTasks());
@@ -279,7 +279,7 @@ async function render() {
     taskBox.appendChild(closeBtn);
 
     // Ajouter la boîte dans le conteneur
-    document.getElementById("AddTâche").appendChild(taskBox);
+    document.getElementById("AddTache").appendChild(taskBox);
   });
 }
 
