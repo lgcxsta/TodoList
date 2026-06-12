@@ -1,17 +1,34 @@
+/* ==========================================================================
+   1. RESET ET REGLAGES GLOBAUX
+   ========================================================================== */
+ul,
+input[type="radio"] {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ==========================================================================
+   2. STRUCTURE PRINCIPALE (BODY & CONTAINERS)
+   ========================================================================== */
 body {
   margin: 0 auto;
+  background-color: #fff1eb;
   background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
   background-repeat: no-repeat;
-  background-color: #fff1eb;
   background-size: cover;
   background-position: center;
   display: flex;
   height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 #modifTask,
-#textTaskModif,
-body {
+#textTaskModif {
   justify-content: center;
   align-items: center;
 }
@@ -28,11 +45,14 @@ body {
   position: relative;
 }
 
-ul {
-  list-style: none;
+.header {
+  width: 100%;
+  margin-top: 20px;
 }
 
-/* "My to do list" text*/
+/* ==========================================================================
+   3. TYPOGRAPHIE & ANIMATIONS (HEADER TEXT)
+   ========================================================================== */
 .headertext {
   color: #383d60;
   font-size: 40px;
@@ -41,11 +61,7 @@ ul {
   margin-top: 0;
 }
 
-.header {
-  width: 100%;
-  margin-top: 20px;
-}
-
+/* Effet machine à écrire */
 .typewrite h2 {
   overflow: hidden;
   border-right: 2px solid rgb(15, 15, 15);
@@ -57,45 +73,24 @@ ul {
     blink-caret 0.75s step-end infinite;
 }
 
-.dark-mode .typewrite h2 {
-  animation:
-    typing 3s steps(10, end),
-    blink-caret-dark 0.75s step-end infinite;
-}
-
-/* The typing effect */
 @keyframes typing {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+  from { width: 0; }
+  to { width: 100%; }
 }
 
-/* The typewriter cursor effect */
 @keyframes blink-caret {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #383d60;
-  }
+  from, to { border-color: transparent; }
+  50% { border-color: #383d60; }
 }
 
-/* The typewriter cursor effect */
 @keyframes blink-caret-dark {
-  from,
-  to {
-    border-color: transparent;
-  }
-  50% {
-    border-color: #ffff;
-  }
+  from, to { border-color: transparent; }
+  50% { border-color: #ffff; }
 }
 
-/*Input*/
+/* ==========================================================================
+   4. ELEMENTS DE FORMULAIRE (INPUTS, LABELS)
+   ========================================================================== */
 input {
   margin: 0;
   border: none;
@@ -109,28 +104,41 @@ input {
   background-color: rgba(240, 244, 247, 0.349);
 }
 
-/*Btn login*/
-.RedirectLogin {
-  background-color: rgb(51, 180, 255);
-  border-radius: 100%;
-  display: none;
-  width: 34px;
-  height: 30px;
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  text-align: center;
-  padding-top: 5px;
+label {
+  margin-top: 1%;
+  display: block;
 }
 
-/*Btn add*/
+input[type="radio"] {
+  position: static;
+  width: auto;
+  margin-bottom: 0;
+  accent-color: #c7e5e7;
+}
+
+/* ==========================================================================
+   5. BOUTONS GLOBAUX (ADD, MODIF, SORT, LOGIN)
+   ========================================================================== */
+/* Regroupement des curseurs pointeurs pour tous les éléments cliquables */
+.addBtn,
+.modifBtn,
+.sortBtn,
+.BTNDark,
+.popupEditCloseBtn,
+.sortBtn span,
+.task-box .close,
+.task-box .edit,
+.task-box .date,
+.croix {
+  cursor: pointer;
+}
+
 .addBtn,
 .sortBtn,
 .modifBtn {
   padding: 10px;
   background-color: #9dbbc91c;
   color: #020c1d;
-  text-align: center;
   font-size: 16px;
   transition: 0.3s;
   border-radius: 15px;
@@ -142,25 +150,27 @@ input {
   display: block;
 }
 
-.header .addBtn {
-  margin-right: 50%;
-  width: 170px;
-}
-
 .addBtn,
 .modifBtn {
   width: 25%;
 }
 
+.addBtn:hover,
+.modifBtn:hover {
+  background-color: #acc2cc62;
+}
+
+.header .addBtn {
+  margin-right: 50%;
+  width: 170px;
+}
+
+/* Bouton Sort (Tri) */
 .sortBtn {
   transition: all 0.5s;
   width: 160px;
   margin-right: -55%;
   margin-top: -37px;
-}
-
-.dark-mode .sortBtn {
-  color: white;
 }
 
 .sortBtn span {
@@ -187,33 +197,41 @@ input {
   right: 0;
 }
 
-.addBtn:hover,
-.modifBtn:hover {
-  background-color: #acc2cc62;
+/* Bouton de redirection Login (Icone) */
+.RedirectLogin {
+  background-color: rgb(51, 180, 255);
+  border-radius: 100%;
+  display: none;
+  width: 34px;
+  height: 30px;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  text-align: center;
+  padding-top: 5px;
 }
 
+/* ==========================================================================
+   6. GESTION DES TACHES (LISTE ET ITEMS)
+   ========================================================================== */
 .texttache {
   list-style-type: none;
   margin-top: 16px;
   margin-bottom: 10px;
   overflow-y: scroll;
-  /* scrollbar-color: rgba(138, 160, 175, 0) rgba(190, 211, 225, 0); */
   max-height: 300px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
 }
 
 .texttache::-webkit-scrollbar {
-  display: none;
+  display: none; /* Chrome/Safari */
 }
 
 .task-box {
   width: 365px;
   margin: 10px 0;
-  padding-left: 15px;
-  padding-top: 15px;
-  padding-bottom: 12px;
-  padding-right: 95px;
+  padding: 15px 95px 12px 15px;
   border-radius: 25px;
   background: rgba(240, 244, 247, 0.459);
   color: #020c1d;
@@ -227,7 +245,7 @@ input {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/*Close*/
+/* Bouton Fermer d'une tâche */
 .task-box .close {
   position: absolute;
   top: 10px;
@@ -239,26 +257,7 @@ input {
   color: rgb(139, 8, 3);
 }
 
-.dark-mode .close:hover {
-  color: rgb(128, 21, 21);
-}
-
-.checked .close {
-  color: rgba(0, 0, 0, 0.164);
-}
-
-.dark-mode .checked .close {
-  color: rgba(255, 255, 255, 0.247);
-}
-
-.checked .close:hover {
-  color: rgba(0, 0, 0, 0.247);
-}
-
-.dark-mode .checked .close:hover {
-  color: rgba(255, 255, 255, 0.438);
-}
-/*Edit btn*/
+/* Bouton Éditer d'une tâche */
 .task-box .edit {
   position: absolute;
   top: 10px;
@@ -266,22 +265,34 @@ input {
   font-size: 17px;
 }
 
-/*Btn gen.*/
 .edit:hover {
   color: rgb(95, 95, 95);
 }
 
-.dark-mode .edit:hover {
-  color: rgb(160, 160, 160);
-}
-
-/*Checked*/
+/* État tâche cochée/terminée */
 .checked {
   text-decoration: line-through;
   color: rgba(49, 49, 49, 0.39);
 }
 
-/*Toggle btn*/
+.checked .close {
+  color: rgba(0, 0, 0, 0.164);
+}
+
+.checked .close:hover {
+  color: rgba(0, 0, 0, 0.247);
+}
+
+/* ==========================================================================
+   7. BOUTON TOGGLE (DARK MODE)
+   ========================================================================== */
+.ButtonDark {
+  position: fixed;
+  top: 10px;
+  right: 50px;
+  z-index: 5;
+}
+
 .switch {
   position: absolute;
   display: inline-block;
@@ -297,25 +308,15 @@ input {
   height: 0;
 }
 
-.ButtonDark {
-  position: fixed;
-  top: 10px;
-  right: 50px;
-}
-
-.BotãoDark {
+.BTNDark {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(96, 197, 255, 0.432);
-  -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 34px;
 }
 
-.BotãoDark:before {
+.BTNDark:before {
   position: absolute;
   content: "☀";
   height: 26px;
@@ -323,101 +324,121 @@ input {
   left: 4px;
   bottom: 4px;
   background-color: rgb(51, 180, 255);
-  -webkit-transition: 0.4s;
   transition: 0.4s;
   border-radius: 50%;
-}
-
-.switch input:checked + .BotãoDark:before,
-.BotãoDark:before {
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.switch input:checked + .BotãoDark:before {
+.switch input:checked + .BTNDark:before {
   background-color: rgb(73, 73, 73);
   content: "☾";
-}
-
-.switch input:checked + .BotãoDark {
-  background-color: #313131;
-}
-
-.switch input:focus + .BotãoDark {
-  box-shadow: 0 0 1px #000000;
-}
-
-.switch input:checked + .BotãoDark:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
 
-/*Mode dark*/
+.switch input:checked + .BTNDark {
+  background-color: #313131;
+}
+
+.switch input:focus + .BTNDark {
+  box-shadow: 0 0 1px #000000;
+}
+
+/* ==========================================================================
+   8. DARK MODE (STYLES GLOBAUX ET COMPOSANTS)
+   ========================================================================== */
 .dark-mode {
-  background: #696969;
-  background-image: linear-gradient(
-    0deg,
-    rgb(74, 91, 102) 0%,
-    rgba(0, 0, 0, 1) 55%,
-    rgba(0, 0, 0, 1) 100%
-  );
   background-color: #4a5b66;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-image: linear-gradient(0deg, rgb(74, 91, 102) 0%, rgba(0, 0, 0, 1) 55%, rgba(0, 0, 0, 1) 100%);
 }
 
-.dark-mode .RedirectLogin {
-  background-color: rgb(51, 51, 51);
+.dark-mode .typewrite h2 {
+  animation: typing 3s steps(10, end), blink-caret-dark 0.75s step-end infinite;
 }
 
-.dark-mode .task-box.checked {
-  text-decoration: line-through;
-  color: rgba(255, 255, 255, 0.456);
-}
+.dark-mode .RedirectLogin { background-color: rgb(51, 51, 51); }
+.dark-mode .task-box.checked { color: rgba(255, 255, 255, 0.456); }
 
+/* Regroupement des textes blancs en dark mode */
 .dark-mode h2,
 .dark-mode .headertext,
 .dark-mode input,
 .dark-mode .addBtn,
 .dark-mode .modifBtn,
-.dark-mode .task-box {
+.dark-mode .task-box,
+.dark-mode .sortBtn,
+.dark-mode .labeltextCreateAndLog .logintitle,
+.dark-mode .creatAccountText,
+.dark-mode .options-group span,
+.dark-mode .StyleDateBox p,
+.dark-mode .StyleDateBox input,
+.dark-mode #modifTask,
+.dark-mode .popupEditCloseBtn,
+.dark-mode .fa-solid,
+.dark-mode .loginZindexCreateAccount h1,
+.dark-mode .loginZindexCreateAccount label,
+.dark-mode .loginZindex h1,
+.dark-mode .loginZindex label {
   color: white;
 }
 
-.dark-mode input {
-  background-color: rgba(255, 255, 255, 0.3);
-}
+/* Inputs & Boutons en dark mode */
+.dark-mode input { background-color: rgba(255, 255, 255, 0.3); }
+.dark-mode input[type="radio"] { accent-color: #232323; }
 
 .dark-mode .addBtn,
-.dark-mode .modifBtn {
-  background: rgba(233, 243, 251, 0.084);
-}
+.dark-mode .modifBtn { background: rgba(233, 243, 251, 0.084); }
 
 .dark-mode .addBtn:hover,
-.dark-mode .modifBtn:hover {
-  background-color: rgba(233, 243, 251, 0.168);
+.dark-mode .modifBtn:hover { background-color: rgba(233, 243, 251, 0.168); }
+
+/* Interactions tâches dark mode */
+.dark-mode .close:hover { color: rgb(128, 21, 21); }
+.dark-mode .checked .close { color: rgba(255, 255, 255, 0.247); }
+.dark-mode .checked .close:hover { color: rgba(255, 255, 255, 0.438); }
+.dark-mode .edit:hover { color: rgb(160, 160, 160); }
+
+/* ==========================================================================
+   9. POPUPS & FORMULAIRES (LOGIN, CREATE ACC, EDIT TASK)
+   ========================================================================== */
+/* Styles partagés pour les fenêtres popups (Box Login, Create Account, Edit) */
+.boxForm,
+.boxFormCreateAcc,
+.popupEdit,
+.dropdownContent {
+  background-color: #fff1eb;
+  background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
+  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
 }
 
-/* LOGIN PAGE HTML CSS */
-
-label {
-  margin-top: 1%;
-  display: block;
+.dark-mode .popupEdit,
+.dark-mode .boxForm,
+.dark-mode .boxFormCreateAcc {
+  background: #000000;
+  background: linear-gradient(180deg, #464646, #000000);
+  box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
 }
 
-.inputsCreateAndLog {
-  background-color: #eeecec;
+/* Layouts et positions des formulaires */
+.boxForm,
+.boxFormCreateAcc {
+  border-radius: 50px;
+  padding: 20px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
 }
 
-.dark-mode .inputsCreateAndLog {
-  background-color: #4d4d4d;
-  color: #8e908b;
-}
+.boxForm { visibility: hidden; }
+.boxFormCreateAcc { display: none; z-index: 10; }
+.boxFormCreateAcc h1 { margin-bottom: 10px; }
 
+/* Textes et inputs dans Login/Create */
 .inputsCreateAndLog,
 .labeltextCreateAndLog {
   font-family: "Open Sans";
@@ -425,14 +446,10 @@ label {
   color: #3c3c4b9c;
 }
 
-.dark-mode .labeltextCreateAndLog .dark-mode .logintitle,
-.dark-mode .creatAccountText {
-  color: white;
-}
+.inputsCreateAndLog { background-color: #eeecec; }
+.dark-mode .inputsCreateAndLog { background-color: #4d4d4d; color: #8e908b; }
 
-.labeltext2 {
-  padding-top: 5%;
-}
+.labeltext2 { padding-top: 5%; }
 
 .logintitle {
   position: relative;
@@ -449,16 +466,13 @@ label {
   bottom: 2em;
 }
 
+/* Boutons Login / Create Account */
 .BtnConnectStyle,
 .BtnCreateStyle {
   text-decoration: none;
   font-family: "Open Sans";
   font-weight: bolder;
   font-size: 100%;
-}
-
-.BtnCreateStyle,
-.BtnConnectStyle {
   background-color: #475364;
   border-radius: 10px;
   height: auto;
@@ -466,19 +480,10 @@ label {
   margin-bottom: 4%;
   margin-top: -20px;
   position: relative;
-  left: 35%;
+  left: 2%;
+  width: 38%;
   color: rgb(255, 255, 255);
   border: none;
-}
-
-.BtnConnectStyle {
-  width: 38%;
-  left: 2%;
-}
-
-.BtnCreateStyle {
-  width: 38%;
-  left: 2%;
 }
 
 .BtnConnectStyle:hover,
@@ -488,47 +493,12 @@ label {
 }
 
 .dark-mode .BtnConnectStyle,
-.dark-mode .BtnCreateStyle {
-  background-color: #848484bd;
-}
+.dark-mode .BtnCreateStyle { background-color: #848484bd; }
 
 .dark-mode .BtnConnectStyle:hover,
-.dark-mode .BtnCreateStyle:hover {
-  background-color: #848484da;
-}
+.dark-mode .BtnCreateStyle:hover { background-color: #848484da; }
 
-.boxForm,
-.boxFormCreateAcc {
-  background-color: #ebf5fb;
-  border-radius: 50px;
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 350px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-}
-
-.boxForm {
-  visibility: hidden;
-}
-
-.boxFormCreateAcc {
-  z-index: 10;
-  display: none;
-}
-
-.boxFormCreateAcc h1 {
-  margin-bottom: 10px;
-}
-
-.dark-mode .boxForm,
-.dark-mode .boxFormCreateAcc {
-  background-color: #292929;
-}
-
+/* Croix de fermeture */
 .croix {
   position: absolute;
   left: 7%;
@@ -537,51 +507,27 @@ label {
   font-weight: bolder;
   font-size: 170%;
   color: #383d60;
-  cursor: pointer;
 }
 
-.croix :hover {
-  color: #8a8ea8;
-}
+.croix :hover { color: #8a8ea8; }
+.dark-mode .croix { color: #e2e2e2; }
+.dark-mode .croix :hover { color: #8d8d8d; }
 
-.dark-mode .croix {
-  color: #e2e2e2;
-}
-
-.dark-mode .croix :hover {
-  color: #8d8d8d;
-}
-
-.zIndexBetweeenLoginTodo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.075);
-  backdrop-filter: blur(3px);
-  display: none;
-}
-
-/* POPUP TASK EDITR FORM */
+/* ==========================================================================
+   10. POPUP EDIT TASK
+   ========================================================================== */
 .popupEdit {
   align-items: center;
-  background: #c4e9ff;
   height: 530px;
   padding: 10px;
   display: none;
-  bottom: 200px;
-}
-
-.bkgPopUpBlur {
+  font-family: "Work Sans", sans-serif;
+  width: 350px;
+  border-radius: 34px;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.075);
-  backdrop-filter: blur(3px);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .popupEditCloseBtn {
@@ -590,16 +536,10 @@ label {
   font-weight: 900;
   top: 10px;
   left: 20px;
-  cursor: pointer;
 }
 
-.popupEditCloseBtn:hover {
-  color: #6e7399;
-}
-
-.dark-mode .popupEditCloseBtn:hover {
-  color: #aaaaaa;
-}
+.popupEditCloseBtn:hover { color: #6e7399; }
+.dark-mode .popupEditCloseBtn:hover { color: #aaaaaa; }
 
 #modifTask {
   color: #383d60;
@@ -625,76 +565,9 @@ label {
   outline: none;
 }
 
-.dark-mode .popupEdit,
-.dark-mode .boxForm,
-.dark-mode .boxFormCreateAcc {
-  background: #000000;
-  background: linear-gradient(180deg, #464646, #000000);
-  box-shadow: 0px 0px 25px 1px rgba(139, 139, 139, 0.178);
-}
-
-.popupEdit {
-  background: linear-gradient(180deg, #f9f3ee, #b5e4fb);
-  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
-  background-color: #fff1eb;
-}
-
-.boxForm,
-.boxFormCreateAcc {
-  background: linear-gradient(180deg, #f9f3ee, #b5e4fbb6);
-  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
-  background-color: #fff1eb;
-}
-
 .dark-mode #textTaskModif {
   color: rgba(255, 255, 255, 0.856);
   background-color: rgba(95, 95, 95, 0.705);
-}
-
-.StyleDateBox {
-  text-align: center;
-}
-
-.StyleDateBox p,
-.options-group span {
-  color: #383d60;
-}
-
-.StyleDateBox p {
-  margin-bottom: -15px;
-}
-
-.dark-mode .StyleDateBox p,
-.dark-mode .StyleDateBox input,
-.dark-mode #modifTask,
-.dark-mode .popupEditCloseBtn {
-  color: #ffffff;
-}
-
-.StyleDateBox input {
-  color: #383d60;
-  font-size: 12px;
-  text-align: center;
-  background-color: #fdf3ef60;
-  margin-top: 20px;
-}
-
-.dark-mode .StyleDateBox input {
-  background-color: #8f8f8f70;
-}
-
-.popupEdit {
-  font-family: "Work Sans", sans-serif;
-  width: 350px;
-  border-radius: 34px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.dark-mode .options-group span {
-  color: white;
 }
 
 .options-group {
@@ -704,34 +577,32 @@ label {
   width: 100%;
 }
 
-input[type="radio"] {
-  position: static;
-  width: auto;
-  margin-bottom: 0;
+.StyleDateBox { text-align: center; }
+.StyleDateBox p, .options-group span { color: #383d60; }
+.StyleDateBox p { margin-bottom: -15px; }
+
+.StyleDateBox input {
+  color: #383d60;
+  font-size: 12px;
+  text-align: center;
+  background-color: #fdf3ef60;
+  margin-top: 20px;
 }
 
-.dark-mode input[type="radio"] {
-  accent-color: #232323;
-}
+.dark-mode .StyleDateBox input { background-color: #8f8f8f70; }
 
-input[type="radio"] {
-  accent-color: #c7e5e7;
-}
-
-/* DROPDOWN */
+/* ==========================================================================
+   11. MENU DEROULANT (DROPDOWN SORT)
+   ========================================================================== */
 .dropdownContent {
   position: absolute;
   min-width: 130px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 0px 0px;
   display: none;
   text-align: center;
   color: #041229;
-  background: linear-gradient(180deg, #f9f3ee, #b5e4fbb6);
-  box-shadow: 0px 0px 25px 1px rgba(61, 87, 102, 0.37);
-  background-color: #fff1eb;
   right: 85px;
-  font-family: "Work Sans", serif;
+  font-family: "Work Sans", sans-serif;
 }
 
 .dark-mode .dropdownContent {
@@ -739,135 +610,31 @@ input[type="radio"] {
   color: rgb(255, 255, 255);
 }
 
-.sortP1,
-.sortP2,
-.sortP3,
-.sortP4 {
+.sortP1, .sortP2, .sortP3, .sortP4 {
   display: block;
   cursor: pointer;
   padding: 1px 0px;
   font-family: "Open Sans";
   font-size: 12px;
 }
-.dark-mode .sortP2:hover,
-.dark-mode .sortP3:hover,
-.dark-mode .sortP1:hover,
-.dark-mode .sortP4:hover {
-  background-color: #0505053b;
-  padding: 1px 0px;
-  color: rgb(180, 180, 180);
-}
-.sortP1:hover,
-.sortP2:hover,
-.sortP3:hover,
-.sortP4:hover {
+
+.sortP1:hover, .sortP2:hover, .sortP3:hover, .sortP4:hover {
   background-color: #0a07521a;
   padding: 1px 0px;
   color: #041229b2;
 }
 
-/* Media*/
-@media (max-width: 500px) {
-  .popupEdit {
-    width: 300px;
-    height: 550px;
-  }
+.dark-mode .sortP1:hover,
+.dark-mode .sortP2:hover,
+.dark-mode .sortP3:hover,
+.dark-mode .sortP4:hover {
+  background-color: #0505053b;
+  color: rgb(180, 180, 180);
 }
 
-@media (max-width: 600px) {
-  .task-box {
-    max-width: 233px;
-
-  }
-
-  .header .addBtn {
-    margin-right: 97px;
-    width: 150px;
-  }
-
-  .sortBtn {
-    width: 150px;
-    margin-right: 5px;
-    margin-top: 10px;
-  }
-
-  .dropdownContent {
-    margin-right: 17px;
-  }
-
-  .container {
-    width: 340px;
-  }
-}
-
-ul,
-input[type="radio"] {
-  margin: 0;
-  padding: 0;
-}
-
-.addBtn,
-.modifBtn,
-.sortBtn,
-.BotãoDark,
-.popupEditCloseBtn,
-.sortBtn span,
-.task-box .close,
-.task-box .edit,
-.task-box .date {
-  cursor: pointer;
-}
-
-.closePopUpsTasks {
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: none;
-}
-
-.header,
-.task-box,
-.task-text,
-.titleZindex,
-.closePopUpsTasks,
-.texttache,
-.sortBtn {
-  z-index: 1;
-}
-
-.zIndexBetweeenLoginTodo,
-.bkgPopUpBlur {
-  z-index: 3;
-}
-
-.dropdown {
-  z-index: 400;
-}
-
-.boxForm,
-.popupEdit,
-.loginZindex {
-  z-index: 4;
-}
-
-.ButtonDark {
-  z-index: 5;
-}
-
-.belowDropdown {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  height: 100vh;
-  width: 100vw;
-  left: 0;
-  right: 0;
-  display: none;
-  z-index: -2;
-}
-
+/* ==========================================================================
+   12. CALENDRIER
+   ========================================================================== */
 .Calendar {
   position: absolute;
   width: 280px;
@@ -888,14 +655,11 @@ input[type="radio"] {
 
 .dark-mode .Calendar {
   background: #696969;
-  background-image: linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 1) 0%,
-    rgb(63, 63, 63) 100%
-  );
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgb(63, 63, 63) 100%);
   color: white;
   box-shadow: 0 0 10px rgba(112, 112, 112, 0.3);
 }
+
 .headerCalendar {
   display: flex;
   justify-content: space-between;
@@ -908,6 +672,7 @@ input[type="radio"] {
   font-weight: 600;
   width: 130px;
 }
+
 .headerCalendar button {
   display: flex;
   align-items: center;
@@ -921,14 +686,14 @@ input[type="radio"] {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.dark-mode .headerCalendar button {
-  background-color: #7c7c7c11;
-}
+.dark-mode .headerCalendar button { background-color: #7c7c7c11; }
 
-.days {
+.days, .dates {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
 }
+
+.dates { gap: 5px; }
 
 .day {
   text-align: center;
@@ -938,12 +703,6 @@ input[type="radio"] {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.dates {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 5px;
-}
-
 .date {
   display: flex;
   align-items: center;
@@ -951,7 +710,6 @@ input[type="radio"] {
   text-align: center;
   padding: 10px;
   margin: auto;
-  cursor: pointer;
   font-weight: 500;
   border-radius: 50%;
   width: 10px;
@@ -959,42 +717,23 @@ input[type="radio"] {
   transition: 0.2s;
 }
 
-.date:hover,
-.date.active {
+.date:hover, .date.active {
   background-color: #ccd5df6b;
   color: rgba(0, 0, 0, 0.596);
 }
 
-.date.inactive {
-  color: rgb(218, 12, 12);
-}
+.date.inactive { color: rgb(218, 12, 12); }
+.date.inactive:hover { color: rgb(126, 11, 11); background-color: #dfcccc6b; }
 
-.date.inactive:hover {
-  color: rgb(126, 11, 11);
-  background-color: #dfcccc6b;
-}
-
-.dark-mode .date:hover,
-.dark-mode .date.active {
+.dark-mode .date:hover, .dark-mode .date.active {
   background-color: #ccd5df1a;
   color: rgba(255, 255, 255, 0.596);
 }
 
-.dark-mode .date.inactive {
-  color: rgb(168, 46, 46);
-}
-
+.dark-mode .date.inactive { color: rgb(168, 46, 46); }
 .dark-mode .date.inactive:hover {
   background-color: #a3343431;
   color: rgba(255, 90, 90, 0.473);
-}
-
-.dark-mode .fa-solid,
-.dark-mode .loginZindexCreateAccount h1,
-.dark-mode .loginZindexCreateAccount label,
-.dark-mode .loginZindex h1,
-.dark-mode .loginZindex label{
-  color: white;
 }
 
 .inputDate {
@@ -1002,18 +741,28 @@ input[type="radio"] {
   width: 170px;
 }
 
+/* ==========================================================================
+   13. UTILISATEUR ET DECONNEXION (USER LABEL & LOGOUT)
+   ========================================================================== */
 #userLabel, #logoutS {
   font-family: "Open Sans";
   font-size: 14px;
-  color: #3c3c4b9c;}
+  color: #3c3c4b9c;
+}
 
 #userLabel {
   bottom: 0px;
   text-align: center;
   width: 100%;
-  position: fixed;}
+  position: fixed;
+}
 
-#symbolLogout{
+.dark-mode #userLabel, 
+.dark-mode #logoutText {
+  color: rgba(255, 255, 255, 0.438);
+}
+
+#symbolLogout {
   position: fixed;
   top: 10px;
   left: 12px;
@@ -1036,12 +785,7 @@ input[type="radio"] {
   font-family: "Open Sans";
 }
 
-
-.dark-mode #userLabel, 
-.dark-mode #logoutText {
-  color: rgba(255, 255, 255, 0.438);
-}
-
+/* Bulle d'info Log Out */
 .bubble {
   width: 55px;
   height: 20px;
@@ -1053,43 +797,91 @@ input[type="radio"] {
   visibility: hidden;
 }
 
-/* La pointe */
-.bubble::before {
+.bubble::before, .bubble::after {
   content: "";
   position: absolute;
-  left: -12px;
-  top: 10px;
-
   width: 0;
   height: 0;
+}
 
+.bubble::before {
+  left: -12px;
+  top: 10px;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
 }
 
 .bubble::after {
-  content: "";
-  position: absolute;
   left: -6px;
-  
   top: 4px;
-
-  width: 0;
-  height: 0;
-
   border-top: 6px solid transparent;
   border-bottom: 6px solid transparent;
   border-right: 6px solid #383d607a;
 }
 
-.dark-mode .bubble::after {
-  border-right: 6px solid #ffffff3d;
-}
-.dark-mode .bubble {background: #ffffff3d;}
-  
+.dark-mode .bubble { background: #ffffff3d; }
+.dark-mode .bubble::after { border-right: 6px solid #ffffff3d; }
+
 #symbolLogout:hover + #logOutTS .bubble,
 #symbolLogout:hover,
 #logoutS:hover {
   visibility: visible;
   transition: 1s;
+}
+
+/* ==========================================================================
+   14. Z-INDEX ET BACKGROUNDS FLOU (MODALS)
+   ========================================================================== */
+.zIndexBetweeenLoginTodo {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.075);
+  backdrop-filter: blur(3px);
+  display: none;
+}
+
+.bkgPopUpBlur {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.075);
+  backdrop-filter: blur(3px);
+  display: none;
+}
+
+.closePopUpsTasks {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0; left: 0;
+  display: none;
+}
+
+.belowDropdown {
+  position: fixed;
+  top: 0; bottom: 0; left: 0; right: 0;
+  height: 100vh;
+  width: 100vw;
+  display: none;
+  z-index: -2;
+}
+
+/* Hiérarchie Z-index */
+.header, .task-box, .task-text, .titleZindex, .closePopUpsTasks, .texttache, .sortBtn { z-index: 1; }
+.zIndexBetweeenLoginTodo, .bkgPopUpBlur { z-index: 3; }
+.boxForm, .popupEdit, .loginZindex { z-index: 4; }
+.dropdown { z-index: 400; }
+
+/* ==========================================================================
+   15. MEDIA QUERIES (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 600px) {
+  .task-box { max-width: 233px; }
+  .header .addBtn { margin-right: 97px; width: 150px; }
+  .sortBtn { width: 150px; margin-right: 5px; margin-top: 10px; }
+  .dropdownContent { margin-right: 17px; }
+  .container { width: 340px; }
+}
+
+@media (max-width: 500px) {
+  .popupEdit { width: 300px; height: 550px; }
 }
