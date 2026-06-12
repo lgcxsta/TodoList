@@ -3,17 +3,17 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="../style/style.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css?family=Open Sans" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-<link rel="icon" href="../img/logo.png">
   <title>To-do List</title>
+
+  <link rel="stylesheet" href="../style/style.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body>
-  <!-- BTN DARK/LIGHT MODE -->
   <div class="ButtonDark" id="btnToggleDark" onclick="event.stopPropagation()">
     <label class="switch">
       <input type="checkbox" id="darkToggle" onchange="toggleDarkMode()" />
@@ -22,11 +22,11 @@
   </div>
 
   <div class="container">
+
     <div class="zIndexBetweeenLoginTodo" id="zIndexBetweeenLoginTodo" onclick="zIndexBetweeenLoginTodo()"></div>
     <div class="bkgPopUpBlur" id="bkgPopUpBlur" onclick="closeModifTask()"></div>
     <div class="closePopUpsTasks" id="closePopUpsTasks" onclick="closePopUpsTasks()"></div>
 
-    <!-- TITLE -->
     <div class="typewrite">
       <div class="titleZindex">
         <div class="headertext">
@@ -35,12 +35,10 @@
       </div>
     </div>
 
-    <!-- ADD TASK / INPUT -->
     <div id="myDIV" class="header" onclick="fermeLoginBox()">
       <input type="text" id="myInput" placeholder="Task..." />
       <button onclick="addTask()" class="addBtn" id="addBtn">Add</button>
 
-      <!-- SORT TASKS -->
       <div class="dropdown" id="dropdown">
         <button class="sortBtn" id="sortBtn" onclick="dropdownVisualisation()">
           <span>Sort</span>
@@ -49,6 +47,7 @@
           <div class="belowDropdown" id="belowDropdown" onclick="closeDropdown()">
             <p></p>
           </div>
+
           <span class="sort-option" data-sort="default">
             <p>Default</p>
           </span>
@@ -68,16 +67,11 @@
         <ul id="AddTache"></ul>
       </div>
 
-      <!-- BTN LOGIN -->
-      <div class="RedirectLogin" onclick="
-            hideShow();
-            event.stopPropagation();
-          " id="loginBtn">
-        <img src="../img/keyW.png" width="25px" height="25px" />
+      <div class="RedirectLogin" id="loginBtn" onclick="hideShow(); event.stopPropagation();">
+        <img src="../img/keyW.png" width="25px" height="25px" alt="Login Icon" />
       </div>
     </div>
 
-    <!-- LOGIN POPUP -->
     <div class="loginZindex">
       <div class="boxForm" id="hideShow">
         <div class="logintitle">
@@ -88,29 +82,26 @@
         </div>
         <form>
           <div>
-            <label for="user" class="labeltextCreateAndLog labeltext1">Username/Email</label>
+            <label for="userMailLOG" class="labeltextCreateAndLog labeltext1">Username/Email</label>
             <input class="inputsCreateAndLog label1" type="text" name="user" id="userMailLOG" size="50px" maxlength="25"
               required />
           </div>
           <div>
-            <label for="pwd" class="labeltextCreateAndLog labeltext2">Password</label>
+            <label for="pwdLOG" class="labeltextCreateAndLog labeltext2">Password</label>
             <input class="inputsCreateAndLog label2" type="password" name="pwd" id="pwdLOG" maxlength="35" required />
           </div>
 
           <p class="creatAccountText">
             Don't have an account?
-            <b onclick="createAccountPopUp()">Create one here</b>
+            <b style="cursor: pointer;" onclick="createAccountPopUp()">Create one here</b>
           </p>
           <div class="BtnConnect">
-            <button class="BtnConnectStyle" style="font-size: 15px" type="button" value="Submit" id="logAccountBTN">
-              Login
-            </button>
+            <button class="BtnConnectStyle" style="font-size: 15px" type="button" id="logAccountBTN">Login</button>
           </div>
+        </form>
       </div>
-      </form>
     </div>
 
-    <!--- POPUP CREATE ACCOUNT -->
     <div class="loginZindexCreateAccount" id="loginZindexCreateAccount">
       <div class="boxFormCreateAcc" id="boxFormCreateAcc">
         <div class="logintitle">
@@ -121,82 +112,67 @@
         </div>
         <form>
           <div>
-            <label for="email" class="labeltextCreateAndLog labeltext3">Email (optionnel)</label>
+            <label for="userCreate" class="labeltextCreateAndLog labeltext3">Email (optionnel)</label>
             <input class="inputsCreateAndLog label3" type="text" name="user" id="userCreate" size="50px"
               maxlength="25" />
           </div>
           <div>
-            <label for="pwdEmail" class="labeltextCreateAndLog labeltext4">Password*</label>
+            <label for="pwdCreate" class="labeltextCreateAndLog labeltext4">Password*</label>
             <input class="inputsCreateAndLog label4" type="password" name="pwd" id="pwdCreate" maxlength="35"
               required />
           </div>
           <div>
-            <label for="username" class="labeltextCreateAndLog labeltext5">Username*</label>
+            <label for="usernameCreate" class="labeltextCreateAndLog labeltext5">Username*</label>
             <input class="inputsCreateAndLog label5" type="text" name="username" id="usernameCreate" maxlength="35"
               required />
           </div>
 
           <p class="creatAccountText">
             Already have an account?
-            <b onclick="creatToLoginPopup()">Sign in</b>
+            <b style="cursor: pointer;" onclick="creatToLoginPopup()">Sign in</b>
           </p>
           <div class="BtnCreateAccount">
-            <button class="BtnCreateStyle" style="font-size: 15px" type="button" value="Submit" id="createAccBTN">
-              Create Account
-            </button>
+            <button class="BtnCreateStyle" style="font-size: 15px" type="button" id="createAccBTN">Create
+              Account</button>
           </div>
+        </form>
       </div>
-      </form>
     </div>
 
-
-    <!-- POPUP EDIT TASK -->
     <div class="popupEdit" id="popupEdit" style="display: none">
       <p class="popupEditCloseBtn" onclick="closeModifTask()">X</p>
       <form>
-        <!-- EDIT -->
         <label for="textTaskModif" id="modifTask">Edit the task: </label>
         <input type="text" id="textTaskModif" name="textTaskModif" />
-        <!-- IMPORTANCE -->
+
         <p id="modifTask">Importance</p>
         <div class="options-group">
-          <label><input type="radio" name="importance" id="highLVL" value="3" />
-            <span>High</span></label>
-          <label><input type="radio" name="importance" id="midLVL" value="2" />
-            <span>Mid</span></label>
-          <label><input type="radio" name="importance" id="lowLVL" value="1" />
-            <span>Low</span></label>
+          <label><input type="radio" name="importance" id="highLVL" value="3" /> <span>High</span></label>
+          <label><input type="radio" name="importance" id="midLVL" value="2" /> <span>Mid</span></label>
+          <label><input type="radio" name="importance" id="lowLVL" value="1" /> <span>Low</span></label>
         </div>
 
-        <!-- DATE -->
         <div class="StyleDateBox" style="margin-top: 10px">
-          <p id="modifTask" style="margin-top: 50px; margin-bottom: 10px">
-            Dates
-          </p>
+          <p id="modifTask" style="margin-top: 50px; margin-bottom: 10px">Dates</p>
+
           <p>Start</p>
           <input type="text" class="startDate inputDate" id="startDate" placeholder="DD.MM.YYYY"
-            onclick="srtCal('startDate')" />
+            onclick="srtCal('startDate')" readonly />
+
           <p>End</p>
-          <input type="text" class="endDate inputDate" id="endDate" placeholder="DD.MM.YYYY"
-            onclick="srtCal('endDate')" />
+          <input type="text" class="endDate inputDate" id="endDate" placeholder="DD.MM.YYYY" onclick="srtCal('endDate')"
+            readonly />
         </div>
-        <button class="modifBtn" id="modifBtn" type="button">
-          Edit
-        </button>
+
+        <button class="modifBtn" id="modifBtn" type="button">Edit</button>
       </form>
     </div>
 
-    <!-- CALENDRIER -->
-    <!-- SOURCE:  https://youtu.be/OcncrLyddAs?si=X51vKj41qnmhkL9l -->
     <div class="Calendar">
       <div class="headerCalendar" id="headerCalendar">
-        <button id="prevBtn" class="prevBtn">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
+        <button id="prevBtn" class="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
         <div class="monthYear" id="monthYear"></div>
-        <button id="nextBtn">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
+        <button id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       <div class="days">
         <div class="day">Mon</div>
@@ -212,21 +188,22 @@
   </div>
 
   <div id="userLabel"></div>
-  <div id="logoutS">
+  <div id="logoutS" style="display: none;">
     <i class="fa-solid fa-arrow-right-from-bracket" id="symbolLogout"></i>
     <div id="logOutTS">
       <div class="bubble">
-        <p id="textLogout"> Log out</p>
+        <p id="textLogout">Log out</p>
       </div>
     </div>
-
   </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
   <script src="../script/popupVisibility.js"></script>
   <script src="../script/calendrier.js"></script>
   <script src="../script/script.js"></script>
   <script src="../script/auth.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 </body>
 
 </html>

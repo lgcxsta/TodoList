@@ -1,21 +1,23 @@
-// !  ==================== USER ====================
-
-// CREATE ACCOUNT
+/* ==========================================================================
+   CRÉATION DE COMPTE (SIGN UP)
+   ========================================================================== */
 const btnInscrire = document.getElementById("createAccBTN");
+
 btnInscrire.onclick = () => {
   const username = document.getElementById("usernameCreate").value.trim();
   const email = document.getElementById("userCreate").value.trim();
   const password = document.getElementById("pwdCreate").value.trim();
 
+  // Vérification de base
   if (!username || !password) {
-    // Vérifie que le nom d'utilisateur et le mot de passe ne sont pas vides
     alert("A username and password are required!");
     return;
   }
 
-  creatAccountFunction(username, email, password); // Appel de la fonction de création de compte
+  creatAccountFunction(username, email, password);
 };
 
+// Requête API pour créer l'utilisateur
 async function creatAccountFunction(username, email, password) {
   const newAccount = {
     username: username,
@@ -26,76 +28,91 @@ async function creatAccountFunction(username, email, password) {
   const response = await apiCall("/users", "POST", newAccount);
 
   if (response) {
-    creatToLoginPopup();
+    creatToLoginPopup(); // Renvoie vers l'écran de login
     alert("Account created :)");
   } else {
     const errorData = await response;
-    alert("Error creating account : " + (errorData.error || "Retry..."));
+    alert("Error creating account: " + (errorData.error || "Retry..."));
   }
 }
 
-// ! ==================== LOGIN ====================
+/* ==========================================================================
+   CONNEXION (LOGIN)
+   ========================================================================== */
 const btnLog = document.getElementById("logAccountBTN");
+
 btnLog.onclick = () => {
-  const UserMail = document.getElementById("userMailLOG").value;
+  const userMail = document.getElementById("userMailLOG").value;
   const passwordLOG = document.getElementById("pwdLOG").value;
-  loginAccountFunction(UserMail, passwordLOG);
+  loginAccountFunction(userMail, passwordLOG);
 };
 
-async function loginAccountFunction(UserMail, passwordLOG) {
+// Requête API pour se connecter
+async function loginAccountFunction(userMail, passwordLOG) {
   const loginAPI = {
-    username: UserMail,
+    username: userMail,
     password: passwordLOG,
   };
 
   const response = await apiCall("/login", "POST", loginAPI);
 
   if (response) {
-    localStorage.setItem("currentUserId", response.user.id); // Stocker le id dans le localStorage
-    // data attent les données du fichier json, et user.id as été crée dans index.php
+    // Sauvegarde de la session dans le navigateur
+    localStorage.setItem("currentUserId", response.user.id);
     localStorage.setItem("currentUsername", response.user.username);
 
-    window.onload(); // Met à jour le label utilisateur dès le login - recharge la page
+    // Recharge l'état de la page
+    window.onload();
 
-    console.log("Login réussi :", response);
     alert("You have successfully connected!");
 
-    document.getElementById("pwdLOG").value = ""; // On vide le champ mot de passe après connexion
+    // Nettoyage et mise à jour de l'UI
+    document.getElementById("pwdLOG").value = "";
     document.getElementById("logoutS").style.display = "block";
-    document.getElementById("loginBtn").style.display = "none"; // Cache le bouton de login/créé un compte après connexion
+    document.getElementById("loginBtn").style.display = "none";
 
-    render(); // raffraichit
-    croixCreateAcc(); // Ferme le popup de login
+    render(); // Rafraîchit les tâches
+    croixCreateAcc(); // Ferme les popups
   } else {
     alert("Incorrect login details. Please try again.");
     document.getElementById("pwdLOG").value = "";
   }
 }
 
-// ! ==================== LOG OUT ====================
+/* ==========================================================================
+   DÉCONNEXION (LOG OUT)
+   ========================================================================== */
 const logoutBtn = document.getElementById("logoutS");
+
 logoutBtn.onclick = () => {
+  // Suppression de la session
   localStorage.removeItem("currentUserId");
   localStorage.removeItem("currentUsername");
-  window.onload(); // Met à jour le label utilisateur dès le logout - recharge la page
+
+  window.onload(); // Actualise l'interface
   alert("You have been disconnected");
-  render(); // raffraichit
+
+  render(); // Vide la liste de tâches
   document.getElementById("logoutS").style.display = "none";
 };
 
-// Si n'est pas connecter
+/* ==========================================================================
+   INITIALISATION (Vérification de session au chargement)
+   ========================================================================== */
 window.onload = () => {
-  const userlabelTest = document.getElementById("userLabel");
-  const logoutBtn = document.getElementById("logoutS"); // On récupère le bouton logout
+  const userLabelTest = document.getElementById("userLabel");
+  const logoutBtn = document.getElementById("logoutS");
 
   if (localStorage.getItem("currentUserId")) {
-    // Si un utilisateur est connecté
-    if (userlabelTest)
-      userlabelTest.innerHTML = `User: ${localStorage.getItem("currentUsername")}`; // Affiche le nom de l'utilisateur connecté
-    if (logoutBtn) logoutBtn.style.display = "block"; // Affiche Logout si connecté
+    // Utilisateur connecté
+    if (userLabelTest) {
+      userLabelTest.innerHTML = `User: ${localStorage.getItem("currentUsername")}`;
+    }
+    if (logoutBtn) logoutBtn.style.display = "block";
   } else {
-    if (userlabelTest) userlabelTest.innerHTML = "Please log in...";
-    if (logoutBtn) logoutBtn.style.display = "none"; // Cache Logout si invité
+    // Visiteur non connecté
+    if (userLabelTest) userLabelTest.innerHTML = "Please log in...";
+    if (logoutBtn) logoutBtn.style.display = "none";
     document.getElementById("loginBtn").style.display = "block";
   }
 };
