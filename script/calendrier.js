@@ -20,7 +20,7 @@ function srtCal(inputId) {
   if (inputId === "endDate") {
     const startValue = document.getElementById("startDate").value;
     if (!startValue) {
-      alert("Please select a start date first.");
+      showAlert("Please select a start date first.");
       return;
     }
     // Recalcule la date minimum basée sur l'input de début

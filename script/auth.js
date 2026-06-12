@@ -10,7 +10,7 @@ btnInscrire.onclick = () => {
 
   // Vérification de base
   if (!username || !password) {
-    alert("A username and password are required!");
+    showAlert("A username and password are required!");
     return;
   }
 
@@ -29,10 +29,10 @@ async function creatAccountFunction(username, email, password) {
 
   if (response) {
     creatToLoginPopup(); // Renvoie vers l'écran de login
-    alert("Account created :)");
+    showAlert("Account created!");
   } else {
     const errorData = await response;
-    alert("Error creating account: " + (errorData.error || "Retry..."));
+    showAlert("Error creating account: " + (errorData.error || "Retry..."));
   }
 }
 
@@ -64,7 +64,7 @@ async function loginAccountFunction(userMail, passwordLOG) {
     // Recharge l'état de la page
     window.onload();
 
-    alert("You have successfully connected!");
+    showAlert("You have successfully connected!");
 
     // Nettoyage et mise à jour de l'UI
     document.getElementById("pwdLOG").value = "";
@@ -74,7 +74,7 @@ async function loginAccountFunction(userMail, passwordLOG) {
     render(); // Rafraîchit les tâches
     croixCreateAcc(); // Ferme les popups
   } else {
-    alert("Incorrect login details. Please try again.");
+    showAlert("Incorrect login details. Please try again.");
     document.getElementById("pwdLOG").value = "";
   }
 }
@@ -90,7 +90,7 @@ logoutBtn.onclick = () => {
   localStorage.removeItem("currentUsername");
 
   window.onload(); // Actualise l'interface
-  alert("You have been disconnected");
+  showAlert("You have been disconnected");
 
   render(); // Vide la liste de tâches
   document.getElementById("logoutS").style.display = "none";

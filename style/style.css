@@ -872,6 +872,42 @@ input[type="radio"] {
 .dropdown { z-index: 400; }
 
 /* ==========================================================================
+   ALERT POPUP
+   ========================================================================== */
+.alertPopup {
+  position: fixed;
+  bottom: 30px; 
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #d6eefa;
+  color: #383D60;
+  padding: 15px 25px;
+  border-radius: 25px;
+  font-family: "Work Sans", sans-serif;
+  font-size: 15px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, bottom 0.4s ease;
+  text-align: center;
+}
+
+/* Classe ajoutée par le JS pour l'afficher */
+.alertPopup.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 50px;
+}
+
+/* V. Dark Mode */
+.dark-mode .alertPopup {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+
+/* ==========================================================================
    15. MEDIA QUERIES (RESPONSIVE)
    ========================================================================== */
 @media (max-width: 600px) {

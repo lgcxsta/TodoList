@@ -4,7 +4,7 @@ let task_id = ""; // ID de la tâche en cours d'édition
 const editInput = document.getElementById("textTaskModif");
 
 /* ==========================================================================
-   UTILITAIRES (Thème, Clavier, Valeurs radio)
+   UTILITAIRES (Thème, Clavier, Valeurs radio, alertes)
    ========================================================================== */
 
 // Bascule du mode sombre/clair et sauvegarde locale
@@ -45,6 +45,23 @@ function parseDate(str) {
   return new Date(year, month - 1, day);
 }
 
+// Alertes
+let alertTime; // Variable pour stocker le chrono
+function showAlert(message, duration = 3000) {
+  // Par défaut, la durée est de 3 secondes
+  const alertMessage = document.getElementById("alertPopup");
+
+  alertMessage.innerText = message; // change le texte du carré
+  alertMessage.classList.add("show"); // affiche en ajoutant la classe CSS
+
+  clearTimeout(alertTime); // annule le précédent chrono s'il y en avait un en cours
+
+  // lance le chrono pour le cacher après X temps
+  alertTime = setTimeout(() => {
+    alertMessage.classList.remove("show");
+  }, duration);
+}
+
 /* ==========================================================================
    MOTEUR API
    ========================================================================== */
@@ -63,7 +80,7 @@ async function apiCall(endpoint, method = "GET", body = null) {
     if (!response.ok) {
       console.error("API error :", response.status);
       const errorData = await response.json();
-      alert(errorData.error || "Error...");
+      showAlert(errorData.error || "Error...");
       return null;
     }
     return await response.json();
@@ -90,11 +107,11 @@ async function addTask() {
   const userId = localStorage.getItem("currentUserId");
 
   if (inputValue === "") {
-    alert("You must write something!");
+    showAlert("You must write something!");
     return;
   }
   if (!userId) {
-    alert("You must be logged in to add a task...");
+    showAlert("You must be logged in to add a task...");
     return;
   }
 
@@ -145,7 +162,7 @@ async function changeTaskPropretys(
   const response = await apiCall("/tasks/" + taskId, "PUT", newTaskProprety);
 
   if (response) {
-    alert("Task modified successfully!");
+    showAlert("Task modified successfully!");
     closeModifTask();
     await render();
   }
