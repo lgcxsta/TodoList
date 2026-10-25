@@ -24,34 +24,33 @@ A full-stack To-do List application featuring a modern interface with Dark/Light
 ## Project Structure
 
 TodoList
-
+├── .vscode/
+│   └── settings.json
 ├── api/
-
-│ ├── index.php # API Router and Logic
-
-│ ├── config/
-
-│ │ ├── config.php # DB Credentials
-
-│ │ └── database.php # PDO Connection
-
-│ └── helpers/
-
-│ └── response.php # JSON response helper
-
+│   ├── config/
+│   │   ├── config.php
+│   │   └── database.php
+│   ├── helpers/
+│   │   └── response.php
+│   └── index.php
+├── docs/
+│   ├── Cahier de charge.pdf
+│   └── Rapport de Projet.pdf
+├── img/
+│   └── keyW.png
 ├── script/
-
-│ └── script.js # Frontend Logic
-
+│   ├── auth.js
+│   ├── calendrier.js
+│   ├── popupVisibility.js
+│   └── script.js
+├── SQL/
+│   └── todo_list.sql
 ├── style/
+│   └── style.css
+├── view/
+│   └── index.html
+└── README.md
 
-│ └── style.css # Custom styling
-
-├── img/ # Icons and assets
-
-├── index.html # Main UI
-
-└── todo_list.sql # Database schema
 
 ## Installation
 
