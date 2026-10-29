@@ -80,21 +80,29 @@ TodoList
 
 ## Installation
 
-### 1. Database Setup
+### Prerequisites
+- PHP 8+ available in your terminal (check with `php -v`)
+- [XAMPP](https://www.apachefriends.org/download.html) (provides MySQL/MariaDB and phpMyAdmin)
 
-1. Open your database manager (e.g., phpMyAdmin).
-2. Import the todo_list.sql file.
-3. Ensure the database name matches 'to_do_list' in your config.php.
+### First-time setup (once)
 
-### 2. Backend Configuration
+1. Start **MySQL** and **Apache** from the XAMPP Control Panel.
+2. Open phpMyAdmin at http://localhost/phpmyadmin.
+3. Import the file `SQL/todo_list.sql`.
+4. Open `api/config/config.php` and update your database credentials (host, username, password) if they differ from the defaults.
 
-1. Navigate to api/config/config.php.
-2. Update your database credentials (host, username, password).
-3. If using a local server like XAMPP, ensure the API is accessible at the URL defined in your script.js API_URL.
+### Run the app (every time)
 
-### 3. Running the App
+1. Start **MySQL** from the XAMPP Control Panel (Apache is not needed).
+2. Open a terminal in the project root folder and start PHP's built-in server:
 
-Open index.html in your browser. Note: For the API to function, the files must be served through a web server (Apache/Nginx).
+   ```
+   php -S localhost:8000
+   ```
+
+3. Open http://localhost:8000/view/ in your browser.
+
+> **Note:** the app must be opened through this URL, not by double-clicking `index.html`. The frontend calls the API at `http://localhost:8000/api` (see `API_URL` in `script/script.js`), so the server must run on port 8000.
 
 ## API Endpoints
 
